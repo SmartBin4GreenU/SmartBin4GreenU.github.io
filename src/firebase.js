@@ -1,12 +1,16 @@
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+
+// Initialize Firebase
 var config = {
     apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
     authDomain: "sb-fgu.firebaseapp.com",
     databaseURL: "https://sb-fgu.firebaseio.com",
     projectId: "sb-fgu",
-    storageBucket: "",
+    storageBucket: "sb-fgu.appspot.com",
     messagingSenderId: "368024117056"
 };
 firebase.initializeApp(config);
+
 
 var database = firebase.database();
 var defaults = window.src = "Picture/Default.png" ;
