@@ -1,5 +1,3 @@
-<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
