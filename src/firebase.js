@@ -1,4 +1,3 @@
-// Initialize Firebase
 var config = {
     apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
     authDomain: "sb-fgu.firebaseapp.com",
@@ -6,8 +5,9 @@ var config = {
     projectId: "sb-fgu",
     storageBucket: "sb-fgu.appspot.com",
     messagingSenderId: "368024117056"
-};
-firebase.initializeApp(config);
+  };
+  firebase.initializeApp(config);
+
 
 
 var database = firebase.database();
