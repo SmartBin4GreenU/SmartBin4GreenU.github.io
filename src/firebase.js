@@ -1,3 +1,4 @@
+
 var config = {
     apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
     authDomain: "sb-fgu.firebaseapp.com",
