@@ -24,6 +24,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var uid = user.uid;
         var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
+        document.getElementById("dropdownMenuButton").innerHTML = "Hi : " + displayName;
 
         // userId = firebase.auth().currentUser.uid;
         //console.log(userId);
@@ -33,7 +34,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         document.getElementById("name").innerHTML = displayName;
         document.getElementById("email").innerHTML =  email;
         document.getElementById("tel").innerHTML =  phoneNumber;
-        document.getElementById("dropdownMenuButton").innerHTML = "Hi : " + displayName;
+
        /*document.querySelector('img').src = photoURL;*/
        // noinspection JSAnnotator
         if(photoURL != null){
@@ -150,6 +151,7 @@ database.ref("/History").once('value', function(snapshot){
                     SUM += Bottle;
                     content += '<tr>';
                     content += '<td>' +  num + '</td>';
+                    content += '<td>' + val.Logtime + '</td>';
                     content += '<td>' + val.Username + '</td>';
                     content += '<td>' + val.Logbottle + '</td>';
                     content += '</tr>';
