@@ -14,27 +14,17 @@
 
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script>
+        var config = {
+            apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
+            authDomain: "sb-fgu.firebaseapp.com",
+            databaseURL: "https://sb-fgu.firebaseio.com",
+            projectId: "sb-fgu",
+            storageBucket: "sb-fgu.appspot.com",
+            messagingSenderId: "368024117056"
+        };
+        firebase.initializeApp(config);
 
-        var admin = require("firebase-admin");
 
-        // Get a database reference to our posts
-        var db = admin.database();
-        var ref = db.ref("users/");
-
-        // Attach an asynchronous callback to read the data at our posts reference
-        ref.on("value", function(snapshot) {
-            console.log(snapshot.val());
-        }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-
-        });
-
-        // Retrieve new posts as they are added to our database
-        ref.on("child_added", function(snapshot, prevChildKey) {
-            var newPost = snapshot.val();
-            console.log("Author: " + newPost.email);
-            console.log("Previous Post ID: " + prevChildKey);
-        });
 
 
     </script>

@@ -26,25 +26,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         var providerData = user.providerData;
         document.getElementById("dropdownMenuButton").innerHTML = "Hi : " + displayName;
 
-        // userId = firebase.auth().currentUser.uid;
-        //console.log(userId);
-
-        Uid = uid;
-        /*Uid = userId;*/
-        document.getElementById("name").innerHTML = displayName;
-        document.getElementById("email").innerHTML =  email;
-        document.getElementById("tel").innerHTML =  phoneNumber;
-
-       /*document.querySelector('img').src = photoURL;*/
-       // noinspection JSAnnotator
-        if(photoURL != null){
-            document.querySelector('img').src = photoURL;
-        }
-        else{
-            document.querySelector('img').src = defaults  ;
-        }
-
-
     }
 
 }, function(error) {
@@ -128,96 +109,5 @@ sessionsRef.push({
 });
 
 
-var SUM = 0;
-var num = 0;
-database.ref("/History").once('value', function(snapshot){
-
-    if(snapshot.exists()){
-        var content = '';
-        var Sum_text = '';
-        snapshot.forEach(function(data){
-            var val = data.val();
-            var User = val.UID;
-            var Bottle = val.Logbottle;
 
 
-            /*    console.log(Uid);
-                console.log(User);*/
-
-            if(Uid == User){
-
-                if( val.Logbottle != 0) {
-                    num = num+1;
-                    SUM += Bottle;
-                    content += '<tr>';
-                    content += '<td>' +  num + '</td>';
-                    content += '<td>' + val.Logtime + '</td>';
-                    content += '<td>' + val.Username + '</td>';
-                    content += '<td>' + val.Logbottle + '</td>';
-                    content += '</tr>';
-                    console.log(val.Logbottle );
-                    console.log(SUM);
-                }
-            }
-        });
-        num = 0;
-        $('#ex-table').append(content);
-    }
-
-    document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
-    SUM = 0;
-});
-
-
-
-/*var database = firebase.database();
-// var ref = database.ref('History');
-var ref = database.ref();
-var text = "";
-var text2 = "";
-var Sum = 0;
-var User;
-var Outsource = 0;
-
-function gotData(){ref.once('value').then(function (snapshot) {
-        var key = snapshot.key;
-        var chilldKey = snapshot.child("History").val();
-        // console.log(key, chilldKey);
-
-        var  data = chilldKey;
-        var  keys = Object.keys(data);
-        for(var i=0;i < keys.length; i++) {
-            var k = keys[i];
-            var name = data[k].Username;
-            var Count = data[k].Logbottle;
-            var uid = data[k].UID;
-            User = uid;
-
-            if( Uid == User){
-                //console.log("Equal!!");
-                if (Count !=  0) {
-                    text += name + ' : ' + Count + "<br>";
-                    //text += name + ' : ' + Count;
-                    Sum += Count;
-
-
-                }
-            }
-
-        }
-        console.log(data)
-
-        text2 = 'You Bottle is ' + Sum + ' Bottles';
-        document.getElementById("tableData").innerHTML = text;
-        document.getElementById("sum").innerHTML =  text2;
-
-
-        // clear Value
-        Sum = 0;
-        text = "";
-        text2 = "";
-        //Uid = "";
-        //
-    });
-
-}*/
