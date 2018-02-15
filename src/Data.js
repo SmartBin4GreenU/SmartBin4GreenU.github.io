@@ -13,43 +13,52 @@ var database = firebase.database();
 
 var SUM = 0;
 var num = 0;
-database.ref("/History").once('value', function(snapshot){
 
-    if(snapshot.exists()){
-        var content = '';
-        var Sum_text = '';
-        snapshot.forEach(function(data){
-            var val = data.val();
-            var User = val.UID;
-            var Bottle = val.Logbottle;
+ Getdata =  function (){
+     database.ref("/History").once('value', function(snapshot){
+
+         if(snapshot.exists()){
+             var content = '';
+             var Sum_text = '';
+             snapshot.forEach(function(data){
+                 var val = data.val();
+                 var User = val.UID;
+                 var Bottle = val.Logbottle;
 
 
-            /*    console.log(Uid);
-                console.log(User);*/
+                 /*    console.log(Uid);
+                     console.log(User);*/
 
-            if(Uid == User){
+                 if(Uid == User){
 
-                if( val.Logbottle != 0) {
-                    num = num+1;
-                    SUM += Bottle;
-                    content += '<tr>';
-                    content += '<td>' +  num + '</td>';
-                    content += '<td>' + val.Logtime + '</td>';
-                    content += '<td>' + val.Username + '</td>';
-                    content += '<td>' + val.Logbottle + '</td>';
-                    content += '</tr>';
-                    console.log(val.Logbottle );
-                    console.log(SUM);
-                }
-            }
+                     if( val.Logbottle != 0) {
+                         num = num+1;
+                         SUM += Bottle;
+                         content += '<tr>';
+                         content += '<td>' +  num + '</td>';
+                         content += '<td>' + val.Logtime + '</td>';
+                         content += '<td>' + val.Username + '</td>';
+                         content += '<td>' + val.Logbottle + '</td>';
+                         content += '</tr>';
+                         console.log(val.Logbottle );
+                         console.log(SUM);
+                     }
+                 }
+             });
+             num = 0;
+             $('#ex-table').append(content);
+         }
+
+         document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
+         SUM = 0;
+     });
+
+     };
+
+
+        window.addEventListener('load', function() {
+            Getdata()
         });
-        num = 0;
-        $('#ex-table').append(content);
-    }
-
-    document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
-    SUM = 0;
-});
 
 
 firebase.auth().onAuthStateChanged(function(user) {
