@@ -49,7 +49,7 @@ function writeUserData(userId, name, email, imageUrl) {
     });
 
     var d = new Date();
-    firebase.database().ref('Log/' + d).set({
+    firebase.database().ref('Log/' + d.substr(0,12)).set({
         Uid: userId,
         SBNumber: "SB1"
 
@@ -62,6 +62,7 @@ function writeUserData(userId, name, email, imageUrl) {
 function Signout() {
     firebase.auth().signOut().then(function() {
             console.log('Signed Out');
+            alert('Signed Out');
             window.location.href = "index.html";
 
         },
