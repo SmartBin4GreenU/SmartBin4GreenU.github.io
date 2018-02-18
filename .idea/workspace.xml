@@ -40,8 +40,8 @@
       <file leaf-file-name="data.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/data.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1151">
-              <caret line="94" column="9" lean-forward="false" selection-start-line="94" selection-start-column="9" selection-end-line="94" selection-end-column="9" />
+            <state relative-caret-position="1066">
+              <caret line="89" column="13" lean-forward="false" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -200,7 +200,7 @@
       <workItem from="1518778303957" duration="11408000" />
       <workItem from="1518865322184" duration="1103000" />
       <workItem from="1518942416493" duration="3596000" />
-      <workItem from="1518961904369" duration="59000" />
+      <workItem from="1518961904369" duration="355000" />
     </task>
     <task id="LOCAL-00001">
       <created>1516981374256</created>
@@ -335,11 +335,18 @@
       <option name="project" value="LOCAL" />
       <updated>1518957743875</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="add edit.js &amp; Data.js">
+      <created>1518961998943</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1518961998944</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117250000" />
+    <option name="totallyTimeSpent" value="117546000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="916" height="1586" extended-state="6" />
@@ -568,8 +575,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/data.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1151">
-          <caret line="94" column="9" lean-forward="false" selection-start-line="94" selection-start-column="9" selection-end-line="94" selection-end-column="9" />
+        <state relative-caret-position="1066">
+          <caret line="89" column="13" lean-forward="false" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
           <folding />
         </state>
       </provider>
