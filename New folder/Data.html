@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Data</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
+
+    <script src="https://www.gstatic.com/f irebasejs/4.9.0/firebase.js"></script>
+    <script src="src/Data.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"  style="color: lime">SmartBin4GreenU</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" style="color: slategray" href="Homepage.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active "style="color: slategray" href="edit.html">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " style="color: lawngreen"href="Data.html">Data</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+            <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    User
+                </button>
+                <div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuButton">
+                    <!--<a class="dropdown-item disabled" href="edit.html">Profile</a>-->
+                    <a class="dropdown-item" href="index.html" onclick="Signout();">Sign Out</a>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</nav>
+<br>
+<div class="container badge-light" >
+
+    <h2>Result</h2>
+    <div class="col-6">
+
+        <p id="tableData"></p>
+    </div>
+
+
+    <table class="table-striped  " style="width:100%" id="ex-table">
+        <tr id="tr">
+            <th>#id</th>
+            <th>Time</th>
+            <th>Name</th>
+            <th>Bottles</th>
+
+    </table>
+    <table class="table-striped  " style="width:100%" id="sum-table">
+        <tr id="ts">
+        <td></td>
+
+    </table>
+
+    <br>
+<div class="row">
+   <div class="col-sm-4"></div>
+    <div class="col-sm-5"></div>
+    <div class="col-sm-3 " >
+        <h4 id="Summary" ></h4>
+    </div>
+</div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
