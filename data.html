@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>VIEW DATA</title>
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+
+  <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script src="js/data.js"></script>
+
+    <script src="https://docraptor.com/docraptor-1.0.0.js"></script>
+    <script type="text/javascript">
+
+       function Export(){
+           // var doc = new jsPDF();
+           // var specialElementHandlers = {
+           //     '#editor': function (element, renderer) {
+           //         return true;
+           //     }
+           // };
+           //
+           // $('#cmd').click(function () {
+           //     doc.fromHTML($('#content').html(), 15, 15, {
+           //         'width': 170,
+           //         'elementHandlers': specialElementHandlers
+           //     });
+           //     doc.save('sample-file.pdf');
+           // });
+
+           var doc = new jsPDF();
+           doc.setFontSize(22);
+           doc.text(20, 20, 'This is a title');
+
+           doc.setFontSize(16);
+           doc.text(20, 30, 'This is some normal sized text underneath.');
+
+// Output as Data URI
+           doc.output('datauri');
+       }
+  </script>
+
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">SmartBin4GreenU</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+          <a class="nav-link" href="home.html">
+            <i class="fa fas fa-home"></i>
+            <span class="nav-link-text">HOME</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Verify Code">
+          <a class="nav-link" href="confirm.html">
+            <i class="fa fas fa-key"></i>
+            <span class="nav-link-text">VERIFY CODE</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="View Data">
+          <a class="nav-link" href="data.html">
+            <i class="fa fa-fw fa-list"></i>
+            <span class="nav-link-text">VIEW DATA</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Profiles">
+          <a class="nav-link" href="proflies.html">
+            <i class="fa fa-user"></i>
+            <span class="nav-link-text">PROFILES</span>
+          </a>
+        </li>
+      </ul>
+
+
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item">
+          <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="content-wrapper">
+
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="home.html">HOME</a>
+        </li>
+        <li class="breadcrumb-item active">VIEW DATA</li>
+      </ol>
+      <!-- Example DataTables Card-->
+      <div class="card mb-3"  id="content"  >
+        <div class="card-header">
+          <i class="fa fa-table"></i>  DATA</div>
+        <div class="card-body" >
+            <div id="editor">
+            <h2>Result</h2>
+           <!--<div class="text-right">Sort by</div>-->
+          <div class="table-responsive">
+              <table class="table table-hover table-light " style="width:100%" id="ex-table">
+                  <tr id="tr">
+
+                      <th>ID</th>
+                      <th>Time</th>
+                      <!--<th>Name</th>-->
+                      <th>Bottle</th>
+
+              </table>
+             <h3 id="Summary" class="text-right"></h3>
+          </div>
+
+        </div>
+          </div>
+        <div class="card-footer small text-muted text-right ">
+          <a id="cmd"  href="#" onclick="Export()" >Export PDF  </a>
+
+        </div>
+          <!--<button id="cmd">Generate PDF</button>-->
+      </div>
+
+
+  </div>
+    </div>
+    <!-- /.container-fluid-->
+
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © SmartBin4GreenU Website 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="index.html" onclick="Signout();">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="js/sb-admin-datatables.min.js"></script>
+  </div>
+
+  <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+</body>
+
+</html>
