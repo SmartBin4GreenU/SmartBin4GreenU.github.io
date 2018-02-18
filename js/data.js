@@ -90,6 +90,9 @@ Getdata =  function (){
         }
 
         document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
+        if(SUM == 0){
+            console.log("You should put the bottle before!!!");
+        }
         SUM = 0;
     });
 
