@@ -86,7 +86,7 @@ Getdata =  function (){
                 }
             });
             if(SUM == 0){
-                console.log("You should put the bottle before!!!");
+                alert("You should put the bottle before!!!");
             }
             num = 0;
             $('#ex-table').append(content);
