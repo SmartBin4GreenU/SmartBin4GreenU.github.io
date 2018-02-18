@@ -85,7 +85,7 @@ function veryfyCode() {
             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
                 Status: parseInt(1)
             });
-            window.location.href = "Data.html";
+            window.location.href = "data.html";
             alert("CORRECT");
             console.log("TRUE");
         }
