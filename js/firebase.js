@@ -14,6 +14,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var defaults = window.src = "Picture/Default.png" ;
 var Uid;
+var name;
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
@@ -24,7 +25,9 @@ firebase.auth().onAuthStateChanged(function(user) {
         var uid = user.uid;
         var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
-        //document.getElementById("dropdownMenuButton").innerHTML = "Hi : " + displayName;
+        document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+        console.log(displayName);
+
 
     }
 
@@ -49,7 +52,7 @@ function writeUserData(userId, name, email, imageUrl) {
     });
 
     var d = new Date();
-    firebase.database().ref('Log/' + d.substr(0,12)).set({
+    firebase.database().ref('Log/' + d ).set({
         Uid: userId,
         SBNumber: "SB1"
 
@@ -111,5 +114,7 @@ sessionsRef.push({
 });
 
 
-
-
+// $( document ).ready(function() {
+//             $('#Name').text(name);
+//          console.log(name);
+// });
