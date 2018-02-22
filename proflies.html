@@ -16,6 +16,39 @@
   <link href="css/sb-admin.css" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+    <script type="text/javascript">
+        initApp =  function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    var phoneNumber = user.phoneNumber;
+                    var providerData = user.providerData;
+
+
+                    document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+                    console.log(displayName);
+
+
+                    // writeUserData(uid, displayName, email ,photoURL);
+
+                }
+            }, function(error) {
+                console.log(error);
+                alert("Some Thing Worng! please login agian");
+            });
+        };
+        window.addEventListener('load', function() {
+            initApp()
+        });
+    </script>
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">

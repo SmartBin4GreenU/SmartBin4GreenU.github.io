@@ -15,31 +15,31 @@ var SUM = 0;
 var num = 0;
 var Uid;
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var uid = user.uid;
-        var phoneNumber = user.phoneNumber;
-        var providerData = user.providerData;
-        // document.getElementById("name").innerHTML = "User:"+ displayName;
-
-        // userId = firebase.auth().currentUser.uid;
-        //console.log(userId);
-
-        Uid = uid;
-
-
-
-    }
-
-}, function(error) {
-    console.log(error);
-    alert("Some Thing Worng! please login agian");
-});
+// firebase.auth().onAuthStateChanged(function(user) {
+//     if (user) {
+//         // User is signed in.
+//         var displayName = user.displayName;
+//         var email = user.email;
+//         var emailVerified = user.emailVerified;
+//         var photoURL = user.photoURL;
+//         var uid = user.uid;
+//         var phoneNumber = user.phoneNumber;
+//         var providerData = user.providerData;
+//         // document.getElementById("name").innerHTML = "User:"+ displayName;
+//
+//         // userId = firebase.auth().currentUser.uid;
+//         //console.log(userId);
+//
+//         Uid = uid;
+//
+//
+//
+//     }
+//
+// }, function(error) {
+//     console.log(error);
+//     alert("Some Thing Worng! please login agian");
+// });
 
 
 function Signout() {
