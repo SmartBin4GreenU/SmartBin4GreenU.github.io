@@ -18,7 +18,6 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 
-
     <script type="text/javascript">
         initApp =  function() {
             firebase.auth().onAuthStateChanged(function(user) {
@@ -34,6 +33,7 @@
 
 
                     document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+                    document.getElementById("Name1").innerHTML =  displayName.toString();
                     console.log(displayName);
 
 
@@ -288,7 +288,7 @@
 
 
 
-      <h1>Navbar</h1>
+      <h1 id="Name1"></h1>
       <hr>
       <p>The SB Admin navbar can be either fixed or static, and it supports the navbar-light and navbar-dark Bootstrap 4 classes.</p>
       <a class="btn btn-primary" href="#" id="toggleNavPosition">Toggle Fixed/Static Navbar</a>
