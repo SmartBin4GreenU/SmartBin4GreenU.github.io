@@ -54,11 +54,11 @@ function Signout() {
         });
 
 }
-
+var status_alert;
 Getdata =  function (){
     database.ref("/History").once('value', function(snapshot){
 
-        if(snapshot.exists()){
+            if(snapshot.exists()){
             var content = '';
             var Sum_text = '';
             snapshot.forEach(function(data){
@@ -105,3 +105,25 @@ window.addEventListener('load', function() {
     Getdata()
 });
 
+function InsertAgain(){
+    firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+        Status : parseInt(1)
+    });
+    firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+        Repush : parseInt(1)
+    });
+    firebase.database().ref('LogUser/').child('Lasted').set({
+        Uid : Uid,
+        SBNumber: "SB1",
+        StatusDevice: parseInt(1)
+    });
+}
+//
+// $('#myAlert').on('alert-dismissible', function () {
+//     if(status_alert == 1){
+//         $('#myAlert').text("Success");
+//     }
+//     else{
+//         $('#myAlert').text("You should put the bottle before!!!");
+//     }
+// })

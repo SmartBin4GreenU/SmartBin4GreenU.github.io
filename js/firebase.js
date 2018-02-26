@@ -16,26 +16,26 @@ var defaults = window.src = "Picture/Default.png" ;
 var Uid;
 var name;
 
-// firebase.auth().onAuthStateChanged(function(user) {
-//     if (user) {
-//         // User is signed in.
-//         var displayName = user.displayName;
-//         var email = user.email;
-//         var emailVerified = user.emailVerified;
-//         var photoURL = user.photoURL;
-//         var uid = user.uid;
-//         var phoneNumber = user.phoneNumber;
-//         var providerData = user.providerData;
-//         // document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-//         // console.log(displayName);
-//
-//
-//     }
-//
-// }, function(error) {
-//     console.log(error);
-//     alert("Some Thing Worng! please login agian");
-// });
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var uid = user.uid;
+        var phoneNumber = user.phoneNumber;
+        var providerData = user.providerData;
+        // document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+        // console.log(displayName);
+
+
+    }
+
+}, function(error) {
+    console.log(error);
+    alert("Some Thing Worng! please login agian");
+});
 
 
 function writeUserData(userId, name, email, imageUrl) {
@@ -109,10 +109,10 @@ function veryfyCode() {
 
 
 
-var sessionsRef = firebase.database().ref("sessions");
-sessionsRef.push({
-    startedAt: firebase.database.ServerValue.TIMESTAMP
-});
+// var sessionsRef = firebase.database().ref("sessions");
+// sessionsRef.push({
+//     startedAt: firebase.database.ServerValue.TIMESTAMP
+// });
 
 
 // $( document ).ready(function() {

@@ -17,6 +17,7 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
     <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
@@ -62,6 +63,20 @@
         window.addEventListener('load', function() {
             initApp();
         });
+
+
+        function Signout() {
+            firebase.auth().signOut().then(function() {
+                    console.log('Signed Out');
+                    alert('Signed Out');
+                    window.location.href = "index.html";
+
+                },
+                function(error) {
+                    console.error('Sign Out Error', error);
+                });
+
+        }
         // var database = firebase.database();
 
     </script>
@@ -112,6 +127,7 @@
                     <i class="fas fa-envelope"></i>
                     <span class="nav-link-text">CONTACT US</span>
                 </a>
+
             </li>
         </ul>
 

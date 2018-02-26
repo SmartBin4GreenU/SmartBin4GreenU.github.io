@@ -11,7 +11,7 @@
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!--<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
   <!-- Page level plugin CSS-->
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
@@ -174,13 +174,41 @@
         <li class="breadcrumb-item active">VIEW DATA</li>
       </ol>
       <!-- Example DataTables Card-->
+
+      <!--<div class="alert alert-warning alert-dismissible fade show" role="alert">-->
+        <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+          <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+        <!--<strong id="myAlert"></strong>-->
+      <!--</div>-->
       <div class="card mb-3"  id="content"  >
         <div class="card-header">
           <i class="fa fa-table"></i>  DATA</div>
         <div class="card-body" >
             <div id="editor">
             <h2>Result</h2>
-           <!--<div class="text-right">Sort by</div>-->
+           <div class="text-right">
+             <button class="btn btn-success" data-toggle="modal" data-target="#Addmore">Add More</button>
+               <!--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">-->
+               <div class="modal fade" id="Addmore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <h4 class="modal-title" id="exampleModalLabel">INSERT AGAIN!!</h4>
+                               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">×</span>
+                               </button>
+                           </div>
+                           <div class="modal-body" > <h5 class="text-center">Press Confirm Button to insert again.</h5> </div>
+                           <div class="modal-footer">
+                               <button class="btn btn-danger" type="button" data-dismiss="modal" onclick="InsertAgain()">Confirm</button>
+                               <!--<a class="btn btn-primary" href="index.html" onclick="Signout();">Logout</a>-->
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+                <hr>
           <div class="table-responsive">
               <table class="table table-hover table-light " style="width:100%" id="ex-table">
                   <tr id="tr">
@@ -201,7 +229,7 @@
                 <i class="fas fa-download"></i>
                 <span>Export PDF</span>
              </a>
-             /
+             <small>/</small>
              <a id="cmd1"  href="#" onclick="Export()" >
                 <i class="far fa-file-excel"></i>
                 <span>Export Excel</span>
