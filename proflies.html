@@ -17,9 +17,9 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-
     <script type="text/javascript">
-
+        var Uid;
+        var SUM = 0;
         // var image = document.getElementsById("image1");
         var config = {
             apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
@@ -48,22 +48,66 @@
                     console.log(displayName ,email);
 
                     document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-                    document.getElementById("Name1").innerHTML = "Hi   "+  displayName.toString();
-                    console.log(displayName);
+                    // document.getElementById("Name1").innerHTML = "Hi   "+  displayName.toString();
+
 
                      document.getElementById("image1").src= photoURL;
-                    // writeUserData(uid, displayName, email ,photoURL);
-                   // image.src = photoURL;
-                   console.log(photoURL);
+                    Uid = uid;
+
+
                 }
             }, function(error) {
                 console.log(error);
                 alert("Some Thing Worng! please login agian");
             });
         };
+        var database = firebase.database();
+        Getdata =  function (){
+            database.ref("/History").once('value', function(snapshot){
+                if(snapshot.exists()){
+                    snapshot.forEach(function(data){
+                        var val = data.val();
+                        var User = val.UID;
+                        var Bottle = val.Logbottle;
+
+                        if(Uid == User){
+
+                            if( val.Logbottle != 0) {
+                                SUM += Bottle;
+                                console.log(val.Logbottle );
+                                console.log(SUM);
+                            }
+                        }
+                    });
+                }
+                document.getElementById("totalbot").innerHTML =  SUM.toString();
+
+                SUM = 0;
+            });
+        };
         window.addEventListener('load', function() {
-            initApp()
+            initApp();
+            Getdata();
         });
+
+        function Signout() {
+            firebase.auth().signOut().then(function() {
+                    console.log('Signed Out');
+                    alert('Signed Out');
+                    window.location.href = "index.html";
+
+                },
+                function(error) {
+                    console.error('Sign Out Error', error);
+                });
+
+        }
+
+
+        // window.addEventListener('load', function() {
+        //     Getdata();
+        // });
+
     </script>
 
 </head>
@@ -154,34 +198,42 @@
 
 
 
-      <h3 id="Name1"></h3>
-      <hr>
-        <div class="card-mb badge-light ">
-            <div class="row">
-                <div class="col-sm " style="margin: 30px">
-                    <img  class="img-fluid" id="image1"  alt="Profiles_picture">
-                </div>
-                <div class="col-sm">
-                        <div class="container-fluid "style="color: #868e96" style="margin: 30px">
+        <h4 class="text-justify text-uppercase" style="text-shadow: #868e96;"><strong>Information</strong></h4>
+        <hr>
+            <div class="card-mb-3 badge-light ">
+                <div class="row">
+                    <div class="col-sm text-center" style="margin: 20px">
+                        <img class="img-fluid" id="image1"  alt="Profiles_picture">
+                    </div>
+                    <div class="col-sm-6">
+                            <div class="col-sm" style="margin: 30px">
 
-                            <label class="col-sm-5 "><strong style="font-size: 30px">Profile</strong></label>
+                                <!--<label class="col-sm-5 "><strong style="font-size: 30px">Profile</strong></label>-->
 
-                            <div class="input-group mb-3">
-                                <label class="col-sm-2 "><strong>Name:</strong></label>
-                                <div class="col-sm " id="Username"></div>
+                                <div class="input-group mb">
+                                    <label class="col-sm "><strong style="font-size: 20px">Name:</strong></label>
+                                    <div class="col-sm-9 " style="font-size: 20px;color: #868e96" id="Username" ></div>
 
+                                </div>
+
+                                <div class="input-group mb">
+                                    <label class="col-sm "><strong style="font-size: 20px">Email:</strong></label>
+                                    <div class="col-sm-9 " style="font-size: 20px;color: #868e96"id="Email"></div>
+                                </div>
+
+                                <div class="input-group mb">
+                                    <label class="col-sm "><strong style="font-size: 20px">Last Used:</strong></label>
+                                    <div class="col-sm" style="font-size: 20px;color: #868e96" id="Time" >Tue 13 Feb 2018  23:07:15</div>
+                                </div>
+                                <div class="input-group mb">
+                                    <label class="col-sm "><strong style="font-size: 20px">Total Bottle:</strong></label>
+                                    <div class="col-sm " style="font-size: 20px;color: #868e96"id="totalbot"></div>
+                                </div>
                             </div>
-
-                            <div class="input-group mb-3">
-                                <label class="col-sm-2 "><strong>Email:</strong></label>
-                                <div class="col-sm " id="Email"></div>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         <br>
-
 
     <!-- /.content-wrapper-->
     <footer class="sticky-footer">
