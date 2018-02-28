@@ -54,7 +54,7 @@ function Signout() {
         });
 
 }
-var status_alert;
+
 Getdata =  function (){
     database.ref("/History").once('value', function(snapshot){
 
@@ -94,7 +94,6 @@ Getdata =  function (){
         }
 
         document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
-
         SUM = 0;
     });
 
@@ -118,12 +117,3 @@ function InsertAgain(){
         StatusDevice: parseInt(1)
     });
 }
-//
-// $('#myAlert').on('alert-dismissible', function () {
-//     if(status_alert == 1){
-//         $('#myAlert').text("Success");
-//     }
-//     else{
-//         $('#myAlert').text("You should put the bottle before!!!");
-//     }
-// })
