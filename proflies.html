@@ -18,9 +18,10 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script type="text/javascript">
+
         var Uid;
         var SUM = 0;
-        // var image = document.getElementsById("image1");
+
         var config = {
             apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
             authDomain: "sb-fgu.firebaseapp.com",
@@ -90,6 +91,7 @@
             Getdata();
         });
 
+
         function Signout() {
             firebase.auth().signOut().then(function() {
                     console.log('Signed Out');
@@ -101,6 +103,17 @@
                     console.error('Sign Out Error', error);
                 });
 
+            firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+                Status : parseInt(0)
+            });
+            firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+                Repush : parseInt(0)
+            });
+            firebase.database().ref('LogUser/').child('Lasted').set({
+                Uid : Uid,
+                SBNumber: "SB1",
+                StatusDevice: parseInt(0)
+            });
         }
 
 
@@ -223,11 +236,11 @@
 
                                 <div class="input-group mb">
                                     <label class="col-sm "><strong style="font-size: 20px">Last Used:</strong></label>
-                                    <div class="col-sm" style="font-size: 20px;color: #868e96" id="Time" >Tue 13 Feb 2018  23:07:15</div>
+                                    <div class="col-sm-8" style="font-size: 20px;color: #868e96" id="Time" >Tue 13 Feb 2018  23:07:15</div>
                                 </div>
                                 <div class="input-group mb">
                                     <label class="col-sm "><strong style="font-size: 20px">Total Bottle:</strong></label>
-                                    <div class="col-sm " style="font-size: 20px;color: #868e96"id="totalbot"></div>
+                                    <div class="col-sm-8" style="font-size: 20px;color: #868e96"id="totalbot"></div>
                                 </div>
                             </div>
                     </div>

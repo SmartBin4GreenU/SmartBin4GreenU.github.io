@@ -1,4 +1,6 @@
 
+
+
 var config = {
     apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
     authDomain: "sb-fgu.firebaseapp.com",
@@ -10,12 +12,7 @@ var config = {
 firebase.initializeApp(config);
 
 
-
-var database = firebase.database();
-var defaults = window.src = "Picture/Default.png" ;
-var Uid;
-var name;
-
+// var database = firebase.database();
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
@@ -37,6 +34,10 @@ firebase.auth().onAuthStateChanged(function(user) {
     alert("Some Thing Worng! please login agian");
 });
 
+
+// var defaults = window.src = "Picture/Default.png" ;
+var Uid;
+var name;
 
 function writeUserData(userId, name, email, imageUrl) {
 
@@ -62,11 +63,22 @@ function writeUserData(userId, name, email, imageUrl) {
 
 }
 
-
 function Signout() {
     firebase.auth().signOut().then(function() {
             console.log('Signed Out');
             alert('Signed Out');
+            firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+                Status : parseInt(0)
+
+            });
+            firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+                Repush : parseInt(0)
+            });
+            firebase.database().ref('LogUser/').child('Lasted').set({
+                Uid : Uid,
+                SBNumber: "SB1",
+                StatusDevice: parseInt(0)
+            });
             window.location.href = "index.html";
 
         },
@@ -75,7 +87,6 @@ function Signout() {
         });
 
 }
-
 
 function veryfyCode() {
 
@@ -90,9 +101,10 @@ function veryfyCode() {
             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
                 Status: parseInt(1)
             });
-            window.location.href = "data.html";
             alert("CORRECT");
             console.log("TRUE");
+            window.location.href = "data.html";
+
         }
         else{
             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
@@ -108,14 +120,3 @@ function veryfyCode() {
 
 
 
-
-// var sessionsRef = firebase.database().ref("sessions");
-// sessionsRef.push({
-//     startedAt: firebase.database.ServerValue.TIMESTAMP
-// });
-
-
-// $( document ).ready(function() {
-//             $('#Name').text(name);
-//          console.log(name);
-// });

@@ -33,7 +33,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         Uid = uid;
 
 
-
     }
 
 }, function(error) {
@@ -53,6 +52,17 @@ function Signout() {
             console.error('Sign Out Error', error);
         });
 
+    firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+        Status : parseInt(0)
+    });
+    firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+        Repush : parseInt(0)
+    });
+    firebase.database().ref('LogUser/').child('Lasted').set({
+        Uid : Uid,
+        SBNumber: "SB1",
+        StatusDevice: parseInt(0)
+    });
 }
 
 Getdata =  function (){
@@ -103,6 +113,7 @@ Getdata =  function (){
 window.addEventListener('load', function() {
     Getdata()
 });
+
 
 function InsertAgain(){
     firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({

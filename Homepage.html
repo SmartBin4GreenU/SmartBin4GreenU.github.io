@@ -27,7 +27,7 @@
 
     <script type="text/javascript">
 
-
+        var database = firebase.database();
         var config = {
             apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
             authDomain: "sb-fgu.firebaseapp.com",
@@ -76,6 +76,17 @@
                     console.error('Sign Out Error', error);
                 });
 
+            firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+                Status : parseInt(0)
+            });
+            firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+                Repush : parseInt(0)
+            });
+            firebase.database().ref('LogUser/').child('Lasted').set({
+                Uid : Uid,
+                SBNumber: "SB1",
+                StatusDevice: parseInt(0)
+            });
         }
         // var database = firebase.database();
 
