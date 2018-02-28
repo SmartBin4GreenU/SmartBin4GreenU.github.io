@@ -40,7 +40,7 @@
 // Output as Data URI
            doc.output('datauri');
        }
-       var database = firebase.database();
+
        initApp =  function() {
            firebase.auth().onAuthStateChanged(function(user) {
                if (user) {
@@ -72,25 +72,25 @@
 
        function Signout() {
            firebase.auth().signOut().then(function() {
+                   firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+                       Status : parseInt(0)
+                   });
+                   firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+                       Repush : parseInt(0)
+                   });
+                   firebase.database().ref('LogUser/').child('Lasted').set({
+                       Uid : Uid,
+                       SBNumber: "SB1",
+                       StatusDevice: parseInt(0)
+                   });
                    console.log('Signed Out');
                    alert('Signed Out');
                    window.location.href = "index.html";
-
                },
                function(error) {
                    console.error('Sign Out Error', error);
                });
-           firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
-               Status : parseInt(0)
-           });
-           firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
-               Repush : parseInt(0)
-           });
-           firebase.database().ref('LogUser/').child('Lasted').set({
-               Uid : Uid,
-               SBNumber: "SB1",
-               StatusDevice: parseInt(0)
-           });
+
        }
 
   </script>
@@ -185,11 +185,19 @@
 
       <div class="card mb-3"  id="content"  >
         <div class="card-header">
-          <i class="fa fa-table"></i>  DATA</div>
+
+          <i class="fa fa-table"></i>  DATA
+
+
+
+
+        </div>
         <div class="card-body" >
             <div id="editor">
             <h2>Result</h2>
            <div class="text-right">
+
+
              <button class="btn btn-success" data-toggle="modal" data-target="#Addmore">Add More</button>
                <!--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">-->
                <div class="modal fade" id="Addmore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -201,6 +209,8 @@
                                    <span aria-hidden="true">×</span>
                                </button>
                            </div>
+
+
                            <div class="modal-body" > <h5 class="text-center">Press Confirm Button to insert again.</h5> </div>
                            <div class="modal-footer">
                                <button class="btn btn-danger" type="button" data-dismiss="modal" onclick="InsertAgain()">Confirm</button>
@@ -210,7 +220,19 @@
                    </div>
                </div>
            </div>
-                <hr>
+                <!--<hr>-->
+                <div class="text-right" style=" margin-top: 10px;margin-bottom: 10px">
+                    <!--<a  href="#" class="text-right">-->
+                        <!--<i class="fas fa-thumbs-up"></i>-->
+                        <!--<span>Like</span>-->
+                    <!--</a>-->
+                    <span style="margin: 5px">   </span>
+                    <a  href="#" class="text-right">
+                        <i class="fas fa-share-square text-right"></i>
+                        <span>Share</span>
+                    </a>
+                </div>
+               
           <div class="table-responsive">
               <table class="table table-hover table-light " style="width:100%" id="ex-table">
                   <tr id="tr">
@@ -227,10 +249,11 @@
         </div>
           </div>
         <div class="card-footer small text-muted text-right ">
+
              <a id="cmd"  href="#" onclick="Export()" >
-                <i class="fas fa-download"></i>
+                <i class="far fa-file-excel"></i>
                 <span>Export PDF</span>
-             </a>
+            </a>
              <small>/</small>
              <a id="cmd1"  href="#" onclick="Export()" >
                 <i class="far fa-file-excel"></i>

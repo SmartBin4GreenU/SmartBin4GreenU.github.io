@@ -128,3 +128,38 @@ function InsertAgain(){
         StatusDevice: parseInt(1)
     });
 }
+
+
+
+Get_time = function() {
+    var ref = firebase.database().ref("Log/Time");
+    ref.orderByKey().limitToFirst(100).on("value", function(snapshot) {
+        // console.log(snapshot.key,snapshot.val());
+        if(snapshot.exists()){
+            snapshot.forEach(function(data){
+                var val = data.val();
+                var User_ID = val.Uid;
+                var Time = val.Time;
+
+                // console.log(val.Uid.toString() , val.Time.toString());
+                // var Bottle = val.Logbottle;
+                if(Uid ==  User_ID ) {
+                    // max++;
+                    if (Time != null) {
+                        document.getElementById("Time").innerHTML = Time.toString();
+                        //
+                        // var ref = firebase.database().ref("Log");
+                        // ref.orderByChild("Time").equalTo( Time.toString().substr(4,6)).on("child_added", function(snapshot) {
+                        //     console.log(snapshot.key,snapshot.val());
+                        //     // console.log(snapshot.length());
+                        // });
+                    }
+                }
+            });
+            // max = 0;
+        }
+
+    });
+
+
+}

@@ -46,7 +46,7 @@
 
                     document.getElementById("Username").innerHTML = displayName.toString();
                     document.getElementById("Email").innerHTML =  email.toString();
-                    console.log(displayName ,email);
+                    //console.log(displayName ,email);
 
                     document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
                     // document.getElementById("Name1").innerHTML = "Hi   "+  displayName.toString();
@@ -89,32 +89,67 @@
         window.addEventListener('load', function() {
             initApp();
             Getdata();
+            Get_time();
         });
 
 
         function Signout() {
             firebase.auth().signOut().then(function() {
+                    firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+                        Status : parseInt(0)
+                    });
+                    firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+                        Repush : parseInt(0)
+                    });
+                    firebase.database().ref('LogUser/').child('Lasted').set({
+                        Uid : Uid,
+                        SBNumber: "SB1",
+                        StatusDevice: parseInt(0)
+                    });
                     console.log('Signed Out');
                     alert('Signed Out');
                     window.location.href = "index.html";
-
                 },
                 function(error) {
                     console.error('Sign Out Error', error);
                 });
 
-            firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
-                Status : parseInt(0)
-            });
-            firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
-                Repush : parseInt(0)
-            });
-            firebase.database().ref('LogUser/').child('Lasted').set({
-                Uid : Uid,
-                SBNumber: "SB1",
-                StatusDevice: parseInt(0)
-            });
         }
+
+    // var max = 0;
+         Get_time = function() {
+            var ref = firebase.database().ref("Log/Time");
+            ref.orderByKey().limitToFirst(100).on("value", function(snapshot) {
+                // console.log(snapshot.key,snapshot.val());
+                if(snapshot.exists()){
+                    snapshot.forEach(function(data){
+                        var val = data.val();
+                        var User_ID = val.Uid;
+                        var Time = val.Time;
+
+                        // console.log(val.Uid.toString() , val.Time.toString());
+                        // var Bottle = val.Logbottle;
+                        if(Uid ==  User_ID ) {
+                            // max++;
+                            if (Time != null) {
+                                document.getElementById("Time").innerHTML = Time.toString();
+                                //
+                                // var ref = firebase.database().ref("Log");
+                                // ref.orderByChild("Time").equalTo( Time.toString().substr(4,6)).on("child_added", function(snapshot) {
+                                //     console.log(snapshot.key,snapshot.val());
+                                //     // console.log(snapshot.length());
+                                // });
+                            }
+                        }
+                    });
+                    // max = 0;
+                }
+
+            });
+
+
+        }
+
 
 
         // window.addEventListener('load', function() {
@@ -235,11 +270,11 @@
                                 </div>
 
                                 <div class="input-group mb">
-                                    <label class="col-sm "><strong style="font-size: 20px">Last Used:</strong></label>
-                                    <div class="col-sm-8" style="font-size: 20px;color: #868e96" id="Time" >Tue 13 Feb 2018  23:07:15</div>
+                                    <label class="col-sm-4 "><strong style="font-size: 20px">Last Used:</strong></label>
+                                    <div class="col-sm-8" style="font-size: 20px;color: #868e96" id="Time" ></div>
                                 </div>
                                 <div class="input-group mb">
-                                    <label class="col-sm "><strong style="font-size: 20px">Total Bottle:</strong></label>
+                                    <label class="col-sm-4 "><strong style="font-size: 20px">Total Bottle:</strong></label>
                                     <div class="col-sm-8" style="font-size: 20px;color: #868e96"id="totalbot"></div>
                                 </div>
                             </div>
