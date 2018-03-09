@@ -146,7 +146,7 @@ function Signout() {
         function(error) {
             console.error('Sign Out Error', error);
         });
-
+     setTimeout(3000);
 }// }
 
 function veryfyCode() {
