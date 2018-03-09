@@ -156,8 +156,8 @@ function veryfyCode() {
     ref.on('value',function (snapshot){
         var Token = snapshot.val();
         var Code =  document.getElementById("activeCode").value;
-        console.log(Token);
-        console.log(Code);
+        // console.log(Token);
+        // console.log(Code);
         if(Code == Token){
             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
                 Status: parseInt(1)
