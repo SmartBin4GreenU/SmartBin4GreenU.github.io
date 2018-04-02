@@ -75,8 +75,8 @@
 
                             if( val.Logbottle != 0) {
                                 SUM += Bottle;
-                                console.log(val.Logbottle );
-                                console.log(SUM);
+                                // console.log(val.Logbottle );
+                                // console.log(SUM);
                             }
                         }
                     });
@@ -119,7 +119,7 @@
     // var max = 0;
          Get_time = function() {
             var ref = firebase.database().ref("Log/Time");
-            ref.orderByKey().limitToFirst(100).on("value", function(snapshot) {
+            ref.orderByKey().on("value", function(snapshot) {
                 // console.log(snapshot.key,snapshot.val());
                 if(snapshot.exists()){
                     snapshot.forEach(function(data){
@@ -147,10 +147,7 @@
 
             });
 
-
         }
-
-
 
         // window.addEventListener('load', function() {
         //     Getdata();

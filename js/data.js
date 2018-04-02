@@ -65,47 +65,70 @@ function Signout() {
     });
 }
 
-Getdata =  function (){
-    database.ref("/History").once('value', function(snapshot){
 
+var Data = [];
+Getdata =  function (){
+    var ref = firebase.database().ref("/History");
+    ref.orderByKey().on("value", function(snapshot) {
+
+    // database.ref("/History").once('value', function(snapshot){
+    //     console.log(snapshot.key ,snapshot.val());
             if(snapshot.exists()){
             var content = '';
             var Sum_text = '';
-            snapshot.forEach(function(data){
-                var val = data.val();
-                var User = val.UID;
-                var Bottle = val.Logbottle;
+                    snapshot.forEach(function(data){
+                        var Val = data.val();
+                        var User = Val.UID;
+                        var Bottle = Val.Logbottle;
+
+                        if(Uid == User){
+                            if( Val.Logbottle != 0){
+                                // console.log(data.key ,data.val());
+                                Data.push(Val)
+
+                                // console.log(Val)
+
+                                // console.log(Data[0])
+                                // console.log(Data.length)
+                                // console.log(Val)
+                                //     num = num+1;
+                                //     SUM += Bottle;
+                                //      content += '<tr>';
+                                //      content += '<td>' +  num + '</td>';
+                                //      content += '<td>' + Val.Logtime + '</td>';
+                                //      content += '<td>' + Val.Logbottle + '</td>';
+                                //      content += '</tr>';
 
 
-                /*    console.log(Uid);
-                    console.log(User);*/
 
-                if(Uid == User){
-
-                    if( val.Logbottle != 0) {
+                            }
+                        }
+                    });
+                 Data.reverse()
+                // console.log(Data)
+                for (i in Data)
+                {
+                       var B = Data[i].Logbottle
+                       // console.log( i ,Data[i])
                         num = num+1;
-                        SUM += Bottle;
-                        content += '<tr>';
-                        content += '<td>' +  num + '</td>';
-                        content += '<td>' + val.Logtime + '</td>';
-                        // content += '<td>' + val.Username + '</td>';
-                        content += '<td>' + val.Logbottle + '</td>';
-                        content += '</tr>';
-                        console.log(val.Logbottle );
-                        console.log(SUM);
-                    }
+                        SUM += B;
+                         content += '<tr>';
+                             content += '<td>' +  num + '</td>';
+                             content += '<td>' + Data[i].Logtime + '</td>';
+                             content += '<td>' + Data[i].Logbottle + '</td>';
+                         content += '</tr>';
                 }
-            });
-            if(SUM == 0){
-                alert("You should put the bottle before!!!");
-            }
-            num = 0;
+                if(SUM == 0){
+                    alert("You should put the bottle before!!!");
+                }
+            num = 0
             $('#ex-table').append(content);
         }
 
         document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
         SUM = 0;
     });
+
 
 };
 
