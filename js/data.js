@@ -67,6 +67,10 @@ function Signout() {
 
 
 var Data = [];
+var rows = [];
+var j =0;
+var Total = 0;
+
 Getdata =  function (){
     var ref = firebase.database().ref("/History");
     ref.orderByKey().on("value", function(snapshot) {
@@ -105,28 +109,38 @@ Getdata =  function (){
                         }
                     });
                  Data.reverse()
-                // console.log(Data)
+                 // console.log(Data)
                 for (i in Data)
                 {
                        var B = Data[i].Logbottle
                        // console.log( i ,Data[i])
                         num = num+1;
+                         rows[j] = {"id": (j+1).toString(), "time": Data[i].Logtime.toString(),"bottle":Data[i].Logbottle.toString()};
+                         j++;
                         SUM += B;
+                        Total = SUM;
                          content += '<tr>';
                              content += '<td>' +  num + '</td>';
                              content += '<td>' + Data[i].Logtime + '</td>';
                              content += '<td>' + Data[i].Logbottle + '</td>';
                          content += '</tr>';
                 }
+
+                 // console.log("Sum :" + SUM)
+                 //
+                 // console.log("Total :"+ Total)
+
                 if(SUM == 0){
                     alert("You should put the bottle before!!!");
                 }
             num = 0
+                j = 0
             $('#ex-table').append(content);
         }
 
         document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
         SUM = 0;
+
     });
 
 
@@ -185,4 +199,36 @@ Get_time = function() {
     });
 
 
+}
+
+
+function Export(){
+    var columns = [
+        {title: "ID", dataKey: "id"},
+        {title: "TIME", dataKey: "time"},
+        {title: "BOTTLE", dataKey: "bottle"},
+        ];
+    // var rows = [{"id": 1, "name": "Shaw", "country": "Tanzania", },
+    //     {"id": 2, "name": "Nelson", "country": "Kazakhstan", },
+    //     {"id": 3, "name": "Garcia", "country": "Madagascar", },
+    //     ];
+
+// Only pt supported (not mm or in)
+    var doc = new jsPDF('p', 'pt');
+    doc.autoTable(columns, rows,
+        {
+        // styles: {fillColor: [100, 255, 255]},
+        // columnStyles: {
+        //     id: {fillColor: 255}
+        // },
+        margin: {top: 60 , bottom: 100},
+        addPageContent: function(data) {
+            doc.text("Export Data", 40, 30);
+            doc.text("BY SmartBin4GreenU", 60, 50);
+        },
+
+    });
+    doc.text("Total Bottle : " + Total ,430 ,760 );
+    doc.save('SmartBin4GreenU_Report.pdf');
+    Total = 0;
 }

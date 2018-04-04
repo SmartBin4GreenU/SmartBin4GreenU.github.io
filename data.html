@@ -16,30 +16,30 @@
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
   <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
   <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
-  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="js/data.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="js/data.js"></script>
 
-    <script src="https://docraptor.com/docraptor-1.0.0.js"></script>
-    <script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
 
-       function Export(){
-           var doc = new jsPDF();
-           doc.setFontSize(22);
-           doc.text(20, 20, 'This is a title');
+     <script type="text/javascript">
 
-           doc.setFontSize(16);
-           doc.text(20, 30, 'This is some normal sized text underneath.');
-
-// Output as Data URI
-           doc.output('datauri');
-       }
+       // function Export(){
+       //     var doc = new jsPDF({
+       //         orientation: 'landscape',
+       //         unit: 'in',
+       //         format: [4, 2]
+       //     })
+       //
+       //     doc.text('Hello world!', 1, 1)
+       //     doc.save('two-by-four.pdf')
+       // }
 
        initApp =  function() {
            firebase.auth().onAuthStateChanged(function(user) {
@@ -190,7 +190,7 @@
         </div>
         <div class="card-body" >
             <div id="editor">
-            <h2>Result</h2>
+            <h2>TOTAL BOTTLE</h2>
            <div class="text-right">
 
 
@@ -217,20 +217,29 @@
                </div>
            </div>
 
-
                 <!--<hr>-->
                 <div class="text-right" style=" margin-top: 10px;margin-bottom: 10px">
-                    <!--<a  href="#" class="text-right">-->
-                        <!--<i class="fas fa-thumbs-up"></i>-->
-                        <!--<span>Like</span>-->
-                    <!--</a>-->
+
+                  <!--  <a id="cmd"  href="#" onclick="Export()" >
+                        <i class="fas fa-file-excel"></i>
+                        <span>Export PDF</span>
+                    </a>-->
+                    <a id="cmd2"  href="#" onclick="Export()" >
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Export PDF</span>
+                    </a>
+
                     <span style="margin: 5px">   </span>
                     <a  href="#" class="text-right">
                         <i class="fas fa-share-square text-right"></i>
                         <span>Share</span>
                     </a>
+
                 </div>
+
+
                 <h3 id="Summary" class="text-right"></h3>
+
           <div class="table-responsive">
               <table class="table table-hover table-light " style="width:100%" id="ex-table">
                   <tr id="tr">
@@ -248,15 +257,15 @@
           </div>
         <div class="card-footer small text-muted text-right ">
 
-             <a id="cmd"  href="#" onclick="Export()" >
-                <i class="far fa-file-excel"></i>
-                <span>Export PDF</span>
-            </a>
-             <small>/</small>
-             <a id="cmd1"  href="#" onclick="Export()" >
-                <i class="far fa-file-excel"></i>
-                <span>Export Excel</span>
-             </a>
+             <!--<a id="cmd"  href="#" onclick="Export()" >-->
+                 <!--<i class="fas fa-file-excel"></i>-->
+                <!--<span>Export PDF</span>-->
+            <!--</a>-->
+             <!--<small>/</small>-->
+             <!--<a id="cmd1"  href="#" onclick="Export()" >-->
+                 <!--<i class="fas fa-file-excel"></i>-->
+                <!--<span>Export Excel</span>-->
+             <!--</a>-->
 
         </div>
           <!--<button id="cmd">Generate PDF</button>-->
