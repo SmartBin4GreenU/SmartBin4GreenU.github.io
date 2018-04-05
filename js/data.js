@@ -8,7 +8,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
 var database = firebase.database();
 
 var SUM = 0;
@@ -26,12 +25,9 @@ firebase.auth().onAuthStateChanged(function(user) {
         var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
         // document.getElementById("name").innerHTML = "User:"+ displayName;
-
         // userId = firebase.auth().currentUser.uid;
         //console.log(userId);
-
         Uid = uid;
-
 
     }
 
@@ -74,8 +70,6 @@ var Total = 0;
 Getdata =  function (){
     var ref = firebase.database().ref("/History");
     ref.orderByKey().on("value", function(snapshot) {
-
-    // database.ref("/History").once('value', function(snapshot){
     //     console.log(snapshot.key ,snapshot.val());
             if(snapshot.exists()){
             var content = '';
@@ -84,32 +78,15 @@ Getdata =  function (){
                         var Val = data.val();
                         var User = Val.UID;
                         var Bottle = Val.Logbottle;
-
                         if(Uid == User){
                             if( Val.Logbottle != 0){
                                 // console.log(data.key ,data.val());
-                                Data.push(Val)
-
-                                // console.log(Val)
-
-                                // console.log(Data[0])
-                                // console.log(Data.length)
-                                // console.log(Val)
-                                //     num = num+1;
-                                //     SUM += Bottle;
-                                //      content += '<tr>';
-                                //      content += '<td>' +  num + '</td>';
-                                //      content += '<td>' + Val.Logtime + '</td>';
-                                //      content += '<td>' + Val.Logbottle + '</td>';
-                                //      content += '</tr>';
-
-
-
+                                   Data.push(Val)
                             }
                         }
                     });
-                 Data.reverse()
-                 // console.log(Data)
+                   Data.reverse()
+                // console.log(Data)
                 for (i in Data)
                 {
                        var B = Data[i].Logbottle
@@ -125,32 +102,25 @@ Getdata =  function (){
                              content += '<td>' + Data[i].Logbottle + '</td>';
                          content += '</tr>';
                 }
-
                  // console.log("Sum :" + SUM)
-                 //
                  // console.log("Total :"+ Total)
-
                 if(SUM == 0){
                     alert("You should put the bottle before!!!");
                 }
-            num = 0
+                num = 0
                 j = 0
             $('#ex-table').append(content);
         }
-
         document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
         SUM = 0;
-
     });
 
 
 };
 
-
 window.addEventListener('load', function() {
     Getdata()
 });
-
 
 function InsertAgain(){
     firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
@@ -166,41 +136,24 @@ function InsertAgain(){
     });
 }
 
-
-
 Get_time = function() {
     var ref = firebase.database().ref("Log/Time");
     ref.orderByKey().limitToFirst(100).on("value", function(snapshot) {
-        // console.log(snapshot.key,snapshot.val());
         if(snapshot.exists()){
             snapshot.forEach(function(data){
                 var val = data.val();
                 var User_ID = val.Uid;
                 var Time = val.Time;
-
-                // console.log(val.Uid.toString() , val.Time.toString());
-                // var Bottle = val.Logbottle;
                 if(Uid ==  User_ID ) {
                     // max++;
                     if (Time != null) {
                         document.getElementById("Time").innerHTML = Time.toString();
-                        //
-                        // var ref = firebase.database().ref("Log");
-                        // ref.orderByChild("Time").equalTo( Time.toString().substr(4,6)).on("child_added", function(snapshot) {
-                        //     console.log(snapshot.key,snapshot.val());
-                        //     // console.log(snapshot.length());
-                        // });
                     }
                 }
             });
-            // max = 0;
         }
-
     });
-
-
 }
-
 
 function Export(){
     var columns = [
@@ -208,13 +161,8 @@ function Export(){
         {title: "TIME", dataKey: "time"},
         {title: "BOTTLE", dataKey: "bottle"},
         ];
-    // var rows = [{"id": 1, "name": "Shaw", "country": "Tanzania", },
-    //     {"id": 2, "name": "Nelson", "country": "Kazakhstan", },
-    //     {"id": 3, "name": "Garcia", "country": "Madagascar", },
-    //     ];
-
-// Only pt supported (not mm or in)
-    var doc = new jsPDF('p', 'pt');
+    // Only pt supported (not mm or in)
+    var doc = new jsPDF('p', 'pt','a4');
     doc.autoTable(columns, rows,
         {
         // styles: {fillColor: [100, 255, 255]},
