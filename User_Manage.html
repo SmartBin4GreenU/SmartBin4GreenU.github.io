@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Admin_news</title>
+    <title>User Management</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -58,27 +58,33 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                <a class="nav-link" href="Homepage.html">
+                <a class="nav-link" href="AdminHome.html">
                     <i class="fa fas fa-home"></i>
                     <span class="nav-link-text">HOME</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Verify Code">
-                <a class="nav-link" href="Ad_news.html">
+                <a class="nav-link" href="News_Manage.html">
                     <i class="fas fa-bullhorn"></i>
-                    <span class="nav-link-text">NEWS</span>
+                    <span class="nav-link-text">NEWS MANAGEMENT</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="View Data">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="Data_Manage.html">
                     <i class="fa fa-fw fa-list"></i>
                     <span class="nav-link-text">DATA MANAGEMENT</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Profiles">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="User_Manage.html">
                     <i class="fa fa-user"></i>
                     <span class="nav-link-text">USER MANAGEMENT</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Profiles">
+                <a class="nav-link" href="Hardware_Manage.html">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-link-text">HARDWARE MANAGEMENT</span>
                 </a>
             </li>
 
@@ -117,7 +123,7 @@
             <li class="breadcrumb-item">
                 <a href="AdminHome.html">HOME</a>
             </li>
-            <li class="breadcrumb-item active">NEWS</li>
+            <li class="breadcrumb-item active">USER MANAGEMENT</li>
         </ol>
         <div class="alert alert-success" role="alert" id="updateSuccess">
             UPDATE NEWS POST!!
@@ -129,45 +135,58 @@
 
         <hr class="mt-2">
 
-      <div class="row">
+        <div class="row">
 
-         <div class="col col-sm-8   badge-light" style="margin: auto" >
-            <h3 style="margin-bottom:10px">Update News</h3>
-             <form  id="form">
-                     <div class="input-group mb-3">
-                         <div class="input-group-prepend">
-                             <span class="input-group-text">Writen by</span>
-                         </div>
-                         <input type="text" class="form-control"  id="Writer">
-                     </div>
-                     <div class="input-group mb-3">
-                         <div class="input-group-prepend">
-                             <span class="input-group-text">Title</span>
-                         </div>
-                         <input type="text" class="form-control"  id="Title">
-                     </div>
+            <div class="col col-sm-8   badge-light" style="margin: auto" >
+                <h3 style="margin-bottom:10px">Update News</h3>
+                <form  id="form">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Writen by</span>
+                        </div>
+                        <input type="text" class="form-control"  id="Writer">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Title</span>
+                        </div>
+                        <input type="text" class="form-control"  id="Title">
+                    </div>
 
-                     <div class="input-group">
-                         <div class="input-group-prepend">
-                             <span class="input-group-text">Detials</span>
-                         </div>
-                         <textarea class="form-control" aria-label="Details" id="Details" ></textarea>
-                     </div>
-                     <form>
-                         <div class="form-group">
-                             <label for="Picturefile" style="margin-top: 5px">Add picture</label>
-                             <input type="file" class="form-control-file " id="Picturefile">
-                         </div>
-                     </form>
-             </form>
-             <div class="input-group" style="margin-top: 15px">
-                 <button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>
-             </div>
-             <br>
-         </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Detials</span>
+                        </div>
+                        <textarea class="form-control" aria-label="Details" id="Details" ></textarea>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="Picturefile" style="margin-top: 5px">Add picture</label>
+                            <input type="file" class="form-control-file " id="Picturefile">
+                        </div>
+                    </form>
+                </form>
+                <div class="input-group" style="margin-top: 15px">
+                    <button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>
+                </div>
+                <br>
+            </div>
 
-      </div>
+        </div>
 
+        <!-- /.content-wrapper-->
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright <i class="fas fa-copyright"></i> SmartBin4GreenU 2017-2018</small>
+
+                </div>
+            </div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
 
         <!-- Logout Modal-->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

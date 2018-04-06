@@ -21,7 +21,7 @@ initApp =  function() {
             var phoneNumber = user.phoneNumber;
             var providerData = user.providerData;
 
-            document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+            document.getElementById("Name").innerHTML = "Hi Admin: " + displayName.toString();
             console.log(displayName);
         }
     }, function(error) {
@@ -39,7 +39,6 @@ $(document).ready(function () {
      $('#updateSuccess').hide();
     // seLectedFile = event.target.files[0];
     $("#Submit").click(function(){
-
         $("#form").trigger("reset");
     });
 });
@@ -75,6 +74,6 @@ function addNews() {
         updates['/Admin/Post/'+ postKey] = postData;
         database.ref().update(updates);
         showStatesuccess();
-        setTimeout(5000);
+        setTimeout(2000);
     });
 }
