@@ -9,6 +9,8 @@ var config = {
 firebase.initializeApp(config);
 
 var seLectedFile;
+var Uid;
+
 initApp =  function() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -20,7 +22,7 @@ initApp =  function() {
             var uid = user.uid;
             var phoneNumber = user.phoneNumber;
             var providerData = user.providerData;
-
+            Uid = uid;
             document.getElementById("Name").innerHTML = "Hi Admin: " + displayName.toString();
             console.log(displayName);
         }
@@ -143,6 +145,13 @@ $(document).ready(function () {
      $("#Submit").click(function(){
          $("#form").trigger("reset");
       });
+    $("#btnOFS").show();
+    $("#btnSV").hide();
+    $('#StatusOn').show();
+    $('#StatusOn').text("Services");
+
+    // $('#StatusOff').hide();
+    // $('#StatusOff').text("Out Of Services");
 });
 
 function showStatesuccess() {
@@ -150,13 +159,28 @@ function showStatesuccess() {
 }
 
 function setOutofservice() {
+    $("#btnOFS").hide();
+    $("#btnSV").show();
     $('#updateOSV').show();
     $('#updateSV').hide();
+
+    $('#StatusOff').show();
+    $('#StatusOff').text("Out Of Services");
+    $('#StatusOn').hide();
+    // $('#StatusOff').text("Out Of Services");
+
 }
 
 function setService() {
+
+    $("#btnOFS").show();
+    $("#btnSV").hide();
     $('#updateOSV').hide();
     $('#updateSV').show();
+
+    $('#StatusOn').show();
+    $('#StatusOn').text("Services");
+    $('#StatusOff').hide();
 }
 
 function addNews() {
