@@ -39,7 +39,7 @@ $(document).ready(function () {
      $('#updateSuccess').hide();
     // seLectedFile = event.target.files[0];
     $("#Submit").click(function(){
-        setTimeout(3000);
+        setTimeout(5000);
         $("#form").trigger("reset");
     });
 });
