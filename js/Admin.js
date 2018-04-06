@@ -8,11 +8,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-
-
-
-
-
 var seLectedFile;
 initApp =  function() {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -38,21 +33,36 @@ window.addEventListener('load', function() {
     initApp();
 });
 
-var Tmp ;
+var Level ;
 var database = firebase.database();
 var ref = database.ref('Ultrasonic/');
 ref.on('value',function (snapshot){
         var Values = snapshot.val();
         var D1 = Values.Distance1;
-        Tmp = D1;
+        var D2 = Values.Distance2;
+        Level= D1;
+
+        // if(         ( D1 >= 45 && D1 <= 60 )  &&  ( D2 >= 23  && D2 <= 30 )  ){
+        //     Level = xxx;
+        // }
+        // else if(    ( D1 >= xxx && D1 <= xxx )  &&  ( D2 >= xxx  && D2 <= xxx )  ){
+        //     Level = xxx;
+        // }
+        // else if(    ( D1 >= xxx && D1 <= xxx )  &&  ( D2 >= xxx && D2 <= xxx )   ){
+        //     Level = xxx ;
+        // }
+        // else if(    ( D1 >= xxx && D1 <= xxx)  &&   ( D2 >= xxx && D2 <= xxx )   ){
+        //     Level = xxx ;
+        // }
+
         console.log(D1);
-        $("#Percent").text(D1 + "%");
+        $("#Percent").text(Level + "%");
 
     $("#pg1").css("width", "0px");
     $(function() {
         $("#pg1").each(function() {
             // var finalWidth = parseInt($(this).attr("aria-valuenow"));
-            var finalWidth = Tmp;
+            var finalWidth = Level;
             if(finalWidth >=0 && finalWidth<=25){
                 $('#pg1').show();
             }
@@ -68,7 +78,7 @@ ref.on('value',function (snapshot){
     $(function() {
         $("#pg2").each(function() {
             // var finalWidth = parseInt($(this).attr("aria-valuenow"));
-            var finalWidth = Tmp;
+            var finalWidth = Level;
             if(finalWidth >=26 && finalWidth<=50){
                 $('#pg2').show();
             }
@@ -83,7 +93,7 @@ ref.on('value',function (snapshot){
     $(function() {
         $("#pg3").each(function() {
             // var finalWidth = parseInt($(this).attr("aria-valuenow"));
-            var finalWidth = Tmp;
+            var finalWidth = Level;
             if(finalWidth >=51 && finalWidth<=75){
                 $('#pg3').show();
             }
@@ -98,8 +108,8 @@ ref.on('value',function (snapshot){
     $(function() {
         $("#pg4").each(function() {
             // var finalWidth = parseInt($(this).attr("aria-valuenow"));
-            var finalWidth = Tmp;
-            if(finalWidth >=76 && finalWidth<=100){
+            var finalWidth = Level;
+            if(finalWidth >=76 && finalWidth<=98){
                 $('#pg4').show();
             }
             else{
@@ -109,11 +119,27 @@ ref.on('value',function (snapshot){
         });
     });
 
-
+    $("#pg5").css("width", "0px")
+    $(function() {
+        $("#pg5").each(function() {
+            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
+            var finalWidth = Level;
+            if(finalWidth > 98){
+                $('#pg5').show();
+            }
+            else{
+                $('#pg5').hide();
+            }
+            $(this).css("width", "0px").animate({width: finalWidth+"%"}, 500);
+        });
+    });
 });
 
 $(document).ready(function () {
      $('#updateSuccess').hide();
+     $('#updateOSV').hide();
+     $('#updateSV').hide();
+     // $('#btnSV').hide();
      $("#Submit").click(function(){
          $("#form").trigger("reset");
       });
@@ -121,6 +147,16 @@ $(document).ready(function () {
 
 function showStatesuccess() {
     $('#updateSuccess').show();
+}
+
+function setOutofservice() {
+    $('#updateOSV').show();
+    $('#updateSV').hide();
+}
+
+function setService() {
+    $('#updateOSV').hide();
+    $('#updateSV').show();
 }
 
 function addNews() {
