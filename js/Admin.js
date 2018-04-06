@@ -39,7 +39,7 @@ $(document).ready(function () {
      $('#updateSuccess').hide();
     // seLectedFile = event.target.files[0];
     $("#Submit").click(function(){
-        setTimeout(5000);
+
         $("#form").trigger("reset");
     });
 });
@@ -75,5 +75,6 @@ function addNews() {
         updates['/Admin/Post/'+ postKey] = postData;
         database.ref().update(updates);
         showStatesuccess();
+        setTimeout(5000);
     });
 }
