@@ -17,10 +17,9 @@
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <script src="js/Admin.js"></script>
     <script type="text/javascript">
-
-
 
         // function Signout() {
         //     firebase.auth().signOut().then(function() {
@@ -87,7 +86,6 @@
                     <span class="nav-link-text">HARDWARE MANAGEMENT</span>
                 </a>
             </li>
-
         </ul>
 
         <ul class="navbar-nav sidenav-toggler">
@@ -125,54 +123,38 @@
             </li>
             <li class="breadcrumb-item active">HARDWARE MANAGEMENT</li>
         </ol>
-        <div class="alert alert-success" role="alert" id="updateSuccess">
-            UPDATE NEWS POST!!
-        </div>
         <!-- Card Columns Example Social Feed-->
         <div class="mb-0 mt-4">
-            <i class="fas fa-newspaper "> </i>   News Announce
+            <i class="fas fa-newspaper "> </i>   Hardware Management
         </div>
 
         <hr class="mt-2">
-
         <div class="row">
 
-            <div class="col col-sm-8   badge-light" style="margin: auto" >
-                <h3 style="margin-bottom:10px">Update News</h3>
-                <form  id="form">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Writen by</span>
-                        </div>
-                        <input type="text" class="form-control"  id="Writer">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Title</span>
-                        </div>
-                        <input type="text" class="form-control"  id="Title">
-                    </div>
-
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Detials</span>
-                        </div>
-                        <textarea class="form-control" aria-label="Details" id="Details" ></textarea>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <label for="Picturefile" style="margin-top: 5px">Add picture</label>
-                            <input type="file" class="form-control-file " id="Picturefile">
-                        </div>
-                    </form>
-                </form>
-                <div class="input-group" style="margin-top: 15px">
-                    <button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>
+            <div class="col col-sm text-center badge-dark" style="margin: 30px">
+                <br>
+                <h3>Tank level</h3>
+                <div>
+                    <h4 id="Percent" style="color: white"></h4>
                 </div>
+
+              <div class="col col-sm " >
+                  <div class="progress text-center" >
+                      <div class="progress-bar progress-bar-striped  bg-success progress-bar-animated "  id="pg1" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                      <div class="progress-bar progress-bar-striped  bg-primary progress-bar-animated "  id="pg2" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                      <div class="progress-bar progress-bar-striped  bg-warning progress-bar-animated "  id="pg3" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                      <div class="progress-bar progress-bar-striped  bg-danger  progress-bar-animated "  id="pg4" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+
+                  </div>
+              </div>
                 <br>
             </div>
 
+
+
         </div>
+
+
         <!-- /.content-wrapper-->
         <footer class="sticky-footer">
             <div class="container">

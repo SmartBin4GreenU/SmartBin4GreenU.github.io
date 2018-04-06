@@ -8,6 +8,11 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
+
+
+
+
 var seLectedFile;
 initApp =  function() {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -30,23 +35,93 @@ initApp =  function() {
     });
 };
 window.addEventListener('load', function() {
-    initApp()
+    initApp();
 });
 
+var Tmp ;
 var database = firebase.database();
+var ref = database.ref('Ultrasonic/');
+ref.on('value',function (snapshot){
+        var Values = snapshot.val();
+        var D1 = Values.Distance1;
+        Tmp = D1;
+        console.log(D1);
+        $("#Percent").text(D1 + "%");
+
+    $("#pg1").css("width", "0px");
+    $(function() {
+        $("#pg1").each(function() {
+            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
+            var finalWidth = Tmp;
+            if(finalWidth >=0 && finalWidth<=25){
+                $('#pg1').show();
+            }
+            else{
+                $('#pg1').hide();
+            }
+
+            $(this).css("width", "0px").animate({width: finalWidth+"%"}, 500);
+        });
+    });
+
+    $("#pg2").css("width", "0px")
+    $(function() {
+        $("#pg2").each(function() {
+            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
+            var finalWidth = Tmp;
+            if(finalWidth >=26 && finalWidth<=50){
+                $('#pg2').show();
+            }
+            else{
+                $('#pg2').hide();
+            }
+            $(this).css("width", "0px").animate({width: finalWidth+"%"}, 500);
+        });
+    });
+
+    $("#pg3").css("width", "0px")
+    $(function() {
+        $("#pg3").each(function() {
+            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
+            var finalWidth = Tmp;
+            if(finalWidth >=51 && finalWidth<=75){
+                $('#pg3').show();
+            }
+            else{
+                $('#pg3').hide();
+            }
+            $(this).css("width", "0px").animate({width: finalWidth+"%"}, 500);
+        });
+    });
+
+    $("#pg4").css("width", "0px")
+    $(function() {
+        $("#pg4").each(function() {
+            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
+            var finalWidth = Tmp;
+            if(finalWidth >=76 && finalWidth<=100){
+                $('#pg4').show();
+            }
+            else{
+                $('#pg4').hide();
+            }
+            $(this).css("width", "0px").animate({width: finalWidth+"%"}, 500);
+        });
+    });
+
+
+});
 
 $(document).ready(function () {
      $('#updateSuccess').hide();
-    // seLectedFile = event.target.files[0];
-    $("#Submit").click(function(){
-        $("#form").trigger("reset");
-    });
+     $("#Submit").click(function(){
+         $("#form").trigger("reset");
+      });
 });
 
 function showStatesuccess() {
     $('#updateSuccess').show();
 }
-
 
 function addNews() {
     var Writer =  $('#Writer').val();
@@ -70,10 +145,11 @@ function addNews() {
             Title : Title,
             Details: Details,
             Img_Url : downLoadURL
-        }
+        };
         updates['/Admin/Post/'+ postKey] = postData;
         database.ref().update(updates);
         showStatesuccess();
         setTimeout(2000);
     });
 }
+
