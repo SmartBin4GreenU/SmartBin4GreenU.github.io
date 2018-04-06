@@ -45,88 +45,24 @@ function writeUserData(userId, name, email, imageUrl) {
         SBNumber: "SB1"
     });
     firebase.database().ref('LogUser/').child('Lasted').set({
-        Uid : userId,
+        Uid: userId,
         SBNumber: "SB1",
         StatusDevice: parseInt(1)
     });
 
-    var d= new Date();
-
-   // firebase.database().ref().child('posts').push().key;
+    var d = new Date();
+    // firebase.database().ref().child('posts').push().key;
 
     firebase.database().ref('Log/').child('Time').push({
         Uid: userId,
         SBNumber: "SB1",
-        Time : d.toString().substr(0,24)
+        Time: d.toString().substr(0, 24)
 
 
     });
+}
 
-
-    // var recentPostsRef = firebase.database().ref('Log').orderByChild('Time').val();
-    // var ref = firebase.database().ref("Log/Time");
-    // ref.once("value").then(function(snapshot) {
-    // var recentPostsRef  = snapshot.child("Log/Time").val();
-    // console.log(recentPostsRef);
-    // });
-
-    // firebase.database().ref("/Log/Time").once('value', function(snapshot){
-    //
-    //     if(snapshot.exists()){
-    //         snapshot.forEach(function(data){
-    //             var val = data.val().order;
-    //             console.log(val);
-    //         });
-    //     }
-    // });
-
-
-    // var ref = firebase.database().ref("Log");
-    // ref.orderByChild("Time").on("child_added", function(snapshot) {
-    //     console.log(snapshot.key,snapshot.val());
-    //     console.log(snapshot.length,);
-    // // });
-    // var ref = firebase.database().ref("Log/Time");
-    // ref.orderByValue().on("child_added", function(snapshot) {
-    //     console.log(snapshot.key,snapshot.val());
-    //     // console.log(snapshot.length());
-    // });
-
-
-//    firebase.database.ref('Log/').once('value', function(snapshot){
- }
-
-// var offsetRef = firebase.database().ref(".info/serverTimeOffset");
-// offsetRef.on("value", function(snap) {
-//     var offset = snap.val();
-//     var estimatedServerTimeMs = new Date().getTime() + offset;
-// });
-
-// // since I can connect from multiple devices or browser tabs, we store each connection instance separately
-// // any time that connectionsRef's value is null (i.e. has no children) I am offline
-// var myConnectionsRef = firebase.database().ref('users/joe/connections');
-//
-// // stores the timestamp of my last disconnect (the last time I was seen online)
-// var lastOnlineRef = firebase.database().ref('users/joe/lastOnline');
-//
-// var connectedRef = firebase.database().ref('.info/connected');
-// connectedRef.on('value', function(snap) {
-//     if (snap.val() === true) {
-//         // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
-//         var con = myConnectionsRef.push();
-//
-//         // When I disconnect, remove this device
-//         con.onDisconnect().remove();
-//
-//         // Add this device to my connections list
-//         // this value could contain info about the device or a timestamp too
-//         con.set(true);
-//
-//         // When I disconnect, update the last time I was seen online
-//         lastOnlineRef.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
-//     }
-// });
-function Signout() {
+function Signout(){
     firebase.auth().signOut().then(function() {
             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
                 Status : parseInt(0)

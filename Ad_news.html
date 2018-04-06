@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>NEWS</title>
+    <title>Admin_news</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -17,42 +17,10 @@
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+    <script src="js/Admin.js"></script>
     <script type="text/javascript">
 
-        var config = {
-            apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
-            authDomain: "sb-fgu.firebaseapp.com",
-            databaseURL: "https://sb-fgu.firebaseio.com",
-            projectId: "sb-fgu",
-            storageBucket: "sb-fgu.appspot.com",
-            messagingSenderId: "368024117056"
-        };
-        firebase.initializeApp(config);
 
-        initApp =  function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var uid = user.uid;
-                    var phoneNumber = user.phoneNumber;
-                    var providerData = user.providerData;
-
-                    document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-                    console.log(displayName);
-                }
-            }, function(error) {
-                console.log(error);
-                alert("Some Thing Worng! please login agian");
-            });
-        };
-        window.addEventListener('load', function() {
-            initApp()
-        });
 
         // function Signout() {
         //     firebase.auth().signOut().then(function() {
@@ -83,7 +51,7 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">SmartBin4GreenU</a>
+    <a class="navbar-brand" href="AdminHome.html">SmartBin4GreenU</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -96,37 +64,25 @@
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Verify Code">
-                <a class="nav-link" href="confirm.html">
-                    <i class="fa fas fa-key"></i>
-                    <span class="nav-link-text">VERIFY CODE</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="View Data">
-                <a class="nav-link" href="data.html">
-                    <i class="fa fa-fw fa-list"></i>
-                    <span class="nav-link-text">VIEW DATA</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Profiles">
-                <a class="nav-link" href="proflies.html">
-                    <i class="fa fa-user"></i>
-                    <span class="nav-link-text">PROFILES</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="News">
-                <a class="nav-link" href="news.html">
-                    <i class="fas fa-newspaper"></i>
+                <a class="nav-link" href="Ad_news.html">
+                    <i class="fas fa-bullhorn"></i>
                     <span class="nav-link-text">NEWS</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Contact">
-                <a class="nav-link" href="contact.html">
-                    <i class="fas fa-envelope"></i>
-                    <span class="nav-link-text">CONTACT US</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="View Data">
+                <a class="nav-link" href="">
+                    <i class="fa fa-fw fa-list"></i>
+                    <span class="nav-link-text">DATA MANAGEMENT</span>
                 </a>
             </li>
-        </ul>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Profiles">
+                <a class="nav-link" href="">
+                    <i class="fa fa-user"></i>
+                    <span class="nav-link-text">USER MANAGEMENT</span>
+                </a>
+            </li>
 
+        </ul>
 
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
@@ -140,7 +96,7 @@
             <li class="nav-item">
                 <form class="form-inline my-2 my-lg-0 mr-lg-2">
                     <div class="input-group">
-                        <a class="nav-link text-uppercase" id="Name"></a>
+                        <a class="nav-link " id="Name"></a>
                     </div>
                 </form>
             </li>
@@ -159,50 +115,62 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="Homepage.html">HOME</a>
+                <a href="AdminHome.html">HOME</a>
             </li>
             <li class="breadcrumb-item active">NEWS</li>
         </ol>
-
+        <div class="alert alert-success" role="alert" id="updateSuccess">
+            UPDATE NEWS POST!!
+        </div>
         <!-- Card Columns Example Social Feed-->
         <div class="mb-0 mt-4">
-            <i class="fas fa-newspaper"></i> News Feed
+            <i class="fas fa-newspaper "> </i>   News Announce
         </div>
+
         <hr class="mt-2">
-        <div class="col-sm-12" style="margin-left: 5px">
-            <h1>Hi Hello World1</h1>
-            <hr class="mt-2">
-        </div>
-        <div class="col-sm-12" style="margin-left: 5px">
-            <h1>Hi Hello World2</h1>
-            <hr class="mt-2">
-        </div>
 
-        <div class="col-sm">
-            <div id="fb-root"></div>
-            <script>(function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=243167542889301&autoLogAppEvents=1';
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-            </script>
-            <div class="fb-page" data-href="https://www.facebook.com/SmartBin4GreenU-Community-1549410541774287/" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SmartBin4GreenU-Community-1549410541774287/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SmartBin4GreenU-Community-1549410541774287/">SmartBin4GreenU Community</a></blockquote></div>
-        </div>
+      <div class="row">
 
-        <!-- /.content-wrapper-->
-        <footer class="sticky-footer">
-            <div class="container">
-                <div class="text-center">
-                    <small>Copyright <i class="fas fa-copyright"></i> SmartBin4GreenU 2017-2018</small>
-                </div>
-            </div>
-        </footer>
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fa fa-angle-up"></i>
-        </a>
+         <div class="col col-sm-8   badge-light" style="margin: auto" >
+            <h3 style="margin-bottom:10px">Update News</h3>
+             <form  id="form">
+                     <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                             <span class="input-group-text">Writen by</span>
+                         </div>
+                         <input type="text" class="form-control"  id="Writer">
+                     </div>
+                     <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                             <span class="input-group-text">Title</span>
+                         </div>
+                         <input type="text" class="form-control"  id="Title">
+                     </div>
+
+                     <div class="input-group">
+                         <div class="input-group-prepend">
+                             <span class="input-group-text">Detials</span>
+                         </div>
+                         <textarea class="form-control" aria-label="Details" id="Details" ></textarea>
+                     </div>
+                     <form>
+                         <div class="form-group">
+                             <label for="Picturefile" style="margin-top: 5px">Add picture</label>
+                             <input type="file" class="form-control-file " id="Picturefile">
+                         </div>
+                     </form>
+             </form>
+             <div class="input-group" style="margin-top: 15px">
+                 <button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>
+             </div>
+             <br>
+         </div>
+
+
+
+      </div>
+
+
 
 
         <!-- Logout Modal-->
@@ -234,21 +202,11 @@
         <script src="js/sb-admin.min.js"></script>
         <!-- Custom scripts for this page-->
 
-
         <!-- Toggle between fixed and static navbar-->
         <script>
             $('#toggleNavPosition').click(function() {
                 $('body').toggleClass('fixed-nav');
                 $('nav').toggleClass('fixed-top static-top');
-            });
-
-        </script>
-        <!-- Toggle between dark and light navbar-->
-        <script>
-            $('#toggleNavColor').click(function() {
-                $('nav').toggleClass('navbar-dark navbar-light');
-                $('nav').toggleClass('bg-dark bg-light');
-                $('body').toggleClass('bg-dark bg-light');
             });
 
         </script>
