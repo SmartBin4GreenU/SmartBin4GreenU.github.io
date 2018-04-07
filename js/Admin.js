@@ -6,11 +6,10 @@ var config = {
     storageBucket: "sb-fgu.appspot.com",
     messagingSenderId: "368024117056"
 };
-firebase.initializeApp(config);
+firebase.initializeApp(config)
 
 var seLectedFile;
 var Uid;
-
 initApp =  function() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -157,7 +156,6 @@ ref1.on('value',function (snapshot){
              $('#StatusOn').hide();
              $("#btnOFS").hide();
              $("#btnSV").show();
-
          }
 });
 
@@ -177,18 +175,19 @@ ref2.on("value", function(snapshot) {
         });
     });
 
-    
-$(document).ready(function () {
-      $('#hideUid').show();
-      $('#clicktoUnhideuid').hide()
 
+$(document).ready(function () {
      $('#updateSuccess').hide();
      $('#updateOSV').hide();
-     $('#updateSV').hide();
+    $('#updateOSV').hide();
+     $('#editBar').hide();
+     $('#delBar').hide();
      // $('#btnSV').hide();
      $("#Submit").click(function(){
          $("#form").trigger("reset");
       });
+
+
     $("#btnOFS").show();
     $("#btnSV").hide();
     $('#StatusOn').show();
@@ -208,18 +207,6 @@ $(document).ready(function () {
             Uid : Uid
         });
     });
-    $('#clicktoHideuid').click(function () {
-        $('#hideUid').hide();
-        $('#clicktoHideuid').hide()
-        $('#clicktoUnhideuid').show()
-
-    });
-    $('#clicktoUnhideuid').click(function () {
-        $('#hideUid').show();
-        $('#clicktoHideuid').show()
-        $('#clicktoUnhideuid').hide()
-    });
-
 });
 
 function showStatesuccess() {
@@ -228,17 +215,26 @@ function showStatesuccess() {
 
 function Edit(UID){
     console.log(UID);
-    firebase.database().ref('users/'+ UID).set({
-        SBNumber : "SB1",
-        StatusDevice : parseInt(2),
-        Uid : Uid
-    });
-    
+    console.log("Edit");
+    $('#editBar').show();
+    $('#delBar').hide();
+    alert("Edit");
+    // firebase.database().ref('users/'+ UID).update({
+    //     SBNumber : "SB1",
+    //     email : parseInt(2),
+    //     profile_picture :  ,
+    //     uid : UID,
+    //     username :
+    // });
 }
 
 function Delete(UID){
     console.log(UID);
-    firebase.database().ref('users/'+ UID).remove();
+    console.log("Delete");
+    $('#delBar').show();
+    $('#editBar').hide();
+    alert("Delete");
+    // firebase.database().ref('users/'+ UID).remove();
 }
 function outOfservice() {
     console.log("OUT OF SERVICE");
@@ -292,16 +288,19 @@ function addNews() {
         var postKey = database.ref('/Admin/Post/').push().key;
         var downLoadURL = uploadTask.snapshot.downloadURL;
         var updates = {};
+        var date = new Date();
         var postData = {
             Writer : Writer,
             Title : Title,
             Details: Details,
-            Img_Url : downLoadURL
+            Img_Url : downLoadURL,
+            Time : date.toString().substr(0, 24)
         };
+        console.log(date.toString().substr(0, 24));
         updates['/Admin/Post/'+ postKey] = postData;
         database.ref().update(updates);
         showStatesuccess();
-        setTimeout(2000);
+        setTimeout(500);
     });
 }
 

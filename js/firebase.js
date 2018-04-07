@@ -44,7 +44,8 @@ function writeUserData(userId, name, email, imageUrl) {
         username: name,
         email: email,
         profile_picture: imageUrl,
-        SBNumber: "SB1"
+        SBNumber: "SB1",
+        uid : userId
     });
     firebase.database().ref('LogUser/').child('Lasted').set({
         Uid: userId,
