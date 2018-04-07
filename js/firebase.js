@@ -10,6 +10,8 @@ firebase.initializeApp(config);
 
 
 var database = firebase.database();
+
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.

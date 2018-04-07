@@ -43,7 +43,6 @@ ref.on('value',function (snapshot){
         var D1 = Values.Distance1;
         var D2 = Values.Distance2;
         Level= D1;
-
         // if(         ( D1 >= 45 && D1 <= 60 )  &&  ( D2 >= 23  && D2 <= 30 )  ){
         //     Level = xxx;
         // }
@@ -63,7 +62,6 @@ ref.on('value',function (snapshot){
     $("#pg1").css("width", "0px");
     $(function() {
         $("#pg1").each(function() {
-            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
             var finalWidth = Level;
             if(finalWidth >=0 && finalWidth<=25){
                 $('#pg1').show();
@@ -79,7 +77,6 @@ ref.on('value',function (snapshot){
     $("#pg2").css("width", "0px")
     $(function() {
         $("#pg2").each(function() {
-            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
             var finalWidth = Level;
             if(finalWidth >=26 && finalWidth<=50){
                 $('#pg2').show();
@@ -94,7 +91,6 @@ ref.on('value',function (snapshot){
     $("#pg3").css("width", "0px")
     $(function() {
         $("#pg3").each(function() {
-            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
             var finalWidth = Level;
             if(finalWidth >=51 && finalWidth<=75){
                 $('#pg3').show();
@@ -109,7 +105,6 @@ ref.on('value',function (snapshot){
     $("#pg4").css("width", "0px")
     $(function() {
         $("#pg4").each(function() {
-            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
             var finalWidth = Level;
             if(finalWidth >=76 && finalWidth<=98){
                 $('#pg4').show();
@@ -124,7 +119,6 @@ ref.on('value',function (snapshot){
     $("#pg5").css("width", "0px")
     $(function() {
         $("#pg5").each(function() {
-            // var finalWidth = parseInt($(this).attr("aria-valuenow"));
             var finalWidth = Level;
             if(finalWidth > 98){
                 $('#pg5').show();
@@ -136,6 +130,29 @@ ref.on('value',function (snapshot){
         });
     });
 });
+
+var ref1 = database.ref('LogUser/Lasted/');
+ref1.on('value',function (snapshot){
+    var Values = snapshot.val();
+    var Status = Values.StatusDevice;
+    console.log(Status);
+         if(Status == 0){
+             $('#StatusOn').show();
+             $('#StatusOn').text("Services");
+             $('#StatusOff').hide();
+             $("#btnOFS").show();
+             $("#btnSV").hide();
+         }
+         else if(Status == 2 ){
+             $('#StatusOff').show();
+             $('#StatusOff').text("Out Of Services");
+             $('#StatusOn').hide();
+             $("#btnOFS").hide();
+             $("#btnSV").show();
+
+         }
+});
+
 
 $(document).ready(function () {
      $('#updateSuccess').hide();
@@ -150,15 +167,18 @@ $(document).ready(function () {
     $('#StatusOn').show();
     $('#StatusOn').text("Services");
 
-    // $('#StatusOff').hide();
-    // $('#StatusOff').text("Out Of Services");
+
 });
 
 function showStatesuccess() {
     $('#updateSuccess').show();
 }
 
+
+
+
 function setOutofservice() {
+    console.log("OUT OF SERVICE")
     $("#btnOFS").hide();
     $("#btnSV").show();
     $('#updateOSV').show();
@@ -167,12 +187,17 @@ function setOutofservice() {
     $('#StatusOff').show();
     $('#StatusOff').text("Out Of Services");
     $('#StatusOn').hide();
-    // $('#StatusOff').text("Out Of Services");
+    firebase.database().ref('LogUser/Lasted/').set({
+        SBNumber : "SB1",
+        StatusDevice : parseInt(2),
+        Uid : Uid
+    });
+
 
 }
 
 function setService() {
-
+    console.log("SERVICE")
     $("#btnOFS").show();
     $("#btnSV").hide();
     $('#updateOSV').hide();
@@ -181,6 +206,11 @@ function setService() {
     $('#StatusOn').show();
     $('#StatusOn').text("Services");
     $('#StatusOff').hide();
+    firebase.database().ref('LogUser/').child('Lasted/').set({
+        SBNumber : "SB1",
+        StatusDevice : parseInt(0),
+        Uid : Uid
+    });
 }
 
 function addNews() {
