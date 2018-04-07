@@ -46,13 +46,8 @@
 
                     document.getElementById("Username").innerHTML = displayName.toString();
                     document.getElementById("Email").innerHTML =  email.toString();
-                    //console.log(displayName ,email);
-
                     document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-                    // document.getElementById("Name1").innerHTML = "Hi   "+  displayName.toString();
-
-
-                     document.getElementById("image1").src= photoURL;
+                    document.getElementById("image1").src= photoURL;
                     Uid = uid;
 
 
@@ -70,19 +65,14 @@
                         var val = data.val();
                         var User = val.UID;
                         var Bottle = val.Logbottle;
-
                         if(Uid == User){
-
                             if( val.Logbottle != 0) {
                                 SUM += Bottle;
-                                // console.log(val.Logbottle );
-                                // console.log(SUM);
                             }
                         }
                     });
                 }
                 document.getElementById("totalbot").innerHTML =  SUM.toString();
-
                 SUM = 0;
             });
         };
@@ -91,7 +81,6 @@
             Getdata();
             Get_time();
         });
-
 
         function Signout() {
             firebase.auth().signOut().then(function() {
@@ -113,7 +102,6 @@
                 function(error) {
                     console.error('Sign Out Error', error);
                 });
-
         }
 
     // var max = 0;
@@ -126,33 +114,15 @@
                         var val = data.val();
                         var User_ID = val.Uid;
                         var Time = val.Time;
-
-                        // console.log(val.Uid.toString() , val.Time.toString());
-                        // var Bottle = val.Logbottle;
                         if(Uid ==  User_ID ) {
-                            // max++;
                             if (Time != null) {
                                 document.getElementById("Time").innerHTML = Time.toString();
-                                //
-                                // var ref = firebase.database().ref("Log");
-                                // ref.orderByChild("Time").equalTo( Time.toString().substr(4,6)).on("child_added", function(snapshot) {
-                                //     console.log(snapshot.key,snapshot.val());
-                                //     // console.log(snapshot.length());
-                                // });
                             }
                         }
                     });
-                    // max = 0;
                 }
-
             });
-
         }
-
-        // window.addEventListener('load', function() {
-        //     Getdata();
-        // });
-
     </script>
 
 </head>
@@ -242,7 +212,6 @@
       </ol>
 
 
-
         <h4 class="text-justify text-uppercase" style="text-shadow: #868e96;"><strong>Information</strong></h4>
         <hr>
             <div class="card-mb-3 badge-light ">
@@ -313,7 +282,6 @@
       </div>
     </div>
 
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -323,25 +291,10 @@
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
 
-
     <!-- Toggle between fixed and static navbar-->
-    <script>
-    $('#toggleNavPosition').click(function() {
-      $('body').toggleClass('fixed-nav');
-      $('nav').toggleClass('fixed-top static-top');
-    });
-
-    </script>
-    <!-- Toggle between dark and light navbar-->
-    <script>
-    $('#toggleNavColor').click(function() {
-      $('nav').toggleClass('navbar-dark navbar-light');
-      $('nav').toggleClass('bg-dark bg-light');
-      $('body').toggleClass('bg-dark bg-light');
-    });
-
-    </script>
+    </div>
   </div>
-</body>
+ </body>
+
 
 </html>

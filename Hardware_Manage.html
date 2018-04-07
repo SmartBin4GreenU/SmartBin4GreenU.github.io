@@ -123,7 +123,7 @@
         </ol>
         <!-- Card Columns Example Social Feed-->
         <div class="mb-0 mt-4">
-            <i class="fas fa-newspaper "> </i>   Hardware Management
+            <i class="fas fa-cog"></i>   Hardware Management
         </div>
 
         <hr class="mt-2">
@@ -132,15 +132,24 @@
             <div class="alert alert-success" role="alert" id="updateOSV">SET OUT OF SERVICE SECCESS!!</div>
             <div class="alert alert-success" role="alert" id="updateSV">SET SERVICE SECCESS!!</div>
         </div>
+        <!--<div>-->
+            <!--<div class="alert alert-warning" role="alert" id="StatusBar">-->
+                <!--<h4 class="alert-heading">Status Meaning</h4>-->
+                 <!--<h6 style="color: greenyellow">Service</h6> Online-->
+                 <!--<h6 style="color: red">Out Of Service</h6>  Offline-->
+                <!--<hr>-->
+                <!--<p class="mb-0"></p>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="row">
             <div class="col col-sm text-center badge-dark" style="margin: 30px">
                 <br>
 
-                    <h3><i class="fas fa-trash-alt"></i>  Trash Level</h3>
+                    <h2><i class="fas fa-trash-alt"></i>  Trash Level</h2>
 
                 <div>
-                   <h4 id="Percent" style="color: white"></h4>
+                   <h4 id="Percent"></h4>
                 </div>
                 <div class="col col-sm " >
                   <div class="progress text-center" >
@@ -153,14 +162,14 @@
                 </div>
                 <br>
                 <div>
-                    <button class=" btn btn-danger"  style="margin: 5px" type="button" id="btnOFS" onclick="setOutofservice()">OUT OF SERVICE</button>
 
-                    <button class=" btn btn-success" style="margin: 5px" type="button" id="btnSV" onclick="setService()">SERVICE</button>
+                    <button class=" btn btn-danger"  style="margin: 5px" type="button" id="btnOFS"  onclick="outOfservice()">OUT OF SERVICE</button>
+                    <button class=" btn btn-success" style="margin: 5px" type="button" id="btnSV"  onclick="Service()" >SERVICE</button>
+                    <br>
                 </div>
                 <br>
                 <div>
-
-                        <h3><i class="far fa-lightbulb" ></i>  Trash Status</h3>
+                        <h2><i class="far fa-lightbulb" ></i>  Trash Status</h2>
                     <div>
                          <h5 id="StatusOn"  style="color: greenyellow"></h5>
                          <h5 id="StatusOff" style="color: red"></h5>

@@ -125,52 +125,40 @@
             </li>
             <li class="breadcrumb-item active">USER MANAGEMENT</li>
         </ol>
-        <div class="alert alert-success" role="alert" id="updateSuccess">
-            UPDATE NEWS POST!!
-        </div>
+
         <!-- Card Columns Example Social Feed-->
         <div class="mb-0 mt-4">
-            <i class="fas fa-newspaper "> </i>   News Announce
+            <i class="fa fa-user"></i>   USER MANAGEMENT
         </div>
 
         <hr class="mt-2">
 
         <div class="row">
-
-            <div class="col col-sm-8   badge-light" style="margin: auto" >
-                <h3 style="margin-bottom:10px">Update News</h3>
-                <form  id="form">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Writen by</span>
-                        </div>
-                        <input type="text" class="form-control"  id="Writer">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Title</span>
-                        </div>
-                        <input type="text" class="form-control"  id="Title">
-                    </div>
-
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Detials</span>
-                        </div>
-                        <textarea class="form-control" aria-label="Details" id="Details" ></textarea>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <label for="Picturefile" style="margin-top: 5px">Add picture</label>
-                            <input type="file" class="form-control-file " id="Picturefile">
-                        </div>
-                    </form>
-                </form>
-                <div class="input-group" style="margin-top: 15px">
-                    <button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>
+            <div class="col col-sm">
+                <div class="text-sm-right">
+                    <button class="btn bg-warning" style="margin-bottom: 5px" id="clicktoHideuid"> Hide UID</button>
+                    <button class="btn bg-success" style="margin-bottom: 5px" id="clicktoUnhideuid"> UnHide UID</button>
                 </div>
-                <br>
+
+               <div class="table-responsive">
+                    <table class="table table-hover table-light " style="width:100%" id="ex-table">
+                        <thead>
+                        <tr id="tr">
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th id="hideUid">UID</th>
+                            <th>EMAIL</th>
+                            <th>EDIT</th>
+                            <th>DELETE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+               </div>
             </div>
+            <hr class="mt-2">
 
         </div>
 

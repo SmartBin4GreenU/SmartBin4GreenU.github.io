@@ -37,33 +37,41 @@ window.addEventListener('load', function() {
 
 var Level ;
 var database = firebase.database();
+
 var ref = database.ref('Ultrasonic/');
 ref.on('value',function (snapshot){
         var Values = snapshot.val();
         var D1 = Values.Distance1;
         var D2 = Values.Distance2;
-        Level= D1;
-        // if(         ( D1 >= 45 && D1 <= 60 )  &&  ( D2 >= 23  && D2 <= 30 )  ){
-        //     Level = xxx;
-        // }
-        // else if(    ( D1 >= xxx && D1 <= xxx )  &&  ( D2 >= xxx  && D2 <= xxx )  ){
-        //     Level = xxx;
-        // }
-        // else if(    ( D1 >= xxx && D1 <= xxx )  &&  ( D2 >= xxx && D2 <= xxx )   ){
-        //     Level = xxx ;
-        // }
-        // else if(    ( D1 >= xxx && D1 <= xxx)  &&   ( D2 >= xxx && D2 <= xxx )   ){
-        //     Level = xxx ;
-        // }
 
-        console.log(D1);
-        $("#Percent").text(Level + "%");
+        /********************************** Find Volume ************************************/
+        var pi = 3.14;
+        // var r = D2/2;
+         var h = D1;
+
+        var h_max = 60;
+        var w_max = 30;
+        var volume = ( ( pi * w_max/2 ) * ( pi * w_max/2 ) )* h_max;
+        Level =      ( ( ( pi *  w_max/2 ) * ( pi *  w_max/2) ) * h / volume) * 100 ;
+        /***********************************************************************************/
+        if(Level >= 100){
+            Level =  100 - Level;
+        }
+        else{
+            Level = 100 - Level;
+        }
+        // console.log("R : " + r);
+        // console.log("Vol :" + volume);
+        // console.log("Level :" + parseInt(Level));
+
+        $("#Percent").text(parseInt(Level) + " %");
 
     $("#pg1").css("width", "0px");
     $(function() {
         $("#pg1").each(function() {
-            var finalWidth = Level;
+            var finalWidth = parseInt(Level);
             if(finalWidth >=0 && finalWidth<=25){
+                // if(finalWidth >=0 && finalWidth<=25){
                 $('#pg1').show();
             }
             else{
@@ -74,10 +82,10 @@ ref.on('value',function (snapshot){
         });
     });
 
-    $("#pg2").css("width", "0px")
+    $("#pg2").css("width", "0px");
     $(function() {
         $("#pg2").each(function() {
-            var finalWidth = Level;
+            var finalWidth = parseInt(Level);
             if(finalWidth >=26 && finalWidth<=50){
                 $('#pg2').show();
             }
@@ -88,10 +96,10 @@ ref.on('value',function (snapshot){
         });
     });
 
-    $("#pg3").css("width", "0px")
+    $("#pg3").css("width", "0px");
     $(function() {
         $("#pg3").each(function() {
-            var finalWidth = Level;
+            var finalWidth = parseInt(Level);
             if(finalWidth >=51 && finalWidth<=75){
                 $('#pg3').show();
             }
@@ -102,11 +110,11 @@ ref.on('value',function (snapshot){
         });
     });
 
-    $("#pg4").css("width", "0px")
+    $("#pg4").css("width", "0px");
     $(function() {
         $("#pg4").each(function() {
-            var finalWidth = Level;
-            if(finalWidth >=76 && finalWidth<=98){
+            var finalWidth = parseInt(Level);
+            if(finalWidth >=76 && finalWidth<=95){
                 $('#pg4').show();
             }
             else{
@@ -116,11 +124,11 @@ ref.on('value',function (snapshot){
         });
     });
 
-    $("#pg5").css("width", "0px")
+    $("#pg5").css("width", "0px");
     $(function() {
         $("#pg5").each(function() {
-            var finalWidth = Level;
-            if(finalWidth > 98){
+            var finalWidth = parseInt(Level);
+            if(finalWidth > 95){
                 $('#pg5').show();
             }
             else{
@@ -135,7 +143,7 @@ var ref1 = database.ref('LogUser/Lasted/');
 ref1.on('value',function (snapshot){
     var Values = snapshot.val();
     var Status = Values.StatusDevice;
-    console.log(Status);
+    // console.log(Status);
          if(Status == 0){
              $('#StatusOn').show();
              $('#StatusOn').text("Services");
@@ -153,8 +161,27 @@ ref1.on('value',function (snapshot){
          }
 });
 
+var ref2 = firebase.database().ref('users/');
+ref2.on("value", function(snapshot) {
+    var Val = snapshot.val();
+    var num = 0;
+    Object.keys(Val).map(function (key) {
+        $('tbody').append('<tr>' +
+            '<td>' + ++num +'</td>' +
+            '<td>' + Val[key].username +'</td>' +
+            '<td>' + key +'</td>' +
+            '<td>' + Val[key].email + '</td>' +
+            '<td>' + '<button class="btn btn-primary" onclick="Edit(\''+ key +'\')">Edit</button>' + '</td>' +
+            '<td>' + '<button class="btn btn-danger"  onclick="Delete(\''+ key +'\')">Delete</button>' + '</td>' +
+            '</tr>')
+        });
+    });
 
+    
 $(document).ready(function () {
+      $('#hideUid').show();
+      $('#clicktoUnhideuid').hide()
+
      $('#updateSuccess').hide();
      $('#updateOSV').hide();
      $('#updateSV').hide();
@@ -167,6 +194,31 @@ $(document).ready(function () {
     $('#StatusOn').show();
     $('#StatusOn').text("Services");
 
+    $('#btnOFS').click(function () {
+        firebase.database().ref('LogUser/Lasted/').set({
+            SBNumber : "SB1",
+            StatusDevice : parseInt(2),
+            Uid : Uid
+        });
+    });
+    $('#btnSV').click(function () {
+        firebase.database().ref('LogUser/Lasted/').set({
+            SBNumber : "SB1",
+            StatusDevice : parseInt(0),
+            Uid : Uid
+        });
+    });
+    $('#clicktoHideuid').click(function () {
+        $('#hideUid').hide();
+        $('#clicktoHideuid').hide()
+        $('#clicktoUnhideuid').show()
+
+    });
+    $('#clicktoUnhideuid').click(function () {
+        $('#hideUid').show();
+        $('#clicktoHideuid').show()
+        $('#clicktoUnhideuid').hide()
+    });
 
 });
 
@@ -174,11 +226,27 @@ function showStatesuccess() {
     $('#updateSuccess').show();
 }
 
+function Edit(UID){
+    console.log(UID);
+    firebase.database().ref('users/'+ UID).set({
+        SBNumber : "SB1",
+        StatusDevice : parseInt(2),
+        Uid : Uid
+    });
+    
+}
 
-
-
-function setOutofservice() {
-    console.log("OUT OF SERVICE")
+function Delete(UID){
+    console.log(UID);
+    firebase.database().ref('users/'+ UID).remove();
+}
+function outOfservice() {
+    console.log("OUT OF SERVICE");
+    firebase.database().ref('LogUser/Lasted/').set({
+        SBNumber : "SB1",
+        StatusDevice : parseInt(2),
+        Uid : Uid
+    });
     $("#btnOFS").hide();
     $("#btnSV").show();
     $('#updateOSV').show();
@@ -187,17 +255,15 @@ function setOutofservice() {
     $('#StatusOff').show();
     $('#StatusOff').text("Out Of Services");
     $('#StatusOn').hide();
-    firebase.database().ref('LogUser/Lasted/').set({
-        SBNumber : "SB1",
-        StatusDevice : parseInt(2),
-        Uid : Uid
-    });
-
-
 }
 
-function setService() {
-    console.log("SERVICE")
+function Service() {
+    console.log("SERVICE");
+    firebase.database().ref('LogUser/Lasted/').set({
+        SBNumber : "SB1",
+        StatusDevice : parseInt(0),
+        Uid : Uid
+    });
     $("#btnOFS").show();
     $("#btnSV").hide();
     $('#updateOSV').hide();
@@ -206,12 +272,8 @@ function setService() {
     $('#StatusOn').show();
     $('#StatusOn').text("Services");
     $('#StatusOff').hide();
-    firebase.database().ref('LogUser/').child('Lasted/').set({
-        SBNumber : "SB1",
-        StatusDevice : parseInt(0),
-        Uid : Uid
-    });
 }
+
 
 function addNews() {
     var Writer =  $('#Writer').val();
