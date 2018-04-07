@@ -179,7 +179,7 @@ ref2.on("value", function(snapshot) {
 $(document).ready(function () {
      $('#updateSuccess').hide();
      $('#updateOSV').hide();
-    $('#updateOSV').hide();
+     $('#updateSV').hide();
      $('#editBar').hide();
      $('#delBar').hide();
      // $('#btnSV').hide();
