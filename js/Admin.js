@@ -40,16 +40,15 @@ var database = firebase.database();
 var ref = database.ref('Ultrasonic/');
 ref.on('value',function (snapshot){
         var Values = snapshot.val();
-        var D1 = Values.Distance1;
-        var D2 = Values.Distance2;
-
+        var Distance = Values.Distance1;
+        var h_max = Values.Hight;
+        var w_max = Values.Raduis;
         /********************************** Find Volume ************************************/
         var pi = 3.14;
-        // var r = D2/2;
-         var h = D1;
-
-        var h_max = 60;
-        var w_max = 30;
+        var h = Distance;
+        if(Distance >= h_max ){
+           h = h_max;
+        }
         var volume = ( ( pi * w_max/2 ) * ( pi * w_max/2 ) )* h_max;
         Level =      ( ( ( pi *  w_max/2 ) * ( pi *  w_max/2) ) * h / volume) * 100 ;
         /***********************************************************************************/
@@ -177,16 +176,22 @@ ref2.on("value", function(snapshot) {
 
 
 $(document).ready(function () {
-     $('#updateSuccess').hide();
-     $('#updateOSV').hide();
-     $('#updateSV').hide();
-     $('#editBar').hide();
-     $('#delBar').hide();
-     // $('#btnSV').hide();
+      $('#updateSuccess').hide();
+
+      $('#updateOSV').hide();
+      $('#updateSV').hide();
+
+      $('#editBar').hide();
+      $('#delBar').hide();
+
+
      $("#Submit").click(function(){
          $("#form").trigger("reset");
       });
 
+     $("#SetupTank").click(function(){
+        $("#Setup").trigger("reset");
+    });
 
     $("#btnOFS").show();
     $("#btnSV").hide();
@@ -213,6 +218,13 @@ function showStatesuccess() {
     $('#updateSuccess').show();
 }
 
+function setUptank() {
+    firebase.database().ref('Ultrasonic/').update({
+        Raduis : parseInt($("#Raduistank").val()),
+        Hight :  parseInt($("#Higthesttank").val())
+    });
+
+}
 function Edit(UID){
     console.log(UID);
     console.log("Edit");

@@ -133,20 +133,10 @@
             <div class="alert alert-success" role="alert" id="updateOSV">SET OUT OF SERVICE SECCESS!!</div>
             <div class="alert alert-success" role="alert" id="updateSV">SET SERVICE SECCESS!!</div>
         </div>
-        <!--<div>-->
-            <!--<div class="alert alert-warning" role="alert" id="StatusBar">-->
-                <!--<h4 class="alert-heading">Status Meaning</h4>-->
-                 <!--<h6 style="color: greenyellow">Service</h6> Online-->
-                 <!--<h6 style="color: red">Out Of Service</h6>  Offline-->
-                <!--<hr>-->
-                <!--<p class="mb-0"></p>-->
-            <!--</div>-->
-        <!--</div>-->
 
         <div class="row">
             <div class="col col-sm text-center badge-dark" style="margin: 30px">
                 <br>
-
                     <h2><i class="fas fa-trash-alt"></i>  Trash Level</h2>
 
                 <div>
@@ -176,6 +166,27 @@
                          <h5 id="StatusOff" style="color: red"></h5>
                     </div>
                 </div>
+                <br>
+                <h2 ><i class="fas fa-wrench"></i>   Setting Trash </h2>
+                <!--<div class="row justify-content-sm-center ">-->
+
+                <div class="row justify-content-md-center">
+                    <div  class="col col-6" >
+                        <form id="Setup">
+                            <div class="input-group mb-4 "style="margin-top: 10px">
+                                <input type="text" class="form-control" id="Raduistank" placeholder="please insert raduis of tank">
+                            </div>
+                            <div class="input-group mb-4 "style="margin-top: 10px">
+                                <input type="text" class="form-control" id="Higthesttank" placeholder="please insert Higth of tank">
+                            </div>
+                            <div class="col-sm  " style="text-align: center;margin-top: 10px">
+                                <button class="btn btn-primary border-5" id="SetupTank" onclick="setUptank()">SETTING</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--</div>-->
                 <br>
             </div>
         </div>
