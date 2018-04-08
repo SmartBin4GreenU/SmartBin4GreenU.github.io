@@ -17,66 +17,7 @@
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-    <script type="text/javascript">
-
-        var config = {
-            apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
-            authDomain: "sb-fgu.firebaseapp.com",
-            databaseURL: "https://sb-fgu.firebaseio.com",
-            projectId: "sb-fgu",
-            storageBucket: "sb-fgu.appspot.com",
-            messagingSenderId: "368024117056"
-        };
-        firebase.initializeApp(config);
-
-        initApp =  function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var uid = user.uid;
-                    var phoneNumber = user.phoneNumber;
-                    var providerData = user.providerData;
-
-                    document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-                    console.log(displayName);
-                }
-            }, function(error) {
-                console.log(error);
-                alert("Some Thing Worng! please login agian");
-            });
-        };
-        window.addEventListener('load', function() {
-            initApp()
-        });
-
-        function Signout() {
-            firebase.auth().signOut().then(function() {
-                    firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
-                        Status : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
-                        Repush : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/').child('Lasted').set({
-                        Uid : Uid,
-                        SBNumber: "SB1",
-                        StatusDevice: parseInt(0)
-                    });
-                    console.log('Signed Out');
-                    alert('Signed Out');
-                    window.location.href = "index.html";
-                },
-                function(error) {
-                    console.error('Sign Out Error', error);
-                });
-
-        }
-    </script>
+    <script src="js/firebase.js"></script>
 
 </head>
 
@@ -168,17 +109,108 @@
       <div class="mb-0 mt-4">
         <i class="fas fa-newspaper"></i> News Feed
       </div>
-      <hr class="mt-2">
-                <div class="col-sm-12" style="margin-left: 5px">
-                    <h1>Hi Hello World1</h1>
-                    <hr class="mt-2">
-                </div>
-                  <div class="col-sm-12" style="margin-left: 5px">
-                      <h1>Hi Hello World2</h1>
-                      <hr class="mt-2">
-                  </div>
 
-      <div class="col-sm">
+      <hr class="mt-2">
+      <div class="row">
+          <div class="col col-sm" style="margin: 10px" id="New1">
+              <div class="card text-center  " >
+                  <div class="card-header">
+                      <div><h3 id="Title1"></h3></div>
+                  </div>
+                  <div class="card-body" >
+                      <h4 class="card-title" id="Header1"></h4>
+                      <img id="img1" class="img-thumbnail" style="margin-bottom: 10px">
+                      <p class="card-text" style="text-align:initial" id="Details1"></p>
+                      <!--<a href="#" class="btn btn-secondary">Go somewhere</a>-->
+                  </div>
+                  <div class="card-footer text-muted text-right">
+                      <small id="Writer1"></small>
+                      <small>/</small>
+                      <small id="PostTime1"></small>
+                  </div>
+              </div>
+          </div>
+          <br>
+          <div class="col col-sm" style="margin: 10px" id="New2">
+              <div class="card text-center"  >
+                  <div class="card-header">
+                      <div><h3 id="Title2"></h3></div>
+                  </div>
+                  <div class="card-body" >
+                      <h4 class="card-title" id="Header2"></h4>
+                      <img id="img2" class="img-thumbnail" style="margin-bottom: 10px">
+                      <p class="card-text" style="text-align:initial" id="Details2">With supporting text below as a natural lead-in to additional content.</p>
+                      <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                  </div>
+                  <div class="card-footer text-muted text-right">
+                      <small id="Writer2"></small>
+                      <small>/</small>
+                      <small id="PostTime2"></small>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col col-sm" style="margin: 10px" id="New3">
+              <div class="card text-center"  >
+                  <div class="card-header">
+                      <div><h3 id="Title3"></h3></div>
+                  </div>
+                  <div class="card-body" >
+                      <h4 class="card-title" id="Header3"></h4>
+                      <img id="img3" class="img-thumbnail" style="margin-bottom: 10px">
+                      <p class="card-text" style="text-align:initial" id="Details3">With supporting text below as a natural lead-in to additional content.</p>
+                      <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                  </div>
+                  <div class="card-footer text-muted text-right">
+                      <small id="Writer3"></small>
+                      <small>/</small>
+                      <small id="PostTime3"></small>
+                  </div>
+              </div>
+          </div>
+          <br>
+          <div class="col col-sm" style="margin: 10px" id="New4">
+              <div class="card text-center"  >
+                  <div class="card-header">
+                      <div><h3 id="Title4"></h3></div>
+                  </div>
+                  <div class="card-body" >
+                      <h4 class="card-title" id="Header4"></h4>
+                      <img id="img4" class="img-thumbnail" style="margin-bottom: 10px">
+                      <p class="card-text" style="text-align:initial" id="Details4">With supporting text below as a natural lead-in to additional content.</p>
+                      <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                  </div>
+                  <div class="card-footer text-muted text-right">
+                      <small id="Writer4"></small>
+                      <small>/</small>
+                      <small id="PostTime4"></small>
+                  </div>
+              </div>
+          </div>
+          <br>
+          <!--<div class="col col-sm-6" style="border: 10px">-->
+              <!--<div class="card text-center"  >-->
+                  <!--<div class="card-header">-->
+                      <!--<div><h3 id="Title5"></h3></div>-->
+                  <!--</div>-->
+                  <!--<div class="card-body" >-->
+                      <!--<h4 class="card-title" id="Header5"></h4>-->
+                      <!--<p class="card-text" style="text-align: justify-all" id="Details5">With supporting text below as a natural lead-in to additional content.</p>-->
+                      <!--&lt;!&ndash;<a href="#" class="btn btn-primary">Go somewhere</a>&ndash;&gt;-->
+                  <!--</div>-->
+                  <!--<div class="card-footer text-muted text-right">-->
+                      <!--<small id="Writer5"></small>-->
+                      <!--<small>/</small>-->
+                      <!--<small id="PostTime5"></small>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+
+      </div>
+
+                <div class="col-sm">
                     <div id="fb-root"></div>
                     <script>(function(d, s, id) {
                         var js, fjs = d.getElementsByTagName(s)[0];
@@ -189,7 +221,7 @@
                     }(document, 'script', 'facebook-jssdk'));
                     </script>
                     <div class="fb-page" data-href="https://www.facebook.com/SmartBin4GreenU-Community-1549410541774287/" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/SmartBin4GreenU-Community-1549410541774287/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SmartBin4GreenU-Community-1549410541774287/">SmartBin4GreenU Community</a></blockquote></div>
-                </div>
+               </div>
 
               <!-- /.content-wrapper-->
   <footer class="sticky-footer">

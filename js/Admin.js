@@ -10,6 +10,7 @@ firebase.initializeApp(config)
 
 var seLectedFile;
 var Uid;
+
 initApp =  function() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -316,3 +317,26 @@ function addNews() {
     });
 }
 
+
+function Signout() {
+    firebase.auth().signOut().then(function() {
+            firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+                Status : parseInt(0)
+            });
+            firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+                Repush : parseInt(0)
+            });
+            firebase.database().ref('LogUser/').child('Lasted').set({
+                Uid : Uid,
+                SBNumber: "SB1",
+                StatusDevice: parseInt(0)
+            });
+            console.log('Signed Out');
+            alert('Signed Out');
+            window.location.href = "index.html";
+        },
+        function(error) {
+            console.error('Sign Out Error', error);
+        });
+
+}

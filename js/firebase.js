@@ -11,6 +11,15 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+var user = firebase.auth().currentUser;
+if (user) {
+    // User is signed in.
+    console.log(user);
+} else {
+    // No user is signed in.
+    console.log("Please Login");
+    // window.location.href = "Login.html";
+}
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -22,10 +31,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         var uid = user.uid;
         var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
-        // document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+         document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
         // console.log(displayName);
-
-
     }
 
 }, function(error) {
@@ -52,10 +59,8 @@ function writeUserData(userId, name, email, imageUrl) {
         SBNumber: "SB1",
         StatusDevice: parseInt(1)
     });
-
     var d = new Date();
     // firebase.database().ref().child('posts').push().key;
-
     firebase.database().ref('Log/').child('Time').push({
         Uid: userId,
         SBNumber: "SB1",
@@ -104,7 +109,6 @@ function veryfyCode() {
             alert("CORRECT");
             console.log("TRUE");
             window.location.href = "data.html";
-
         }
         else{
             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
@@ -116,7 +120,84 @@ function veryfyCode() {
     });
 }
 
+var News = [];
+var ref1 = database.ref('Admin/Post/').limitToLast(4);
+ref1.orderByKey().on('value',function (snapshot){
 
+    if(snapshot.exists()) {
+        snapshot.forEach(function (data) {
+            var Values = data.val();
+            console.log(Values);
+            News.push(Values);
+        });
+        News.reverse();
+        console.log(News);
+
+        if (News.length == 1){
+            $("#New1").show();
+            $("#New2").hide();
+            $("#New3").hide();
+            $("#New4").hide();
+        }
+        else if(News.length == 2 ) {
+            $("#New1").show();
+            $("#New2").show();
+            $("#New3").hide();
+            $("#New4").hide();
+
+        }
+        else if(News.length == 3 ) {
+            $("#New1").show();
+            $("#New2").show();
+            $("#New3").show();
+            $("#New4").hide();
+
+        }
+        else if(News.length == 4 ) {
+            $("#New1").show();
+            $("#New2").show();
+            $("#New3").show();
+            $("#New4").show();
+        }
+
+            $("#Title1").text(News[0].Title);
+            $("#Header1").text(News[0].Title);
+            $("#img1").attr("src", News[0].Img_Url);
+            $("#Details1").text(News[0].Details);
+            $("#Writer1").text("Write by : " + News[0].Writer);
+            $("#PostTime1").text("Post Time : " + News[0].Time);
+
+            $("#Title2").text(News[1].Title);
+            $("#Header2").text(News[1].Title);
+            $("#img2").attr("src", News[1].Img_Url);
+            $("#Details2").text(News[1].Details);
+            $("#Writer2").text("Write by : " + News[1].Writer);
+            $("#PostTime2").text("Post Time : " + News[1].Time);
+
+            $("#Title3").text(News[2].Title);
+            $("#Header3").text(News[2].Title);
+            $("#img3").attr("src", News[2].Img_Url);
+            $("#Details3").text(News[2].Details);
+            $("#Writer3").text("Write by : " + News[2].Writer);
+            $("#PostTime3").text("Post Time : " + News[2].Time);
+
+            $("#Title4").text(News[3].Title);
+            $("#Header4").text(News[3].Title);
+            $("#img44").attr("src", News[3].Img_Url);
+            $("#Details4").text(News[3].Details);
+            $("#Writer4").text("Write by : " + News[3].Writer);
+            $("#PostTime4").text("Post Time : " + News[3].Time);
+
+    }
+
+});
+
+$(document).ready(function () {
+    $("#New1").hide();
+    $("#New2").hide();
+    $("#New3").hide();
+    $("#New4").hide();
+});
 
 
 

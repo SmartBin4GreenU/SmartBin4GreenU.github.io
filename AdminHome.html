@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="SARAWUT WAIYAKORN">
-    <title>SmartBin4GreenU</title>
+    <title>Admin Home</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Page level plugin CSS-->
@@ -15,76 +15,11 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
-
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script src="js/Admin.js"></script>
     <!--<script src="js/firebase.js"></script>-->
-
-    <script type="text/javascript">
-
-        var config = {
-            apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
-            authDomain: "sb-fgu.firebaseapp.com",
-            databaseURL: "https://sb-fgu.firebaseio.com",
-            projectId: "sb-fgu",
-            storageBucket: "sb-fgu.appspot.com",
-            messagingSenderId: "368024117056"
-        };
-        firebase.initializeApp(config);
-
-        initApp =  function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var uid = user.uid;
-                    var phoneNumber = user.phoneNumber;
-                    var providerData = user.providerData;
-
-
-                    document.getElementById("Name").innerHTML = "Hi Admin : " + displayName.toString();
-                    // console.log(displayName);
-                    // console.log("Seccuess");
-                }
-            }, function(error) {
-                console.log(error);
-                alert("Some Thing Worng! please login agian");
-            });
-        };
-        window.addEventListener('load', function() {
-            initApp();
-        });
-
-
-        function Signout() {
-            firebase.auth().signOut().then(function() {
-                    firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
-                        Status : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
-                        Repush : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/').child('Lasted').set({
-                        Uid : Uid,
-                        SBNumber: "SB1",
-                        StatusDevice: parseInt(0)
-                    });
-                    console.log('Signed Out');
-                    alert('Signed Out');
-                    window.location.href = "index.html";
-                },
-                function(error) {
-                    console.error('Sign Out Error', error);
-                });
-
-        }
-        // var database = firebase.database();
-
-    </script>
 
 </head>
 
@@ -146,7 +81,6 @@
                     </div>
                 </form>
             </li>
-
 
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
@@ -233,9 +167,7 @@
                 </div>
             </div>
         </div>
-
         <!-- /.container-fluid-->
-
 
         <!-- /.content-wrapper-->
         <footer class="sticky-footer">
