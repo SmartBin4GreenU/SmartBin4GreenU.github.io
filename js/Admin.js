@@ -291,6 +291,12 @@ function addNews() {
     var seLectedFile = $('#Picturefile').get(0).files[0];
     var filename =  seLectedFile.name;
     console.log(seLectedFile);
+    // if(seLectedFile == null){
+    //
+    // }
+    // else{
+    //
+    // }
     var dataref = firebase.storage().ref("/images/" + filename);
     var uploadTask = dataref.put(seLectedFile);
 
