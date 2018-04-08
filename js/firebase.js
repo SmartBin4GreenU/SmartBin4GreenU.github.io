@@ -183,7 +183,7 @@ ref1.orderByKey().on('value',function (snapshot){
 
             $("#Title4").text(News[3].Title);
             $("#Header4").text(News[3].Title);
-            $("#img44").attr("src", News[3].Img_Url);
+            $("#img4").attr("src", News[3].Img_Url);
             $("#Details4").text(News[3].Details);
             $("#Writer4").text("Write by : " + News[3].Writer);
             $("#PostTime4").text("Post Time : " + News[3].Time);
