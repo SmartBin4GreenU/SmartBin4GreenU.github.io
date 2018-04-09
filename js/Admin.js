@@ -353,6 +353,8 @@ ref3.on('value',function (snapshot){
 
     }
     else{
+        alert('Yoy are not Admin!!');
+        setTimeout(2000);
         window.location.href = "index.html";
     }
 });
