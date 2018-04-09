@@ -35,17 +35,62 @@ window.addEventListener('load', function() {
     initApp();
 });
 
-var Admin;
+var name;
 var ref3 = database.ref('Admin/List/');
 ref3.on('value',function (snapshot){
-     var Val = snapshot.val();
-       Admin = Val.Admin1;
-     // console.log(Admin.toString() + '=='+Uid.toString());
+    var Val = snapshot.val();
+    var Admin = Val.Admin1;
+    // console.log(Admin.toString() + '=='+Uid.toString());
+      name = Admin;
+      if (Uid != name ) {
+          alert('Yoy are not Admin!!');
+          setTimeout(2000);
+          window.location.href = "index.html";
+      }
+});
 
-    if(Uid === Admin){
-        var Level ;
-        var ref = database.ref('Ultrasonic/');
-        ref.on('value',function (snapshot){
+$(document).ready(function () {
+    $('#updateSuccess').hide();
+    $('#setUptankOK').hide();
+
+    $('#updateOSV').hide();
+    $('#updateSV').hide();
+
+    $('#editBar').hide();
+    $('#delBar').hide();
+
+    $("#Submit").click(function(){
+        $("#form").trigger("reset");
+    });
+
+    $("#SetupTank").click(function(){
+        $("#Setup").trigger("reset");
+    });
+
+    $("#btnOFS").show();
+    $("#btnSV").hide();
+    $('#StatusOn').show();
+    $('#StatusOn').text("Services");
+
+    $('#btnOFS').click(function () {
+        firebase.database().ref('LogUser/Lasted/').set({
+            SBNumber : "SB1",
+            StatusDevice : parseInt(2),
+            Uid : Uid
+        });
+    });
+    $('#btnSV').click(function () {
+        firebase.database().ref('LogUser/Lasted/').set({
+            SBNumber : "SB1",
+            StatusDevice : parseInt(0),
+            Uid : Uid
+        });
+    });
+});
+
+var Level ;
+var ref = database.ref('Ultrasonic/');
+ ref.on('value',function (snapshot){
             var Values = snapshot.val();
             var Distance = Values.Distance1;
             var h_max = Values.Hight;
@@ -214,6 +259,7 @@ ref3.on('value',function (snapshot){
             alert("Delete");
             // firebase.database().ref('users/'+ UID).remove();
         }
+
         function outOfservice() {
             console.log("OUT OF SERVICE");
             firebase.database().ref('LogUser/Lasted/').set({
@@ -248,7 +294,6 @@ ref3.on('value',function (snapshot){
             $('#StatusOff').hide();
         }
 
-
         function addNews() {
             var Writer =  $('#Writer').val();
             var Title =   $('#Title').val();
@@ -256,12 +301,7 @@ ref3.on('value',function (snapshot){
             var seLectedFile = $('#Picturefile').get(0).files[0];
             var filename =  seLectedFile.name;
             console.log(seLectedFile);
-            // if(seLectedFile == null){
-            //
-            // }
-            // else{
-            //
-            // }
+
             var dataref = firebase.storage().ref("/images/" + filename);
             var uploadTask = dataref.put(seLectedFile);
 
@@ -288,7 +328,6 @@ ref3.on('value',function (snapshot){
             });
         }
 
-
         function Signout() {
             firebase.auth().signOut().then(function() {
                     firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
@@ -311,50 +350,3 @@ ref3.on('value',function (snapshot){
                 });
 
         }
-
-    }
-    else{
-        alert('Yoy are not Admin!!');
-        setTimeout(2000);
-        window.location.href = "index.html";
-    }
-});
-
-$(document).ready(function () {
-    $('#updateSuccess').hide();
-    $('#setUptankOK').hide();
-
-    $('#updateOSV').hide();
-    $('#updateSV').hide();
-
-    $('#editBar').hide();
-    $('#delBar').hide();
-
-    $("#Submit").click(function(){
-        $("#form").trigger("reset");
-    });
-
-    $("#SetupTank").click(function(){
-        $("#Setup").trigger("reset");
-    });
-
-    $("#btnOFS").show();
-    $("#btnSV").hide();
-    $('#StatusOn').show();
-    $('#StatusOn').text("Services");
-
-    $('#btnOFS').click(function () {
-        firebase.database().ref('LogUser/Lasted/').set({
-            SBNumber : "SB1",
-            StatusDevice : parseInt(2),
-            Uid : Uid
-        });
-    });
-    $('#btnSV').click(function () {
-        firebase.database().ref('LogUser/Lasted/').set({
-            SBNumber : "SB1",
-            StatusDevice : parseInt(0),
-            Uid : Uid
-        });
-    });
-});
