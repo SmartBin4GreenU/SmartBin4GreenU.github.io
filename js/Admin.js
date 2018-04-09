@@ -23,7 +23,8 @@ initApp =  function() {
             var phoneNumber = user.phoneNumber;
             var providerData = user.providerData;
             Uid = uid;
-            document.getElementById("Name").innerHTML = "Hi Admin: " + displayName.toString();
+            // document.getElementById("Name").innerHTML = "Hi Admin: " + displayName.toString();
+            $("#Name").text("Hi Admin: " + displayName.toString())
             console.log(displayName);
         }
     }, function(error) {
@@ -36,8 +37,8 @@ window.addEventListener('load', function() {
 });
 
 var name;
-var ref3 = database.ref('Admin/List/');
-ref3.on('value',function (snapshot){
+var ref4 = database.ref('Admin/List/');
+ref4.on('value',function (snapshot){
     var Val = snapshot.val();
     var Admin = Val.Admin1;
     // console.log(Admin.toString() + '=='+Uid.toString());
@@ -52,6 +53,12 @@ ref3.on('value',function (snapshot){
 $(document).ready(function () {
     $('#updateSuccess').hide();
     $('#setUptankOK').hide();
+
+    $('#User_Data').hide();
+    $('#User_Table').show();
+
+    $('#Print').hide();
+    $('#Prev').hide();
 
     $('#updateOSV').hide();
     $('#updateSV').hide();
@@ -85,6 +92,10 @@ $(document).ready(function () {
             StatusDevice : parseInt(0),
             Uid : Uid
         });
+    });
+
+    $('#Prev').click(function() {
+        location.reload();
     });
 });
 
@@ -185,63 +196,80 @@ var ref = database.ref('Ultrasonic/');
                     $(this).css("width", "0px").animate({width: finalWidth+"%"}, 500);
                 });
             });
-        });
+});
 
-        var ref1 = database.ref('LogUser/Lasted/');
-        ref1.on('value',function (snapshot){
-            var Values = snapshot.val();
-            var Status = Values.StatusDevice;
+ var ref1 = database.ref('LogUser/Lasted/');
+ ref1.on('value',function (snapshot){
+     var Values = snapshot.val();
+     var Status = Values.StatusDevice;
             // console.log(Status);
-            if(Status == 0){
-                $('#StatusOn').show();
-                $('#StatusOn').text("Services");
-                $('#StatusOff').hide();
-                $("#btnOFS").show();
-                $("#btnSV").hide();
-            }
-            else if(Status == 2 ){
-                $('#StatusOff').show();
-                $('#StatusOff').text("Out Of Services");
-                $('#StatusOn').hide();
-                $("#btnOFS").hide();
-                $("#btnSV").show();
-            }
-        });
+     if(Status == 0){
+         $('#StatusOn').show();
+         $('#StatusOn').text("Services");
+         $('#StatusOff').hide();
+         $("#btnOFS").show();
+         $("#btnSV").hide();
+     }
+     else if(Status == 2 ){
+         $('#StatusOff').show();
+         $('#StatusOff').text("Out Of Services");
+         $('#StatusOn').hide();
+         $("#btnOFS").hide();
+         $("#btnSV").show();
+     }
+ });
 
-        var ref2 = firebase.database().ref('users/');
-        ref2.on("value", function(snapshot) {
-            var Val = snapshot.val();
-            var num = 0;
-            Object.keys(Val).map(function (key) {
-                $('tbody').append('<tr>' +
-                    '<td>' + ++num +'</td>' +
-                    '<td>' + Val[key].username +'</td>' +
-                    '<td>' + key +'</td>' +
-                    '<td>' + Val[key].email + '</td>' +
-                    '<td>' + '<button class="btn btn-primary" onclick="Edit(\''+ key +'\')">Edit</button>' + '</td>' +
-                    '<td>' + '<button class="btn btn-danger"  onclick="Delete(\''+ key +'\')">Delete</button>' + '</td>' +
-                    '</tr>')
-            });
-        });
+var ref2 = firebase.database().ref('users/');
+ref2.on("value", function(snapshot) {
+    var Val = snapshot.val();
+    var num = 0;
+    Object.keys(Val).map(function (key) {
+        $('.U_Table').append('<tr>' +
+            '<td>' + ++num +'</td>' +
+            '<td>' + Val[key].username +'</td>' +
+            '<td>' + key.substr(0,20)+"xxxxxxx" +'</td>' +
+            '<td>' + Val[key].email + '</td>' +
+            '<td style="text-align: center">' + '<button class="btn btn-success" style="margin: 10px" onclick="Show(\''+ key +'\' ,  \'' + Val[key].username + '\')">SHOW</button>' +
+            '<button class="btn btn-danger"  onclick="DelData(\''+ key +'\')">DELETE</button>' + '</td>' +
+            '</tr>')
+    });
+});
 
-        function showStatesuccess() {
-            $('#updateSuccess').show();
-        }
+var ref3 = firebase.database().ref('users/');
+ref3.on("value", function(snapshot) {
+    var Val = snapshot.val();
+    var num = 0;
+    Object.keys(Val).map(function (key) {
+        $('.U_Manage').append('<tr>' +
+            '<td>' + ++num +'</td>' +
+            '<td>' + Val[key].username +'</td>' +
+            '<td>' + key.substr(0,20)+"xxxxxxx" +'</td>' +
+            '<td>' + Val[key].email + '</td>' +
+            '<td style="text-align: center">' + '<button class="btn btn-primary" style="margin: 10px" onclick="Edit(\''+ key +'\')">EDIT</button>' +
+            '<button class="btn btn-danger"  onclick="Delete(\''+ key +'\')">DELETE</button>' + '</td>' +
+            '</tr>')
+    });
+});
 
-        function setUptank() {
-            firebase.database().ref('Ultrasonic/').update({
-                Raduis : parseInt($("#Raduistank").val()),
-                Hight :  parseInt($("#Higthesttank").val())
-            });
-            $('#setUptankOK').show();
-        }
+ function showStatesuccess() {
+     $('#updateSuccess').show();
+ }
 
-        function Edit(UID){
-            console.log(UID);
-            console.log("Edit");
-            $('#editBar').show();
-            $('#delBar').hide();
-            alert("Edit");
+ function setUptank() {
+     firebase.database().ref('Ultrasonic/').update({
+         Raduis : parseInt($("#Raduistank").val()),
+         Hight :  parseInt($("#Higthesttank").val())
+     });
+     $('#setUptankOK').show();
+ }
+
+ function Edit(UID ){
+     console.log(UID);
+     console.log("Edit");
+     $('#editBar').show();
+     $('#delBar').hide();
+
+     alert("Edit");
             // firebase.database().ref('users/'+ UID).update({
             //     SBNumber : "SB1",
             //     email : parseInt(2),
@@ -249,66 +277,152 @@ var ref = database.ref('Ultrasonic/');
             //     uid : UID,
             //     username :
             // });
-        }
+ }
+ function Delete(UID){
+     console.log(UID);
+     console.log("Delete");
+     $('#delBar').show();
+     $('#editBar').hide();
+     alert("Delete");
+     // firebase.database().ref('users/'+ UID).remove();
+ }
+var rows = [];
+var Total = 0;
+var Data = [];
+var j =0;
+var SUM  = 0;
+ function Show(UID, NAME){
+     // console.log(UID);
+     // console.log(NAME);
+     console.log("SHOW");
+     $('#Username').text("NAME : " + NAME);
+     $('#Uid').text("UID: " + UID.substr(0,20)+"xxxxxxx");
+     $('#User_Data').show();
+     $('#User_Table').hide();
+     $('#Print').show();
+            // alert("Edit");
+     var ref = firebase.database().ref('History/');
+     ref.on("value", function(snapshot) {
+         var Val = snapshot.val();
+         var num = 0;
+         snapshot.forEach(function(data){
+             var Val = data.val();
+             var User = Val.UID;
+             var Bottle = Val.Logbottle;
+             if(UID == User){
+                 if( Val.Logbottle != 0){
+                     Data.push(Val)
+                 }
+             }
+         });
+         Data.reverse();
+         console.log(Data)
+         for (i in Data)
+         {
+             var B = Data[i].Logbottle;
+             rows[j] = {"id": (j+1).toString(), "time": Data[i].Logtime.toString(),"bottle":Data[i].Logbottle.toString(),"name":Data[i].Username.toString()};
+             j++;
+             SUM += B;
+             Total = SUM;
+         }
 
-        function Delete(UID){
-            console.log(UID);
-            console.log("Delete");
-            $('#delBar').show();
-            $('#editBar').hide();
-            alert("Delete");
-            // firebase.database().ref('users/'+ UID).remove();
-        }
+         if(SUM == 0){
+             alert("USER  " + NAME + "  ARE NOT USE DEVICE!!");
+             $('#Prev').show();
+         }
 
-        function outOfservice() {
-            console.log("OUT OF SERVICE");
-            firebase.database().ref('LogUser/Lasted/').set({
-                SBNumber : "SB1",
-                StatusDevice : parseInt(2),
-                Uid : Uid
-            });
-            $("#btnOFS").hide();
-            $("#btnSV").show();
-            $('#updateOSV').show();
-            $('#updateSV').hide();
+         Object.keys(Data).map(function (key) {
+             $('.D_Table').append('<tr>' +
+                 '<td>' + ++num +'</td>' +
+                 '<td>' + Data[key].Logtime +'</td>' +
+                 '<td>' + Data[key].Logbottle +'</td>' +
+                 '</tr>')
+         });
+          $("#Sum").text("Total " + SUM + " Bottles");
+         SUM = 0;
+         j = 0;
+         Data = [];
+     });
+ }
+ function Export(){
+     console.log("EXPORT");
+     $('#Prev').show();
+     var columns = [
+         {title: "ID", dataKey: "id"},
+         {title: "TIME", dataKey: "time"},
+         {title: "BOTTLE", dataKey: "bottle"},
+         {title: "NAME", dataKey: "name"},
+     ];
+     // Only pt supported (not mm or in)
+     var doc = new jsPDF('p', 'pt','a4');
+     doc.autoTable(columns, rows,
+         {
+             // styles: {fillColor: [100, 255, 255]},
+             // columnStyles: {
+             //     id: {fillColor: 255}
+             // },
+             margin: {top: 60 , bottom: 100},
+             addPageContent: function(data) {
+                 doc.text("Export Data", 40, 30);
+                 doc.text("BY SmartBin4GreenU", 60, 50);
+             },
 
-            $('#StatusOff').show();
-            $('#StatusOff').text("Out Of Services");
-            $('#StatusOn').hide();
-        }
+         });
+     doc.text("Total Bottle : " + Total ,430 ,760 );
+     doc.save('SmartBin4GreenU_Report.pdf');
+     Total = 0;
+     setTimeout(3000);
 
-        function Service() {
-            console.log("SERVICE");
-            firebase.database().ref('LogUser/Lasted/').set({
-                SBNumber : "SB1",
-                StatusDevice : parseInt(0),
-                Uid : Uid
-            });
-            $("#btnOFS").show();
-            $("#btnSV").hide();
-            $('#updateOSV').hide();
-            $('#updateSV').show();
+ }
 
-            $('#StatusOn').show();
-            $('#StatusOn').text("Services");
-            $('#StatusOff').hide();
-        }
+ function outOfservice() {
+     console.log("OUT OF SERVICE");
+     firebase.database().ref('LogUser/Lasted/').set({
+         SBNumber : "SB1",
+         StatusDevice : parseInt(2),
+         Uid : Uid
+     });
+     $("#btnOFS").hide();
+     $("#btnSV").show();
+     $('#updateOSV').show();
+     $('#updateSV').hide();
 
-        function addNews() {
-            var Writer =  $('#Writer').val();
-            var Title =   $('#Title').val();
-            var Details = $('#Details').val();
-            var seLectedFile = $('#Picturefile').get(0).files[0];
-            var filename =  seLectedFile.name;
-            console.log(seLectedFile);
+     $('#StatusOff').show();
+     $('#StatusOff').text("Out Of Services");
+     $('#StatusOn').hide();
+ }
 
-            var dataref = firebase.storage().ref("/images/" + filename);
-            var uploadTask = dataref.put(seLectedFile);
+ function Service() {
+     console.log("SERVICE");
+     firebase.database().ref('LogUser/Lasted/').set({
+         SBNumber: "SB1",
+         StatusDevice: parseInt(0),
+         Uid: Uid
+     });
+     $("#btnOFS").show();
+     $("#btnSV").hide();
+     $('#updateOSV').hide();
+     $('#updateSV').show();
 
-            uploadTask.on('state_changed' , function (snapshot) {
-            },function (err) {
+     $('#StatusOn').show();
+     $('#StatusOn').text("Services");
+     $('#StatusOff').hide();
+ }
 
-            },function () {
+ function addNews() {
+     var Writer =  $('#Writer').val();
+     var Title =   $('#Title').val();
+     var Details = $('#Details').val();
+     var seLectedFile = $('#Picturefile').get(0).files[0];
+     var filename =  seLectedFile.name;
+     console.log(seLectedFile);
+
+     var dataref = firebase.storage().ref("/images/" + filename);
+     var uploadTask = dataref.put(seLectedFile);
+
+     uploadTask.on('state_changed' , function (snapshot) {
+     },function (err) {
+         },function () {
                 var postKey = database.ref('/Admin/Post/').push().key;
                 var downLoadURL = uploadTask.snapshot.downloadURL;
                 var updates = {};
@@ -326,27 +440,25 @@ var ref = database.ref('Ultrasonic/');
                 showStatesuccess();
                 setTimeout(500);
             });
-        }
-
-        function Signout() {
-            firebase.auth().signOut().then(function() {
-                    firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
-                        Status : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
-                        Repush : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/').child('Lasted').set({
-                        Uid : Uid,
-                        SBNumber: "SB1",
-                        StatusDevice: parseInt(0)
-                    });
-                    console.log('Signed Out');
-                    alert('Signed Out');
-                    window.location.href = "index.html";
-                },
-                function(error) {
-                    console.error('Sign Out Error', error);
-                });
-
-        }
+ }
+ function Signout() {
+     firebase.auth().signOut().then(function() {
+         firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+             Status : parseInt(0)
+         });
+         firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+             Repush : parseInt(0)
+         });
+         firebase.database().ref('LogUser/').child('Lasted').set({
+             Uid : Uid,
+             SBNumber: "SB1",
+             StatusDevice: parseInt(0)
+         });
+         console.log('Signed Out');
+         alert('Signed Out');
+         window.location.href = "index.html";
+         },
+         function(error) {
+         console.error('Sign Out Error', error);
+         });
+ }

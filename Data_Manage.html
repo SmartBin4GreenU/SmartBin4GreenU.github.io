@@ -16,34 +16,8 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="js/Admin.js"></script>
-    <script type="text/javascript">
-
-
-
-        // function Signout() {
-        //     firebase.auth().signOut().then(function() {
-        //             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
-        //                 Status : parseInt(0)
-        //             });
-        //             firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
-        //                 Repush : parseInt(0)
-        //             });
-        //             firebase.database().ref('LogUser/').child('Lasted').set({
-        //                 Uid : Uid,
-        //                 SBNumber: "SB1",
-        //                 StatusDevice: parseInt(0)
-        //             });
-        //             console.log('Signed Out');
-        //             alert('Signed Out');
-        //             window.location.href = "index.html";
-        //         },
-        //         function(error) {
-        //             console.error('Sign Out Error', error);
-        //         });
-        //
-        // }
-    </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -123,55 +97,94 @@
             </li>
             <li class="breadcrumb-item active">DATA MANAGEMENT</li>
         </ol>
-        <!--<div class="alert alert-success" role="alert" id="updateSuccess">-->
-            <!--UPDATE NEWS POST!!-->
-        <!--</div>-->
-        <!-- Card Columns Example Social Feed-->
-        <!--<div class="mb-0 mt-4">-->
-            <!--<i class="fas fa-newspaper "> </i>   News Announce-->
-        <!--</div>-->
-
         <hr class="mt-2">
+        <!--<div class="row justify-content-md-center">-->
+            <!--<div class="col col-sm-8   badge-light" style="margin: auto" >-->
+                <!--<h3 style="margin-bottom:10px">Update News</h3>-->
+                <!--<form  id="form">-->
+                    <!--<div class="input-group mb-3">-->
+                        <!--<div class="input-group-prepend">-->
+                            <!--<span class="input-group-text">Writen by</span>-->
+                        <!--</div>-->
+                        <!--<input type="text" class="form-control"  id="Writer">-->
+                    <!--</div>-->
+                    <!--<div class="input-group mb-3">-->
+                        <!--<div class="input-group-prepend">-->
+                            <!--<span class="input-group-text">Title</span>-->
+                        <!--</div>-->
+                        <!--<input type="text" class="form-control"  id="Title">-->
+                    <!--</div>-->
 
-        <div class="row">
+                    <!--<div class="input-group">-->
+                        <!--<div class="input-group-prepend">-->
+                            <!--<span class="input-group-text">Detials</span>-->
+                        <!--</div>-->
+                        <!--<textarea class="form-control" aria-label="Details" id="Details" ></textarea>-->
+                    <!--</div>-->
+                    <!--<form>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="Picturefile" style="margin-top: 5px">Add picture</label>-->
+                            <!--<input type="file" class="form-control-file " id="Picturefile">-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</form>-->
+                <!--<div class="input-group" style="margin-top: 15px">-->
+                    <!--<button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>-->
+                <!--</div>-->
+                <!--<br>-->
+            <!--</div>-->
 
-            <div class="col col-sm-8   badge-light" style="margin: auto" >
-                <h3 style="margin-bottom:10px">Update News</h3>
-                <form  id="form">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Writen by</span>
-                        </div>
-                        <input type="text" class="form-control"  id="Writer">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Title</span>
-                        </div>
-                        <input type="text" class="form-control"  id="Title">
-                    </div>
-
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Detials</span>
-                        </div>
-                        <textarea class="form-control" aria-label="Details" id="Details" ></textarea>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <label for="Picturefile" style="margin-top: 5px">Add picture</label>
-                            <input type="file" class="form-control-file " id="Picturefile">
-                        </div>
-                    </form>
-                </form>
-                <div class="input-group" style="margin-top: 15px">
-                    <button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>
+        <!--</div>-->
+        <div class="row justify-content-md-center">
+            <div class="col col-sm">
+                <!--<div>-->
+                    <!--<div class="alert alert-success" role="alert" id="editBar">EDIT SECCESS!!</div>-->
+                    <!--<div class="alert alert-success" role="alert" id="delBar">DELETE SECCESS!!</div>-->
+                <!--</div>-->
+               <div class="col" style="margin: 5px">
+                   <h3 id="Username"></h3>
+                   <h5 id="Uid"></h5>
+               </div>
+                <div class="col text-right">
+                    <button class="btn btn-info " id="Print" style="margin: 5px" onclick="Export()">PRINT</button>
+                    <button class="btn btn-warning " id="Prev" style="margin: 5px" onclick="">BACK</button>
+                    <h2 id="Sum" ></h2>
                 </div>
-                <br>
+                <div id="User_Table">
+                    <div class="table-responsive" >
+                        <table class="table table-hover table-light " style="width:100%" >
+                            <thead>
+                            <tr >
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>UID</th>
+                                <th>EMAIL</th>
+                                <th style="text-align: center">ACTION</th>
+                            </tr>
+                            </thead>
+                            <tbody class="U_Table">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="User_Data">
+                    <h2 id="U_Name"></h2>
+                    <div class="table-responsive">
+                    <table class="table table-hover table-light " style="width:100%" >
+                        <thead>
+                        <tr id="tr">
+                            <th>ID</th>
+                            <th>Time</th>
+                            <th>Bottle</th>
+                        </tr>
+                        </thead>
+                        <tbody class="D_Table">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
+            <hr class="mt-2">
         </div>
-
         <!-- /.content-wrapper-->
         <footer class="sticky-footer">
             <div class="container">
