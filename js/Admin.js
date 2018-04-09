@@ -34,6 +34,7 @@ initApp =  function() {
 window.addEventListener('load', function() {
     initApp();
 });
+
 var Admin;
 var ref3 = database.ref('Admin/List/');
 ref3.on('value',function (snapshot){
@@ -67,9 +68,7 @@ ref3.on('value',function (snapshot){
             // console.log("R : " + r);
             // console.log("Vol :" + volume);
             // console.log("Level :" + parseInt(Level));
-
             $("#Percent").text(parseInt(Level) + " %");
-
             $("#pg1").css("width", "0px");
             $(function() {
                 $("#pg1").each(function() {
@@ -179,7 +178,6 @@ ref3.on('value',function (snapshot){
                     '</tr>')
             });
         });
-
 
         $(document).ready(function () {
             $('#updateSuccess').hide();
@@ -321,7 +319,7 @@ ref3.on('value',function (snapshot){
                     Img_Url : downLoadURL,
                     Time : date.toString().substr(0, 24)
                 };
-                console.log(date.toString().substr(0, 24));
+                // console.log(date.toString().substr(0, 24));
                 updates['/Admin/Post/'+ postKey] = postData;
                 database.ref().update(updates);
                 showStatesuccess();
