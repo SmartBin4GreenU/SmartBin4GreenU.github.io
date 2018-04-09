@@ -5,8 +5,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <!--<meta name="description" content="">-->
+  <!--<meta name="author" content="">-->
+
   <title>VIEW DATA</title>
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -170,6 +171,10 @@
         <li class="breadcrumb-item active">VIEW DATA</li>
       </ol>
 
+        <div class="alert alert-success" role="alert" id="dataUpSuccess">
+          DATA UPDATE SUCCESS!!
+        </div>
+
       <div class="card mb-3"  id="content"  >
         <div class="card-header">
 
@@ -227,18 +232,35 @@
 
                 <h3 id="Summary" class="text-right"></h3>
 
-          <div class="table-responsive">
-              <table class="table table-hover table-light " style="width:100%" id="ex-table">
-                  <tr id="tr">
+          <!--<div class="table-responsive">-->
+              <!--<table class="table table-hover table-light " style="width:100%" id="ex-table">-->
+                  <!--<tr id="tr">-->
 
-                      <th>ID</th>
-                      <th>Time</th>
-                      <!--<th>Name</th>-->
-                      <th>Bottle</th>
+                      <!--<th>ID</th>-->
+                      <!--<th>Time</th>-->
+                      <!--&lt;!&ndash;<th>Name</th>&ndash;&gt;-->
+                      <!--<th>Bottle</th>-->
 
-              </table>
+              <!--</table>-->
 
-          </div>
+          <!--</div>-->
+                <div class="table-responsive">
+                    <table class="table table-hover table-light " style="width:100%" id="ex-table">
+                        <thead>
+                        <tr id="tr">
+                            <th>ID</th>
+                            <th>Time</th>
+                            <th>Bottle</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
 
         </div>
           </div>

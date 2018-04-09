@@ -173,7 +173,7 @@ ref2.on("value", function(snapshot) {
             '<td>' + '<button class="btn btn-danger"  onclick="Delete(\''+ key +'\')">Delete</button>' + '</td>' +
             '</tr>')
         });
-    });
+});
 
 
 $(document).ready(function () {

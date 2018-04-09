@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Website Title</title>
+    <!-- You can use Open Graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+    <meta property="og:url"           content="https://smartbin4greenu.github.io/ShareDataFB.html" />
+    <meta property="og:type"          content="Web application" />
+    <meta property="og:title"         content="Smart Bin For Green University" />
+    <meta property="og:description"   content="Your description" />
+    <meta property="og:image"         content="https://firebasestorage.googleapis.com/v0/b/sb-fgu.appspot.com/o/images%2FSB_FGU.png?alt=media&token=bd68e371-ddf6-4a46-a502-91ff090320f2" />
+</head>
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your share button code -->
+<div class="fb-share-button"
+     data-href="https://smartbin4greenu.github.io/"
+     data-layout="button_count">
+</div>
+
+</body>
+</html>

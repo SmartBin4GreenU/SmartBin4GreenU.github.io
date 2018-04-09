@@ -62,64 +62,56 @@ function Signout() {
 }
 
 
-var Data = [];
+
+$(document).ready(function () {
+    $('#dataUpSuccess').hide();
+});
+
+var Data =[];
 var rows = [];
 var j =0;
 var Total = 0;
 
-Getdata =  function (){
-    var ref = firebase.database().ref("/History");
-    ref.orderByKey().on("value", function(snapshot) {
-    //     console.log(snapshot.key ,snapshot.val());
-            if(snapshot.exists()){
-            var content = '';
-            var Sum_text = '';
-                    snapshot.forEach(function(data){
-                        var Val = data.val();
-                        var User = Val.UID;
-                        var Bottle = Val.Logbottle;
-                        if(Uid == User){
-                            if( Val.Logbottle != 0){
-                                // console.log(data.key ,data.val());
-                                   Data.push(Val)
-                            }
-                        }
-                    });
-                   Data.reverse()
-                // console.log(Data)
-                for (i in Data)
-                {
-                       var B = Data[i].Logbottle
-                       // console.log( i ,Data[i])
-                        num = num+1;
-                         rows[j] = {"id": (j+1).toString(), "time": Data[i].Logtime.toString(),"bottle":Data[i].Logbottle.toString()};
-                         j++;
-                        SUM += B;
-                        Total = SUM;
-                         content += '<tr>';
-                             content += '<td>' +  num + '</td>';
-                             content += '<td>' + Data[i].Logtime + '</td>';
-                             content += '<td>' + Data[i].Logbottle + '</td>';
-                         content += '</tr>';
-                }
-                 // console.log("Sum :" + SUM)
-                 // console.log("Total :"+ Total)
-                if(SUM == 0){
-                    alert("You should put the bottle before!!!");
-                }
-                num = 0
-                j = 0
-            $('#ex-table').append(content);
-        }
-        document.getElementById("Summary").innerHTML = "Total " + SUM + " Bottles";
-        SUM = 0;
+var ref = firebase.database().ref('History/');
+ref.on("value", function(snapshot) {
+    var Val = snapshot.val();
+    var num = 0;
+    snapshot.forEach(function(data){
+        var Val = data.val();
+        var User = Val.UID;
+        var Bottle = Val.Logbottle;
+            if(Uid == User){
+                    if( Val.Logbottle != 0){
+                        Data.push(Val)
+                    }
+            }
     });
 
-
-};
-
-window.addEventListener('load', function() {
-    Getdata()
+    Data.reverse();
+    console.log(Data)
+    for (i in Data)
+    {
+            var B = Data[i].Logbottle;
+            rows[j] = {"id": (j+1).toString(), "time": Data[i].Logtime.toString(),"bottle":Data[i].Logbottle.toString()};
+            j++;
+            SUM += B;
+            Total = SUM;
+    }
+    if(SUM == 0){
+         alert("You should put the bottle before!!!");
+     }
+    Object.keys(Data).map(function (key) {
+            $('tbody').append('<tr>' +
+                '<td>' + ++num +'</td>' +
+                '<td>' + Data[key].Logtime +'</td>' +
+                '<td>' + Data[key].Logbottle +'</td>' +
+                '</tr>')
+    });
+    $("#Summary").text("Total " + SUM + " Bottles");
+    $('#dataUpSuccess').show();
+    SUM = 0;
+    j = 0;
+    Data = [];
 });
 
 function InsertAgain(){
