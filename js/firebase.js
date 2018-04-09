@@ -131,8 +131,7 @@ ref1.orderByKey().on('value',function (snapshot){
             News.push(Values);
         });
         News.reverse();
-        console.log(News);
-
+        // console.log(News);
         if (News.length == 1){
             $("#New1").show();
             $("#New2").hide();
