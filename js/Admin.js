@@ -353,7 +353,7 @@ ref3.on('value',function (snapshot){
 
     }
     else{
-        window.location.href = "Login.html";
+        window.location.href = "index.html";
     }
 });
 
