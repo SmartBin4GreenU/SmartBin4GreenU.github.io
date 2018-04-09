@@ -10,7 +10,7 @@ firebase.initializeApp(config)
 
 var seLectedFile;
 var Uid;
-
+var database = firebase.database();
 initApp =  function() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -43,8 +43,6 @@ ref2.on('value',function (snapshot){
 console.log(Admin + '=='+Uid);
 if(Uid === Admin){
     var Level ;
-    var database = firebase.database();
-
     var ref = database.ref('Ultrasonic/');
     ref.on('value',function (snapshot){
         var Values = snapshot.val();
