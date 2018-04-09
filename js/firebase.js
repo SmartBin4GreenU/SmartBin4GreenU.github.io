@@ -11,15 +11,15 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var user = firebase.auth().currentUser;
-if (user) {
-    // User is signed in.
-    console.log(user);
-} else {
-    // No user is signed in.
-    console.log("Please Login");
-    // window.location.href = "Login.html";
-}
+// var user = firebase.auth().currentUser;
+// if (user) {
+//     // User is signed in.
+//     console.log(user);
+// } else {
+//     // No user is signed in.
+//     console.log("Please Login");
+//     // window.location.href = "Login.html";
+// }
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -31,7 +31,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         var uid = user.uid;
         var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
-         document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+         // document.getElementById("Name").innerHTML = "Hi : " + displayName.toString() ;
+         $("#Name").text("Hi Admin: " + displayName.toString());
         // console.log(displayName);
     }
 
@@ -39,7 +40,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log(error);
     alert("Some Thing Worng! please login agian");
 });
-
 
 // var defaults = window.src = "Picture/Default.png" ;
 var Uid;

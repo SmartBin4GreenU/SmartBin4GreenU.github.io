@@ -44,13 +44,16 @@
                     var phoneNumber = user.phoneNumber;
                     var providerData = user.providerData;
 
-                    document.getElementById("Username").innerHTML = displayName.toString();
-                    document.getElementById("Email").innerHTML =  email.toString();
-                    document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-                    document.getElementById("image1").src= photoURL;
+                    // document.getElementById("Username").innerHTML = displayName.toString();
+                    // document.getElementById("Email").innerHTML =  email.toString();
+                    // document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
+                    // document.getElementById("image1").src= photoURL;
+                    $("#Username").text(displayName.toString());
+                    $("#Email").text(email.toString());
+                    $("#Name").text("Hi : " + displayName.toString());
+                    $("#image1").attr("src", photoURL);
+
                     Uid = uid;
-
-
                 }
             }, function(error) {
                 console.log(error);
@@ -58,8 +61,8 @@
             });
         };
         var database = firebase.database();
-        Getdata =  function (){
-            database.ref("/History").once('value', function(snapshot){
+
+        database.ref("/History").once('value', function(snapshot){
                 if(snapshot.exists()){
                     snapshot.forEach(function(data){
                         var val = data.val();
@@ -72,14 +75,13 @@
                         }
                     });
                 }
-                document.getElementById("totalbot").innerHTML =  SUM.toString();
+                // document.getElementById("totalbot").innerHTML =  SUM.toString();
+                $("#totalbot").text(SUM.toString());
                 SUM = 0;
-            });
-        };
+        });
+
         window.addEventListener('load', function() {
             initApp();
-            Getdata();
-            Get_time();
         });
 
         function Signout() {
@@ -104,27 +106,25 @@
                 });
         }
 
-    // var max = 0;
-         Get_time = function() {
             var ref = firebase.database().ref("Log/Time");
             ref.orderByKey().on("value", function(snapshot) {
                 // console.log(snapshot.key,snapshot.val());
-                if(snapshot.exists()){
-                    snapshot.forEach(function(data){
+                if (snapshot.exists()) {
+                    snapshot.forEach(function (data) {
                         var val = data.val();
                         var User_ID = val.Uid;
                         var Time = val.Time;
-                        if(Uid ==  User_ID ) {
+                        if (Uid == User_ID) {
                             if (Time != null) {
-                                document.getElementById("Time").innerHTML = Time.toString();
+                                // document.getElementById("Time").innerHTML = Time.toString();
+                                $("#Time").text(Time.toString());
                             }
                         }
                     });
                 }
             });
-        }
-    </script>
 
+    </script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -219,29 +219,26 @@
                     <div class="col-sm text-center" style="margin: 20px">
                         <img class="img-fluid" id="image1"  alt="Profiles_picture">
                     </div>
-                    <div class="col-sm-6">
-                            <div class="col-sm" style="margin: 30px">
-
-                                <!--<label class="col-sm-5 "><strong style="font-size: 30px">Profile</strong></label>-->
+                    <div class="col-lg-6">
+                            <div class="col-lg" style="margin: 30px">
 
                                 <div class="input-group mb">
-                                    <label class="col-sm "><strong style="font-size: 20px">Name:</strong></label>
-                                    <div class="col-sm-9 " style="font-size: 20px;color: #868e96" id="Username" ></div>
-
+                                    <label ><strong style="font-size: 20px">Name </strong></label>
+                                    <div class="col-lg-8 " style="font-size: 20px;color: #868e96" id="Username" ></div>
                                 </div>
 
                                 <div class="input-group mb">
-                                    <label class="col-sm "><strong style="font-size: 20px">Email:</strong></label>
-                                    <div class="col-sm-9 " style="font-size: 20px;color: #868e96"id="Email"></div>
+                                    <label ><strong style="font-size: 20px">Email </strong></label>
+                                    <div class="col-lg-8 " style="font-size: 20px;color: #868e96"id="Email"></div>
                                 </div>
 
                                 <div class="input-group mb">
-                                    <label class="col-sm-4 "><strong style="font-size: 20px">Last Used:</strong></label>
-                                    <div class="col-sm-8" style="font-size: 20px;color: #868e96" id="Time" ></div>
+                                    <label ><strong style="font-size: 20px">Last Used </strong></label>
+                                    <div class="col-lg-8" style="font-size: 20px;color: #868e96" id="Time" ></div>
                                 </div>
                                 <div class="input-group mb">
-                                    <label class="col-sm-4 "><strong style="font-size: 20px">Total Bottle:</strong></label>
-                                    <div class="col-sm-8" style="font-size: 20px;color: #868e96"id="totalbot"></div>
+                                    <label ><strong style="font-size: 20px">Total Bottle </strong></label>
+                                    <div class="col-lg-8" style="font-size: 20px;color: #868e96"id="totalbot"></div>
                                 </div>
                             </div>
                     </div>

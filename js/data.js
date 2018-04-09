@@ -11,7 +11,6 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 var SUM = 0;
-var num = 0;
 var Uid;
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -86,7 +85,6 @@ ref.on("value", function(snapshot) {
                     }
             }
     });
-
     Data.reverse();
     console.log(Data)
     for (i in Data)
@@ -97,9 +95,12 @@ ref.on("value", function(snapshot) {
             SUM += B;
             Total = SUM;
     }
+
     if(SUM == 0){
          alert("You should put the bottle before!!!");
      }
+
+
     Object.keys(Data).map(function (key) {
             $('tbody').append('<tr>' +
                 '<td>' + ++num +'</td>' +
@@ -108,7 +109,6 @@ ref.on("value", function(snapshot) {
                 '</tr>')
     });
     $("#Summary").text("Total " + SUM + " Bottles");
-    $('#dataUpSuccess').show();
     SUM = 0;
     j = 0;
     Data = [];
