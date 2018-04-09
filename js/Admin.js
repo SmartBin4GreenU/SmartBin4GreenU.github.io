@@ -179,45 +179,6 @@ ref3.on('value',function (snapshot){
             });
         });
 
-        $(document).ready(function () {
-            $('#updateSuccess').hide();
-            $('#setUptankOK').hide();
-
-            $('#updateOSV').hide();
-            $('#updateSV').hide();
-
-            $('#editBar').hide();
-            $('#delBar').hide();
-
-            $("#Submit").click(function(){
-                $("#form").trigger("reset");
-            });
-
-            $("#SetupTank").click(function(){
-                $("#Setup").trigger("reset");
-            });
-
-            $("#btnOFS").show();
-            $("#btnSV").hide();
-            $('#StatusOn').show();
-            $('#StatusOn').text("Services");
-
-            $('#btnOFS').click(function () {
-                firebase.database().ref('LogUser/Lasted/').set({
-                    SBNumber : "SB1",
-                    StatusDevice : parseInt(2),
-                    Uid : Uid
-                });
-            });
-            $('#btnSV').click(function () {
-                firebase.database().ref('LogUser/Lasted/').set({
-                    SBNumber : "SB1",
-                    StatusDevice : parseInt(0),
-                    Uid : Uid
-                });
-            });
-        });
-
         function showStatesuccess() {
             $('#updateSuccess').show();
         }
@@ -359,4 +320,41 @@ ref3.on('value',function (snapshot){
     }
 });
 
+$(document).ready(function () {
+    $('#updateSuccess').hide();
+    $('#setUptankOK').hide();
 
+    $('#updateOSV').hide();
+    $('#updateSV').hide();
+
+    $('#editBar').hide();
+    $('#delBar').hide();
+
+    $("#Submit").click(function(){
+        $("#form").trigger("reset");
+    });
+
+    $("#SetupTank").click(function(){
+        $("#Setup").trigger("reset");
+    });
+
+    $("#btnOFS").show();
+    $("#btnSV").hide();
+    $('#StatusOn').show();
+    $('#StatusOn').text("Services");
+
+    $('#btnOFS').click(function () {
+        firebase.database().ref('LogUser/Lasted/').set({
+            SBNumber : "SB1",
+            StatusDevice : parseInt(2),
+            Uid : Uid
+        });
+    });
+    $('#btnSV').click(function () {
+        firebase.database().ref('LogUser/Lasted/').set({
+            SBNumber : "SB1",
+            StatusDevice : parseInt(0),
+            Uid : Uid
+        });
+    });
+});
