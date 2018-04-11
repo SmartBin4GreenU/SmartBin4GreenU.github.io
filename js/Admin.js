@@ -103,7 +103,7 @@ var Level ;
 var ref = database.ref('Ultrasonic/');
  ref.on('value',function (snapshot){
             var Values = snapshot.val();
-            var Distance = Values.Distance1;
+            var Distance = Values.Distance;
             var h_max = Values.Hight;
             var w_max = Values.Raduis;
             /********************************** Find Volume ************************************/
