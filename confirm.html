@@ -14,46 +14,10 @@
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="js/firebase.js"></script>
-
-
-    <script type="text/javascript">
-
-        initApp =  function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var uid = user.uid;
-                    var phoneNumber = user.phoneNumber;
-                    var providerData = user.providerData;
-
-
-                    document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-                    console.log(displayName);
-
-
-                    // writeUserData(uid, displayName, email ,photoURL);
-
-                }
-            }, function(error) {
-                console.log(error);
-                alert("Some Thing Worng! please login agian");
-            });
-        };
-        window.addEventListener('load', function() {
-            initApp()
-        });
-        // var database = firebase.database();
-        // console.log("Seccuess");
-
-    </script>
+  <script src="js/firebase.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -84,7 +48,7 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Profiles">
-          <a class="nav-link" href="proflies.html">
+          <a class="nav-link" href="profiles.html">
             <i class="fa fa-user"></i>
             <span class="nav-link-text">PROFILES</span>
           </a>

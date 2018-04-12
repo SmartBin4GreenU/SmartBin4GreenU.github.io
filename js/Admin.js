@@ -31,10 +31,15 @@ initApp =  function() {
         console.log(error);
         alert("Some Thing Worng! please login agian");
     });
+
 };
 window.addEventListener('load', function() {
     initApp();
 });
+
+
+
+
 
 var name;
 var ref4 = database.ref('Admin/List/');
@@ -48,6 +53,8 @@ ref4.on('value',function (snapshot){
           setTimeout(2000);
           window.location.href = "index.html";
       }
+    console.log("ADMIN");
+    //
 });
 
 $(document).ready(function () {
@@ -422,25 +429,27 @@ var SUM  = 0;
 
      uploadTask.on('state_changed' , function (snapshot) {
      },function (err) {
-         },function () {
-                var postKey = database.ref('/Admin/Post/').push().key;
-                var downLoadURL = uploadTask.snapshot.downloadURL;
-                var updates = {};
-                var date = new Date();
-                var postData = {
-                    Writer : Writer,
-                    Title : Title,
-                    Details: Details,
-                    Img_Url : downLoadURL,
-                    Time : date.toString().substr(0, 24)
-                };
+
+     },function () {
+          var postKey = database.ref('/Admin/Post/').push().key;
+          var downLoadURL = uploadTask.snapshot.downloadURL;
+          var updates = {};
+          var date = new Date();
+          var postData = {
+               Writer : Writer,
+               Title : Title,
+               Details: Details,
+               Img_Url : downLoadURL,
+               Time : date.toString().substr(0, 24)
+           };
                 // console.log(date.toString().substr(0, 24));
-                updates['/Admin/Post/'+ postKey] = postData;
-                database.ref().update(updates);
-                showStatesuccess();
-                setTimeout(500);
-            });
+           updates['/Admin/Post/'+ postKey] = postData;
+           database.ref().update(updates);
+           showStatesuccess();
+           setTimeout(500);
+      });
  }
+
  function Signout() {
      firebase.auth().signOut().then(function() {
          firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({

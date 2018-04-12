@@ -10,7 +10,6 @@
     <title>News Management</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom fonts for this template-->
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
@@ -115,27 +114,25 @@
                          <div class="input-group-prepend">
                              <span class="input-group-text">Writen by</span>
                          </div>
-                         <input type="text" class="form-control"  id="Writer">
+                         <input type="text" class="form-control"  id="Writer" required>
                      </div>
                      <div class="input-group mb-3">
                          <div class="input-group-prepend">
                              <span class="input-group-text">Title</span>
                          </div>
-                         <input type="text" class="form-control"  id="Title">
+                         <input type="text" class="form-control"  id="Title" required>
                      </div>
 
                      <div class="input-group">
                          <div class="input-group-prepend">
                              <span class="input-group-text">Detials</span>
                          </div>
-                         <textarea class="form-control" aria-label="Details" id="Details" ></textarea>
+                         <textarea class="form-control" aria-label="Details" id="Details" required></textarea>
                      </div>
-                     <form>
-                         <div class="form-group">
+                         <div class="custom-file">
                              <label for="Picturefile" style="margin-top: 5px">Add picture</label>
-                             <input type="file" class="form-control-file " id="Picturefile">
+                             <input type="file" class="form-control-file " id="Picturefile" required>
                          </div>
-                     </form>
              </form>
              <div class="input-group" style="margin-top: 15px">
                  <button type="button" class="btn btn-success"  onclick="addNews()" id="Submit">Post</button>

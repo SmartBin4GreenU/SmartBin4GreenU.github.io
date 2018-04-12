@@ -5,24 +5,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!--<meta name="description" content="">-->
-  <!--<meta name="author" content="">-->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>PROFILES</title>
 
-  <title>VIEW DATA</title>
-  <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-
-  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="js/data.js"></script>
-
+  <script src="js/firebase.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -89,6 +82,8 @@
                   </div>
               </form>
           </li>
+
+
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fas fa-sign-out-alt" ></i> Logout</a>
@@ -97,86 +92,106 @@
     </div>
   </nav>
 
-
   <div class="content-wrapper">
-
     <div class="container-fluid">
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="Homepage.html">HOME</a>
         </li>
-        <li class="breadcrumb-item active">VIEW DATA</li>
+        <li class="breadcrumb-item active">PROFILES</li>
       </ol>
-
-        <div class="alert alert-success" role="alert" id="dataUpSuccess">
-          DATA UPDATE SUCCESS!!
-        </div>
-
-      <div class="card mb-3"  id="content"  >
-        <div class="card-header">
-
-          <i class="fa fa-table"></i>  DATA
-        </div>
-        <div class="card-body" >
-            <div id="editor">
-            <h2>TOTAL BOTTLE</h2>
-           <div class="text-right">
-
-             <button class="btn btn-success" data-toggle="modal" data-target="#Addmore">Add More</button>
-               <!--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">-->
-               <div class="modal fade" id="Addmore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                   <div class="modal-dialog" role="document">
-                       <div class="modal-content">
-                           <div class="modal-header">
-                               <h4 class="modal-title" id="exampleModalLabel">INSERT AGAIN!!</h4>
-                               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                   <span aria-hidden="true">×</span>
-                               </button>
-                           </div>
-
-                           <div class="modal-body" > <h5 class="text-center">Press Confirm Button to insert again.</h5> </div>
-                           <div class="modal-footer">
-                               <button class="btn btn-danger" type="button" data-dismiss="modal" onclick="InsertAgain()">Confirm</button>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-                <!--<hr>-->
-                <div class="text-right" style=" margin-top: 10px;margin-bottom: 10px">
-                    <a id="cmd2"  href="#" onclick="Export()" >
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Export PDF</span>
-                    </a>
+        <h4 style="margin: 20px" ><strong>INFORMATION</strong></h4>
+        <hr>
+        <div id="Profile">
+            <div class="row justify-content-center badge-light " style="margin: 20px" >
+                <div class="col  justify-content-center" style="margin: 20px">
+                    <img class="img-thumbnail" id="image1"   alt="Profiles_picture">
                 </div>
+                <div class="col badge-light" style="margin: 10px">
+                    <div class="input-group lg justify-content-end">
+                        <button class="btn btn-primary" id="btnEdit">EDIT</button>
+                    </div>
+                    <div class="input-group lg disabled">
+                        <label><strong style="font-size: 20px">Username </strong></label>
+                        <div class="col-lg-8 " style="font-size: 20px;color: #868e96" id="Defualt_Username"></div>
+                    </div>
+                    <div class="input-group lg">
+                        <label><strong style="font-size: 20px">Name </strong></label>
+                        <div class="col-lg-8 " style="font-size: 20px;color: #868e96" id="Username"></div>
+                    </div>
 
-                <h2 id="Summary" class="text-right"></h2>
-                <div class="table-responsive">
-                    <table class="table table-hover table-light " style="width:100%" id="ex-table">
-                        <thead>
-                        <tr id="tr">
-                            <th>ID</th>
-                            <th>Time</th>
-                            <th>Bottle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <div class="input-group lg">
+                        <label><strong style="font-size: 20px">Email </strong></label>
+                        <div class="col-lg-8 " style="font-size: 20px;color: #868e96" id="Email"></div>
+                    </div>
 
-                        </tbody>
-                    </table>
+                    <div class="input-group lg">
+                        <label><strong style="font-size: 20px">Last Used </strong></label>
+                        <div class="col-lg-8" style="font-size: 20px;color: #868e96" id="Time"></div>
+                    </div>
+                    <div class="input-group lg">
+                        <label><strong style="font-size: 20px">Total Bottle </strong></label>
+                        <div class="col-lg-8" style="font-size: 20px;color: #868e96" id="totalbot"></div>
+                    </div>
                 </div>
+            </div>
         </div>
-          </div>
-        <div class="card-footer small text-muted text-right ">
+        <div id="editProfile">
+            <div class="row justify-content-center badge-light " style="margin: 20px">
+                <form  style="margin: 20px" id="EditPro">
+                    <h2 style="margin-top: 10px">EDIT PROFILES</h2>
+                    <div class="form-row">
+                        <div class="form-group col-md">
+                            <label >Username</label>
+                            <input type="text" class="form-control" id="EditUsername" placeholder="@Username" >
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label >Firstname</label>
+                            <input type="text" class="form-control" id="EditFirstname" placeholder="Firstname" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Lastname</label>
+                            <input type="text" class="form-control" id="EditLastname" placeholder="Lastname">
+                        </div>
+                    </div>
+                    <div class="form-row" >
+                        <div class="form-group col-md-6">
+                            <label>Email</label>
+                            <input type="text" class="form-control"  id="EditEmail" placeholder="Email Address">
+
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Telephone No.</label>
+                            <input type="text" class="form-control" id="EditTelephone" placeholder="08x-xxx-xxxx">
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<div class="form-check">-->
+                    <!--<input class="form-check-input" type="checkbox" id="gridCheck">-->
+                    <!--<label class="form-check-label" for="gridCheck">-->
+                    <!--Check me out-->
+                    <!--</label>-->
+                    <!--</div>-->
+                    <!--</div >-->
+                    <label>Profile Picture</label>
+                    <!--<div class="custom-file">-->
+                        <!--<input type="file" class="custom-file-input" id="Profile_picture">-->
+                        <!--<label class="custom-file-label" for="Profile_picture">Choose file</label>-->
+                    <!--</div>-->
+                    <div class="custom-file">
+                        <input type="file" class="form-control-file" id="Profile_picture">
+                    </div>
+                    <div class="text-right" style="margin-top: 20px;margin-bottom: 10px">
+                        <button type="button" class="btn btn-primary" id="Submit" onclick="EditProfile()">Submit</button>
+                        <button type="button" class="btn btn-danger" id="Cancle">Cancle</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
-
-
-  </div>
-    </div>
-    <!-- /.container-fluid-->
-
+        <br>
     <!-- /.content-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
@@ -202,31 +217,25 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="index.html" onclick="Signout();">Logout</a>
+            <a class="btn btn-primary" href="index.html" onclick="Signout()">Logout</a>
           </div>
         </div>
       </div>
     </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
+
+    <!-- Toggle between fixed and static navbar-->
+    </div>
   </div>
+ </body>
 
-
-
-  <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
-  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
-
-</body>
 
 </html>

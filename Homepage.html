@@ -17,78 +17,10 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
-
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-    <!--<script src="js/firebase.js"></script>-->
-
-    <script type="text/javascript">
-
-        var config = {
-            apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
-            authDomain: "sb-fgu.firebaseapp.com",
-            databaseURL: "https://sb-fgu.firebaseio.com",
-            projectId: "sb-fgu",
-            storageBucket: "sb-fgu.appspot.com",
-            messagingSenderId: "368024117056"
-        };
-        firebase.initializeApp(config);
-
-        initApp =  function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var uid = user.uid;
-                    var phoneNumber = user.phoneNumber;
-                    var providerData = user.providerData;
-
-
-                    document.getElementById("Name").innerHTML = "Hi : " + displayName.toString();
-                    // console.log(displayName);
-                    // console.log("Seccuess");
-                }
-            }, function(error) {
-                console.log(error);
-                alert("Some Thing Worng! please login agian");
-            });
-        };
-        window.addEventListener('load', function() {
-            initApp();
-        });
-
-
-        function Signout() {
-            firebase.auth().signOut().then(function() {
-                    firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
-                        Status : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
-                        Repush : parseInt(0)
-                    });
-                    firebase.database().ref('LogUser/').child('Lasted').set({
-                        Uid : Uid,
-                        SBNumber: "SB1",
-                        StatusDevice: parseInt(0)
-                    });
-                    console.log('Signed Out');
-                    alert('Signed Out');
-                    window.location.href = "index.html";
-                },
-                function(error) {
-                    console.error('Sign Out Error', error);
-                });
-
-        }
-        // var database = firebase.database();
-
-    </script>
+    <script src="js/firebase.js"></script>
 
 </head>
 
@@ -120,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profiles">
-                <a class="nav-link" href="proflies.html">
+                <a class="nav-link" href="profiles.html">
                     <i class="fa fa-user"></i>
                     <span class="nav-link-text">PROFILES</span>
                 </a>
@@ -223,7 +155,7 @@
                         </div>
                         <div class="mr-5">PROFILES</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="proflies.html">
+                    <a class="card-footer text-white clearfix small z-1" href="profiles.html">
                         <span class="float-left">View Details</span>
                         <span class="float-right">
                  <i class="fa fas fa-angle-double-right"></i>

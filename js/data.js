@@ -23,9 +23,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         var uid = user.uid;
         var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
-        // document.getElementById("name").innerHTML = "User:"+ displayName;
-        // userId = firebase.auth().currentUser.uid;
-        //console.log(userId);
         Uid = uid;
 
     }
@@ -35,6 +32,18 @@ firebase.auth().onAuthStateChanged(function(user) {
     alert("Some Thing Worng! please login agian");
 });
 
+var ref3 = firebase.database().ref('users/');
+ref3.on("value", function(snapshot) {
+    snapshot.forEach(function(data){
+        var Val = data.val();
+        var User = Val.uid;
+        // console.log(Val)
+        if(Uid == User){
+            $("#Name").text("Hi : " + Val.Defualt_Username);
+
+        }
+    });
+});
 
 function Signout() {
     firebase.auth().signOut().then(function() {

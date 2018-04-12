@@ -9,45 +9,37 @@ var config = {
 firebase.initializeApp(config);
 
 
+var name;
 var database = firebase.database();
+var Uid;
 
-// var user = firebase.auth().currentUser;
-// if (user) {
-//     // User is signed in.
-//     console.log(user);
-// } else {
-//     // No user is signed in.
-//     console.log("Please Login");
-//     // window.location.href = "Login.html";
-// }
-
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var uid = user.uid;
-        var phoneNumber = user.phoneNumber;
-        var providerData = user.providerData;
-         // document.getElementById("Name").innerHTML = "Hi : " + displayName.toString() ;
-         $("#Name").text("Hi Admin: " + displayName.toString());
-        // console.log(displayName);
-    }
-
-}, function(error) {
-    console.log(error);
-    alert("Some Thing Worng! please login agian");
+initApp =  function() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // User is signed in.
+            var displayName = user.displayName;
+            var email = user.email;
+            var emailVerified = user.emailVerified;
+            var photoURL = user.photoURL;
+            var uid = user.uid;
+            var phoneNumber = user.phoneNumber;
+            var providerData = user.providerData;
+            Uid = uid;
+            console.log(providerData);
+            // $("#Name").text("Hi: " + displayName.toString());
+            writeUserData(uid,displayName,email,photoURL);
+        }
+    }, function(error) {
+        console.log(error);
+        alert("Some Thing Worng! please login agian");
+    });
+};
+window.addEventListener('load', function() {
+    initApp();
 });
 
-// var defaults = window.src = "Picture/Default.png" ;
-var Uid;
-var name;
-
 function writeUserData(userId, name, email, imageUrl) {
-
-    firebase.database().ref('users/' + userId).set({
+    firebase.database().ref('users/' + userId).update({
         username: name,
         email: email,
         profile_picture: imageUrl,
@@ -60,14 +52,12 @@ function writeUserData(userId, name, email, imageUrl) {
         StatusDevice: parseInt(1)
     });
     var d = new Date();
-    // firebase.database().ref().child('posts').push().key;
     firebase.database().ref('Log/').child('Time').push({
         Uid: userId,
         SBNumber: "SB1",
         Time: d.toString().substr(0, 24)
-
-
     });
+    console.log("Write data Success")
 }
 
 function Signout(){
@@ -91,17 +81,14 @@ function Signout(){
             console.error('Sign Out Error', error);
         });
      setTimeout(3000);
-}// }
+}
 
 function veryfyCode() {
-
     var database = firebase.database();
     var ref = database.ref('LogUser/CodeGen/Code');
     ref.on('value',function (snapshot){
         var Token = snapshot.val();
         var Code =  document.getElementById("activeCode").value;
-        // console.log(Token);
-        // console.log(Code);
         if(Code == Token){
             firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
                 Status: parseInt(1)
@@ -120,39 +107,82 @@ function veryfyCode() {
     });
 }
 
+function EditProfile() {
+    // var user = firebase.auth().currentUser;
+    var Firstname =  $('#EditFirstname').val();
+    var Lastname =   $('#EditLastname').val();
+    var Email = $('#EditEmail').val();
+    var Telephone = $('#EditTelephone').val();
+    var Defualt_Username = $('#EditUsername').val();
+    var seLectedFile = $('#Profile_picture').get(0).files[0];
+    var filename =  seLectedFile.name;
+    console.log(seLectedFile);
+
+    var dataref = firebase.storage().ref("/imgProfile/" + filename);
+    var uploadTask = dataref.put(seLectedFile);
+
+    uploadTask.on('state_changed' , function (snapshot) {
+    },function (err) {
+
+    },function () {
+        var downLoadURL = uploadTask.snapshot.downloadURL;
+            var user = firebase.auth().currentUser;
+            user.updateProfile({
+                displayName: Firstname + ' ' + Lastname,
+                photoURL: downLoadURL,
+                email : Email,
+                phoneNumber : Telephone
+            }).then(function() {
+                console.log("updateProfile  Success")
+            }).catch(function(error) {
+                console.log("updateProfile  Error")
+            });
+            user.updateEmail(Email).then(function() {
+                console.log("updateEmail Success")
+            }).catch(function(error) {
+                console.log("updateEmail Success")
+            });
+            console.log(downLoadURL)
+        }
+
+    );
+    database.ref('users/' + Uid).update({
+        Defualt_Username: Defualt_Username
+    });
+}
+
 var News = [];
 var ref1 = database.ref('Admin/Post/').limitToLast(4);
 ref1.orderByKey().on('value',function (snapshot){
-
     if(snapshot.exists()) {
         snapshot.forEach(function (data) {
             var Values = data.val();
-            console.log(Values);
+            // console.log(Values);
             News.push(Values);
         });
         News.reverse();
         // console.log(News);
-        if (News.length == 1){
+        if (News.length === 1){
             $("#New1").show();
             $("#New2").hide();
             $("#New3").hide();
             $("#New4").hide();
         }
-        else if(News.length == 2 ) {
+        else if(News.length === 2 ) {
             $("#New1").show();
             $("#New2").show();
             $("#New3").hide();
             $("#New4").hide();
 
         }
-        else if(News.length == 3 ) {
+        else if(News.length === 3 ) {
             $("#New1").show();
             $("#New2").show();
             $("#New3").show();
             $("#New4").hide();
 
         }
-        else if(News.length == 4 ) {
+        else if(News.length === 4 ) {
             $("#New1").show();
             $("#New2").show();
             $("#New3").show();
@@ -186,9 +216,59 @@ ref1.orderByKey().on('value',function (snapshot){
             $("#Details4").text(News[3].Details);
             $("#Writer4").text("Write by : " + News[3].Writer);
             $("#PostTime4").text("Post Time : " + News[3].Time);
-
     }
+});
 
+var SUM = 0;
+database.ref("/History").once('value', function(snapshot){
+    if(snapshot.exists()){
+        snapshot.forEach(function(data){
+            var val = data.val();
+            var User = val.UID;
+            var Bottle = val.Logbottle;
+            if(Uid == User){
+                if( val.Logbottle != 0) {
+                    SUM += Bottle;
+                }
+            }
+        });
+    }
+    $("#totalbot").text(SUM.toString());
+    SUM = 0;
+});
+
+var ref2 = firebase.database().ref("Log/Time");
+ref2.orderByKey().on("value", function(snapshot) {
+    if (snapshot.exists()) {
+        snapshot.forEach(function (data) {
+            var val = data.val();
+            var User_ID = val.Uid;
+            var Time = val.Time;
+            if (Uid == User_ID) {
+                if (Time != null) {
+                    // document.getElementById("Time").innerHTML = Time.toString();
+                    $("#Time").text(Time.toString());
+                }
+            }
+        });
+    }
+});
+
+var ref3 = firebase.database().ref('users/');
+ref3.on("value", function(snapshot) {
+    snapshot.forEach(function(data){
+        var Val = data.val();
+        var User = Val.uid;
+        // console.log(Val)
+        if(Uid == User){
+            $("#Username").text(Val.username);
+            $("#Email").text(Val.email);
+            $("#image1").attr("src", Val.profile_picture);
+            $("#Name").text("Hi : " + Val.Defualt_Username);
+            $("#Defualt_Username").text( '@' + Val.Defualt_Username);
+
+        }
+    });
 });
 
 $(document).ready(function () {
@@ -196,6 +276,20 @@ $(document).ready(function () {
     $("#New2").hide();
     $("#New3").hide();
     $("#New4").hide();
+    $("#editProfile").hide();
+
+    $("#btnEdit").click(function (){
+        $("#Profile").hide();
+        $("#editProfile").show();
+    });
+    $("#Submit").click(function(){
+        $("#EditPro").trigger("reset");
+        $("#Profile").show();
+        $("#editProfile").hide();
+    });
+    $("#Cancle").click(function(){
+        location.reload();
+    });
 });
 
 
