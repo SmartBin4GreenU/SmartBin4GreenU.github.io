@@ -24,7 +24,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://files.codepedia.info/uploads/iScripts/html2canvas.js"></script>
+
     <script src="js/data.js"></script>
+
 </head>
 <body>
 <div class="row">
@@ -45,6 +50,23 @@
 <!-- Your share button code -->
 <div class="fb-share-button" data-size="large"  data-href="https://smartbin4greenu.github.io/ShareDataFB.html" data-layout="button_count">
 </div>
+
+<div id="html-content-holder" style="background-color: lawngreen; color: #00cc65; width: 500px;padding-left: 25px; padding-top: 10px;">
+    <strong class="text-uppercase">RESULT</strong><hr/>
+    <p style="color: #3e4b51;">
+        Bottle</p>
+    <p style="color: #3e4b51;">
+       40
+    </p>
+</div>
+<input id="btn-Preview-Image" type="button" value="Preview"/>
+<a id="btn-Convert-Html2Image" href="#">Download</a>
+<br/>
+<h3>Preview :</h3>
+<div id="previewImage">
+</div>
+
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>

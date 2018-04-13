@@ -8,6 +8,16 @@ var config = {
 };
 firebase.initializeApp(config);
 
+// Initialize Firebase
+// var config = {
+//     apiKey: "AIzaSyBBRzM0dlKNHCN2dNFdINzioWxmPQ6XZz4",
+//     authDomain: "smartbin4greenuniversity.firebaseapp.com",
+//     databaseURL: "https://smartbin4greenuniversity.firebaseio.com",
+//     projectId: "smartbin4greenuniversity",
+//     storageBucket: "smartbin4greenuniversity.appspot.com",
+//     messagingSenderId: "454493721327"
+// };
+// firebase.initializeApp(config);
 
 var name;
 var database = firebase.database();
@@ -25,7 +35,7 @@ initApp =  function() {
             var phoneNumber = user.phoneNumber;
             var providerData = user.providerData;
             Uid = uid;
-            console.log(providerData);
+            // console.log(providerData);
             // $("#Name").text("Hi: " + displayName.toString());
             writeUserData(uid,displayName,email,photoURL);
         }

@@ -112,69 +112,70 @@
         <div class="alert alert-success" role="alert" id="dataUpSuccess">
           DATA UPDATE SUCCESS!!
         </div>
-
-      <div class="card mb-3"  id="content"  >
+        <div id="Status_Bar">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Something Wrong!!!</h4>
+                <p>Please Contact to Administator</p>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+       <div class="card mb-3"  id="Table">
         <div class="card-header">
 
           <i class="fa fa-table"></i>  DATA
         </div>
         <div class="card-body" >
-            <div id="editor">
+        <div id="editor">
             <h2>TOTAL BOTTLE</h2>
-           <div class="text-right">
+                 <div class="text-right">
+                     <button class="btn btn-success text-right" data-toggle="modal" data-target="#Addmore">Add More</button>
+                     <!--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">-->
+                         <div class="modal fade" id="Addmore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                             <div class="modal-dialog" role="document">
+                                 <div class="modal-content">
+                                     <div class="modal-header">
+                                         <h4 class="modal-title" id="exampleModalLabel">INSERT AGAIN!!</h4>
+                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                         </button>
+                                     </div>
 
-             <button class="btn btn-success" data-toggle="modal" data-target="#Addmore">Add More</button>
-               <!--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">-->
-               <div class="modal fade" id="Addmore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                   <div class="modal-dialog" role="document">
-                       <div class="modal-content">
-                           <div class="modal-header">
-                               <h4 class="modal-title" id="exampleModalLabel">INSERT AGAIN!!</h4>
-                               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                   <span aria-hidden="true">×</span>
-                               </button>
-                           </div>
-
-                           <div class="modal-body" > <h5 class="text-center">Press Confirm Button to insert again.</h5> </div>
-                           <div class="modal-footer">
-                               <button class="btn btn-danger" type="button" data-dismiss="modal" onclick="InsertAgain()">Confirm</button>
-                           </div>
-                       </div>
-                   </div>
+                                     <div class="modal-body" > <h5 class="text-center">Press Confirm Button to insert again.</h5> </div>
+                                     <div class="modal-footer">
+                                         <button class="btn btn-danger" type="button" data-dismiss="modal" onclick="InsertAgain()">Confirm</button>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+               <!--<hr>-->
+               <div class="text-right" style=" margin-top: 10px;margin-bottom: 10px">
+                   <a id="cmd2"  href="#" onclick="Export()" >
+                       <i class="fas fa-file-pdf"></i>
+                       <span>Export PDF</span>
+                   </a>
                </div>
-           </div>
-                <!--<hr>-->
-                <div class="text-right" style=" margin-top: 10px;margin-bottom: 10px">
-                    <a id="cmd2"  href="#" onclick="Export()" >
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Export PDF</span>
-                    </a>
-                </div>
+             </div>
+                 <h2 id="Summary" class="text-right"></h2>
+                 <div class="table-responsive">
+                     <table class="table table-hover table-light " style="width:100%" id="ex-table">
+                         <thead>
+                         <tr id="tr">
+                             <th>ID</th>
+                             <th>Time</th>
+                             <th>Bottle</th>
+                         </tr>
+                         </thead>
+                         <tbody>
 
-                <h2 id="Summary" class="text-right"></h2>
-                <div class="table-responsive">
-                    <table class="table table-hover table-light " style="width:100%" id="ex-table">
-                        <thead>
-                        <tr id="tr">
-                            <th>ID</th>
-                            <th>Time</th>
-                            <th>Bottle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
 
-                        </tbody>
-                    </table>
-                </div>
-        </div>
-          </div>
-        <div class="card-footer small text-muted text-right ">
         </div>
       </div>
-
-
   </div>
-    </div>
+</div>
     <!-- /.container-fluid-->
 
     <!-- /.content-wrapper-->
@@ -219,9 +220,6 @@
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
-  </div>
-
-
 
   <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->

@@ -8,6 +8,18 @@ var config = {
 };
 firebase.initializeApp(config)
 
+
+// Initialize Firebase
+// var config = {
+//     apiKey: "AIzaSyBBRzM0dlKNHCN2dNFdINzioWxmPQ6XZz4",
+//     authDomain: "smartbin4greenuniversity.firebaseapp.com",
+//     databaseURL: "https://smartbin4greenuniversity.firebaseio.com",
+//     projectId: "smartbin4greenuniversity",
+//     storageBucket: "smartbin4greenuniversity.appspot.com",
+//     messagingSenderId: "454493721327"
+// };
+// firebase.initializeApp(config);
+
 var seLectedFile;
 var Uid;
 var database = firebase.database();
@@ -37,10 +49,6 @@ window.addEventListener('load', function() {
     initApp();
 });
 
-
-
-
-
 var name;
 var ref4 = database.ref('Admin/List/');
 ref4.on('value',function (snapshot){
@@ -67,11 +75,19 @@ $(document).ready(function () {
     $('#Print').hide();
     $('#Prev').hide();
 
+    $('#Settank').hide();
+    $('#btnSetup').show();
+
     $('#updateOSV').hide();
     $('#updateSV').hide();
 
     $('#editBar').hide();
     $('#delBar').hide();
+
+    $("#btnSetup").click(function(){
+        $('#Settank').show();
+        $('#btnSetup').hide();
+    });
 
     $("#Submit").click(function(){
         $("#form").trigger("reset");
@@ -104,6 +120,7 @@ $(document).ready(function () {
     $('#Prev').click(function() {
         location.reload();
     });
+
 });
 
 var Level ;
@@ -240,67 +257,84 @@ ref2.on("value", function(snapshot) {
             '<button class="btn btn-danger"  onclick="DelData(\''+ key +'\')">DELETE</button>' + '</td>' +
             '</tr>')
     });
+
 });
+
+function DelData(UID) {
+    var Checknode = 0;
+    var ref = firebase.database().ref('History/');
+    ref.on("value", function(snapshot) {
+        var Val = snapshot.val();
+        var num = 0;
+        snapshot.forEach(function(data){
+            var Val = data.val();
+            var User = Val.UID;
+            var Keys =  data.key;
+            if( User === UID ){
+               // firebase.database().ref('History/'+ Keys).remove()
+                console.log("remove success!!")
+                console.log(Keys)
+                Checknode++;
+            }
+        });
+        if(Checknode == 0){
+            alert("User data  not found")
+            //     console.log("Data User not found")
+        }
+    Checknode = 0;
+    });
+}
 
 var ref3 = firebase.database().ref('users/');
 ref3.on("value", function(snapshot) {
     var Val = snapshot.val();
     var num = 0;
-    Object.keys(Val).map(function (key) {
-        $('.U_Manage').append('<tr>' +
-            '<td>' + ++num +'</td>' +
-            '<td>' + Val[key].username +'</td>' +
-            '<td>' + key.substr(0,20)+"xxxxxxx" +'</td>' +
-            '<td>' + Val[key].email + '</td>' +
-            '<td style="text-align: center">' + '<button class="btn btn-primary" style="margin: 10px" onclick="Edit(\''+ key +'\')">EDIT</button>' +
-            '<button class="btn btn-danger"  onclick="Delete(\''+ key +'\')">DELETE</button>' + '</td>' +
-            '</tr>')
+    // console.log(Val);
+         Object.keys(Val).map(function (key) {
+            $('.U_Manage').append('<tr>' +
+                '<td>' + ++num + '</td>' +
+                '<td>' + Val[key].username + '</td>' +
+                '<td>' + key.substr(0, 20) + "xxxxxxx" + '</td>' +
+                '<td>' + Val[key].email + '</td>' +
+                '<td style="text-align: center" >' + '<strong>' +  Val[key].status + '</strong>' + '</td>' +
+                '<td style="text-align: center">' + '<button class="btn btn-danger " style="margin: 5px" onclick="STATUS(\'' + key + '\' , \'' + Val[key].status +'\')" id="Disable">Click</button>' +
+                '</tr>')
     });
 });
 
- function showStatesuccess() {
-     $('#updateSuccess').show();
- }
+function STATUS( UID , STAUS){
+     if(STAUS == "DISABLE"){
+         firebase.database().ref('users/'+ UID).update({
+             status : "ENABLE"
+         });
+         console.log("STAUS = ENABLE");
+     }
+     if(STAUS == "ENABLE"){
+         firebase.database().ref('users/'+ UID).update({
+             status : "DISABLE"
+         });
+         console.log("STAUS = DISABLE");
+     }
+    location.reload();
+}
 
- function setUptank() {
-     firebase.database().ref('Ultrasonic/').update({
-         Raduis : parseInt($("#Raduistank").val()),
-         Hight :  parseInt($("#Higthesttank").val())
-     });
-     $('#setUptankOK').show();
- }
+function showStatesuccess() {
+    $('#updateSuccess').show();
+}
 
- function Edit(UID ){
-     console.log(UID);
-     console.log("Edit");
-     $('#editBar').show();
-     $('#delBar').hide();
-
-     alert("Edit");
-            // firebase.database().ref('users/'+ UID).update({
-            //     SBNumber : "SB1",
-            //     email : parseInt(2),
-            //     profile_picture :  ,
-            //     uid : UID,
-            //     username :
-            // });
- }
- function Delete(UID){
-     console.log(UID);
-     console.log("Delete");
-     $('#delBar').show();
-     $('#editBar').hide();
-     alert("Delete");
-     // firebase.database().ref('users/'+ UID).remove();
- }
+function setUptank() {
+    firebase.database().ref('Ultrasonic/').update({
+        Raduis : parseInt($("#Raduistank").val()),
+        Hight :  parseInt($("#Higthesttank").val())
+    });
+    $('#setUptankOK').show();
+}
 var rows = [];
 var Total = 0;
 var Data = [];
 var j =0;
 var SUM  = 0;
- function Show(UID, NAME){
-     // console.log(UID);
-     // console.log(NAME);
+function Show(UID, NAME){
      console.log("SHOW");
      $('#Username').text("NAME : " + NAME);
      $('#Uid').text("UID: " + UID.substr(0,20)+"xxxxxxx");

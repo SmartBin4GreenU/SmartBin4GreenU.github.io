@@ -8,6 +8,18 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
+// Initialize Firebase
+// var config = {
+//     apiKey: "AIzaSyBBRzM0dlKNHCN2dNFdINzioWxmPQ6XZz4",
+//     authDomain: "smartbin4greenuniversity.firebaseapp.com",
+//     databaseURL: "https://smartbin4greenuniversity.firebaseio.com",
+//     projectId: "smartbin4greenuniversity",
+//     storageBucket: "smartbin4greenuniversity.appspot.com",
+//     messagingSenderId: "454493721327"
+// };
+// firebase.initializeApp(config);
+
 var database = firebase.database();
 
 var SUM = 0;
@@ -24,7 +36,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
         Uid = uid;
-
     }
 
 }, function(error) {
@@ -37,11 +48,25 @@ ref3.on("value", function(snapshot) {
     snapshot.forEach(function(data){
         var Val = data.val();
         var User = Val.uid;
-        // console.log(Val)
         if(Uid == User){
             $("#Name").text("Hi : " + Val.Defualt_Username);
+            if (Val.status === "DISABLE"){
+               $("#Table").hide()
+               $("#Status_Bar").show()
+                alert("Some Thing Worng! please Sign in agian");
+                console.log("DISABLE");
+                // console.log(User + "  " + Val.status );
+            }
+            else if(Val.status === "ENABLE"){
+                $("#Status_Bar").hide()
+                $("#Table").show()
+                Status_Access();
+                console.log("ENABLE");
+                // console.log(User + "  " + Val.status );
 
+            }
         }
+
     });
 });
 
@@ -69,10 +94,10 @@ function Signout() {
     });
 }
 
-
-
 $(document).ready(function () {
     $('#dataUpSuccess').hide();
+    $("#Status_Bar").hide()
+    $("#Table").hide()
 });
 
 var Data =[];
@@ -80,48 +105,50 @@ var rows = [];
 var j =0;
 var Total = 0;
 
-var ref = firebase.database().ref('History/');
-ref.on("value", function(snapshot) {
-    var Val = snapshot.val();
-    var num = 0;
-    snapshot.forEach(function(data){
-        var Val = data.val();
-        var User = Val.UID;
-        var Bottle = Val.Logbottle;
+function Status_Access() {
+    var ref = firebase.database().ref('History/');
+    ref.on("value", function(snapshot) {
+        var Val = snapshot.val();
+        var num = 0;
+        snapshot.forEach(function(data){
+            var Val = data.val();
+            var User = Val.UID;
+            var Bottle = Val.Logbottle;
             if(Uid == User){
-                    if( Val.Logbottle != 0){
-                        Data.push(Val)
-                    }
+                if( Val.Logbottle != 0){
+                    Data.push(Val)
+                }
             }
-    });
-    Data.reverse();
-    console.log(Data)
-    for (i in Data)
-    {
+        });
+        Data.reverse();
+        console.log(Data)
+        for (i in Data)
+        {
             var B = Data[i].Logbottle;
             rows[j] = {"id": (j+1).toString(), "time": Data[i].Logtime.toString(),"bottle":Data[i].Logbottle.toString()};
             j++;
             SUM += B;
             Total = SUM;
-    }
+        }
 
-    if(SUM == 0){
-         alert("You should put the bottle before!!!");
-     }
+        if(SUM == 0){
+            alert("You should put the bottle before!!!");
+        }
 
-
-    Object.keys(Data).map(function (key) {
+        Object.keys(Data).map(function (key) {
             $('tbody').append('<tr>' +
                 '<td>' + ++num +'</td>' +
                 '<td>' + Data[key].Logtime +'</td>' +
                 '<td>' + Data[key].Logbottle +'</td>' +
                 '</tr>')
+        });
+        $("#Summary").text("Total " + SUM + " Bottles");
+        SUM = 0;
+        j = 0;
+        Data = [];
     });
-    $("#Summary").text("Total " + SUM + " Bottles");
-    SUM = 0;
-    j = 0;
-    Data = [];
-});
+}
+
 
 function InsertAgain(){
     firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
@@ -174,10 +201,34 @@ function Export(){
         addPageContent: function(data) {
             doc.text("Export Data", 40, 30);
             doc.text("BY SmartBin4GreenU", 60, 50);
-        },
-
+        }
     });
     doc.text("Total Bottle : " + Total ,430 ,760 );
     doc.save('SmartBin4GreenU_Report.pdf');
     Total = 0;
 }
+
+$(document).ready(function(){
+
+    var element = $("#html-content-holder"); // global variable
+    var getCanvas; // global variable
+
+    $("#btn-Preview-Image").on('click', function () {
+        html2canvas(element, {
+            onrendered: function (canvas) {
+                $("#previewImage").append(canvas);
+                getCanvas = canvas;
+            }
+        });
+    });
+
+    $("#btn-Convert-Html2Image").on('click', function () {
+        var imgageData = getCanvas.toDataURL("image/png");
+        // Now browser starts downloading it instead of just showing it
+        var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+        $("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+        console.log(newData)
+    });
+
+});
+
