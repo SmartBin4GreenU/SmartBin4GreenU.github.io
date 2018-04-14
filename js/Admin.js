@@ -76,8 +76,8 @@ $(document).ready(function () {
     $('#Prev').hide();
 
     $('#Settank').hide();
-    $('#btnSetup').show();
 
+    $('#btnSetup').show();
     $('#btnReset').show();
 
     $('#updateOSV').hide();
@@ -88,10 +88,7 @@ $(document).ready(function () {
     $('#editBar').hide();
     $('#delBar').hide();
 
-    $("#btnSetup").click(function(){
-        $('#Settank').show();
-        $('#btnSetup').hide();
-    });
+
 
     $("#Submit").click(function(){
         $("#form").trigger("reset");
@@ -121,6 +118,11 @@ $(document).ready(function () {
         });
     });
 
+    $("#btnSetup").click(function(){
+        $('#Settank').show();
+        $('#btnSetup').hide();
+    });
+
     $('#btnReset').click(function () {
         firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
             Status : parseInt(0)
@@ -133,7 +135,10 @@ $(document).ready(function () {
             SBNumber: "SB1",
             StatusDevice: parseInt(0)
         });
+        alert("Reset Device Success")
         $('#ResetSuccess').show();
+        $('#Settank').hide();
+        $('#btnSetup').show();;
     });
 
 
