@@ -22,7 +22,89 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-    <script src="js/firebase.js"></script>
+    <!--<script src="js/firebase.js"></script>-->
+    <script type="text/javascript">
+        var config = {
+            apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
+            authDomain: "sb-fgu.firebaseapp.com",
+            databaseURL: "https://sb-fgu.firebaseio.com",
+            projectId: "sb-fgu",
+            storageBucket: "sb-fgu.appspot.com",
+            messagingSenderId: "368024117056"
+        };
+        firebase.initializeApp(config);
+
+        // Initialize Firebase
+        // var config = {
+        //     apiKey: "AIzaSyBBRzM0dlKNHCN2dNFdINzioWxmPQ6XZz4",
+        //     authDomain: "smartbin4greenuniversity.firebaseapp.com",
+        //     databaseURL: "https://smartbin4greenuniversity.firebaseio.com",
+        //     projectId: "smartbin4greenuniversity",
+        //     storageBucket: "smartbin4greenuniversity.appspot.com",
+        //     messagingSenderId: "454493721327"
+        // };
+        // firebase.initializeApp(config);
+
+        initApp =  function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    var phoneNumber = user.phoneNumber;
+                    var providerData = user.providerData;
+                    Uid = uid;
+                    // console.log(providerData);
+                    // $("#Name").text("Hi: " + displayName.toString());
+                    writeUserData(uid,displayName,email,photoURL);
+                }
+            }, function(error) {
+                console.log(error);
+                alert("Some Thing Worng! please login agian");
+            });
+        };
+        window.addEventListener('load', function() {
+            initApp();
+        });
+
+        function writeUserData(userId, name, email, imageUrl) {
+            firebase.database().ref('users/' + userId).update({
+                username: name,
+                email: email,
+                profile_picture: imageUrl,
+                SBNumber: "SB1",
+                uid : userId,
+                Defualt_Username: name
+            });
+            firebase.database().ref('LogUser/').child('Lasted').set({
+                Uid: userId,
+                SBNumber: "SB1",
+                StatusDevice: parseInt(1)
+            });
+            var d = new Date();
+            firebase.database().ref('Log/').child('Time').push({
+                Uid: userId,
+                SBNumber: "SB1",
+                Time: d.toString().substr(0, 24)
+            });
+            console.log("Write data Success")
+        }
+        var Uid;
+        var ref3 = firebase.database().ref('users/');
+        ref3.on("value", function(snapshot) {
+            snapshot.forEach(function(data){
+                var Val = data.val();
+                var User = Val.uid;
+                if(Uid == User){
+                    $("#Name").text("Hi : " + Val.Defualt_Username);
+                }
+            });
+        });
+
+    </script>
 
 </head>
 

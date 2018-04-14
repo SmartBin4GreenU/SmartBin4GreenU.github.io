@@ -78,8 +78,12 @@ $(document).ready(function () {
     $('#Settank').hide();
     $('#btnSetup').show();
 
+    $('#btnReset').show();
+
     $('#updateOSV').hide();
     $('#updateSV').hide();
+
+    $('#ResetSuccess').hide();
 
     $('#editBar').hide();
     $('#delBar').hide();
@@ -116,6 +120,22 @@ $(document).ready(function () {
             Uid : Uid
         });
     });
+
+    $('#btnReset').click(function () {
+        firebase.database().ref('LogUser/CodeGen/').child('AuthenCode').set({
+            Status : parseInt(0)
+        });
+        firebase.database().ref('LogUser/CodeGen/').child('Repush_state').set({
+            Repush : parseInt(0)
+        });
+        firebase.database().ref('LogUser/').child('Lasted').set({
+            Uid : Uid,
+            SBNumber: "SB1",
+            StatusDevice: parseInt(0)
+        });
+        $('#ResetSuccess').show();
+    });
+
 
     $('#Prev').click(function() {
         location.reload();

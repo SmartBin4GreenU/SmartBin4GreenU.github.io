@@ -37,7 +37,7 @@ initApp =  function() {
             Uid = uid;
             // console.log(providerData);
             // $("#Name").text("Hi: " + displayName.toString());
-            writeUserData(uid,displayName,email,photoURL);
+            // writeUserData(uid,displayName,email,photoURL);
         }
     }, function(error) {
         console.log(error);
@@ -48,27 +48,28 @@ window.addEventListener('load', function() {
     initApp();
 });
 
-function writeUserData(userId, name, email, imageUrl) {
-    firebase.database().ref('users/' + userId).update({
-        username: name,
-        email: email,
-        profile_picture: imageUrl,
-        SBNumber: "SB1",
-        uid : userId
-    });
-    firebase.database().ref('LogUser/').child('Lasted').set({
-        Uid: userId,
-        SBNumber: "SB1",
-        StatusDevice: parseInt(1)
-    });
-    var d = new Date();
-    firebase.database().ref('Log/').child('Time').push({
-        Uid: userId,
-        SBNumber: "SB1",
-        Time: d.toString().substr(0, 24)
-    });
-    console.log("Write data Success")
-}
+// function writeUserData(userId, name, email, imageUrl) {
+//     firebase.database().ref('users/' + userId).update({
+//         username: name,
+//         email: email,
+//         profile_picture: imageUrl,
+//         SBNumber: "SB1",
+//         uid : userId,
+//         // Defualt_Username: name
+//     });
+//     firebase.database().ref('LogUser/').child('Lasted').set({
+//         Uid: userId,
+//         SBNumber: "SB1",
+//         StatusDevice: parseInt(1)
+//     });
+//     var d = new Date();
+//     firebase.database().ref('Log/').child('Time').push({
+//         Uid: userId,
+//         SBNumber: "SB1",
+//         Time: d.toString().substr(0, 24)
+//     });
+//     console.log("Write data Success")
+// }
 
 function Signout(){
     firebase.auth().signOut().then(function() {
