@@ -1,24 +1,24 @@
-var config = {
-    apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
-    authDomain: "sb-fgu.firebaseapp.com",
-    databaseURL: "https://sb-fgu.firebaseio.com",
-    projectId: "sb-fgu",
-    storageBucket: "sb-fgu.appspot.com",
-    messagingSenderId: "368024117056"
-};
-firebase.initializeApp(config);
-
-
-// Initialize Firebase
 // var config = {
-//     apiKey: "AIzaSyBBRzM0dlKNHCN2dNFdINzioWxmPQ6XZz4",
-//     authDomain: "smartbin4greenuniversity.firebaseapp.com",
-//     databaseURL: "https://smartbin4greenuniversity.firebaseio.com",
-//     projectId: "smartbin4greenuniversity",
-//     storageBucket: "smartbin4greenuniversity.appspot.com",
-//     messagingSenderId: "454493721327"
+//     apiKey: "AIzaSyB5J3z8FirEN4HskBoM1fqsj6vkdTATG9g",
+//     authDomain: "sb-fgu.firebaseapp.com",
+//     databaseURL: "https://sb-fgu.firebaseio.com",
+//     projectId: "sb-fgu",
+//     storageBucket: "sb-fgu.appspot.com",
+//     messagingSenderId: "368024117056"
 // };
 // firebase.initializeApp(config);
+
+
+//Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBBRzM0dlKNHCN2dNFdINzioWxmPQ6XZz4",
+    authDomain: "smartbin4greenuniversity.firebaseapp.com",
+    databaseURL: "https://smartbin4greenuniversity.firebaseio.com",
+    projectId: "smartbin4greenuniversity",
+    storageBucket: "smartbin4greenuniversity.appspot.com",
+    messagingSenderId: "454493721327"
+};
+firebase.initializeApp(config);
 
 var database = firebase.database();
 
@@ -61,6 +61,7 @@ ref3.on("value", function(snapshot) {
                 $("#Status_Bar").hide()
                 $("#Table").show()
                 Status_Access();
+                location.reload();
                 console.log("ENABLE");
                 // console.log(User + "  " + Val.status );
 
@@ -75,7 +76,6 @@ function Signout() {
             console.log('Signed Out');
             alert('Signed Out');
             window.location.href = "index.html";
-
         },
         function(error) {
             console.error('Sign Out Error', error);
