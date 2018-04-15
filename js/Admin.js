@@ -250,6 +250,7 @@ var ref = database.ref('Ultrasonic/');
             });
 });
 
+
  var ref1 = database.ref('LogUser/Lasted/');
  ref1.on('value',function (snapshot){
      var Values = snapshot.val();
@@ -328,16 +329,18 @@ ref3.on("value", function(snapshot) {
                 '<td style="text-align: center">' + '<button class="btn btn-danger " style="margin: 5px" onclick="STATUS(\'' + key + '\' , \'' + Val[key].status +'\')" id="Disable">Click</button>' +
                 '</tr>')
     });
+
 });
 
+
 function STATUS( UID , STAUS){
-     if(STAUS == "DISABLE"){
+     if(STAUS === "DISABLE"){
          firebase.database().ref('users/'+ UID).update({
              status : "ENABLE"
          });
          console.log("STAUS = ENABLE");
      }
-     if(STAUS == "ENABLE"){
+     if(STAUS === "ENABLE"){
          firebase.database().ref('users/'+ UID).update({
              status : "DISABLE"
          });

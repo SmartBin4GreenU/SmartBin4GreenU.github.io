@@ -64,8 +64,13 @@ ref3.on("value", function(snapshot) {
                 // location.reload();
                 console.log("ENABLE");
                 // console.log(User + "  " + Val.status );
-
             }
+            else{
+                firebase.database().ref('users/'+ Uid).update({
+                    status : "ENABLE"
+                });
+            }
+
         }
 
     });
