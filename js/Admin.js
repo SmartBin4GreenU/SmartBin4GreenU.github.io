@@ -77,8 +77,10 @@ $(document).ready(function () {
 
     $('#Settank').hide();
 
-    $('#btnSetup').show();
-    $('#btnReset').show();
+    // $('#btnSetup').show();
+    // $('#btnReset').show();
+    $('#btnSetting').show();
+
 
     $('#updateOSV').hide();
     $('#updateSV').hide();
@@ -120,7 +122,8 @@ $(document).ready(function () {
 
     $("#btnSetup").click(function(){
         $('#Settank').show();
-        $('#btnSetup').hide();
+        $('#btnSetting').hide();
+        // $('#btnSetup').hide();
     });
 
     $('#btnReset').click(function () {
@@ -353,6 +356,8 @@ function setUptank() {
         Hight :  parseInt($("#Higthesttank").val())
     });
     $('#setUptankOK').show();
+    $('#Settank').hide();
+    $('#btnSetting').show();
 }
 var rows = [];
 var Total = 0;
