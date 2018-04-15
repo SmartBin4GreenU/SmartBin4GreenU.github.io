@@ -61,7 +61,7 @@ ref3.on("value", function(snapshot) {
                 $("#Status_Bar").hide()
                 $("#Table").show()
                 Status_Access();
-                location.reload();
+                // location.reload();
                 console.log("ENABLE");
                 // console.log(User + "  " + Val.status );
 
